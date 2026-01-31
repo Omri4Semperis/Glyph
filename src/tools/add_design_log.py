@@ -1,39 +1,58 @@
 import os
-import re
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
-from read_an_asset import read_asset
+from ._utils import add_document
 
 
-def get_next_dl_number(design_logs_dir: str) -> int:
+def append_to_summary(summary_path: str, filename: str, short_desc: str) -> tuple[bool, str]:
     """
-    Get the next design log number by scanning existing files in the design_logs directory.
+    Append an entry to a summary.md file.
     
     Args:
-        design_logs_dir: Path to the design_logs directory.
+        summary_path: Path to the summary.md file.
+        filename: The filename of the new document.
+        title: The title of the new document.
+        short_desc: A short description for the new document.
     
     Returns:
-        The next available design log number.
+        A tuple of (success: bool, message: str).
     """
-    if not os.path.exists(design_logs_dir):
-        return 1
+    if os.path.exists(summary_path):
+        with open(summary_path, 'a', encoding='utf-8') as f:
+            f.write(f"- `{filename}`: {short_desc}\n")
+        return True, "Added entry to summary.md"
+    else:
+        return False, f"Warning: summary.md not found at {summary_path}"
+
+
+def update_design_log_summary(response: GlyphMCPResponse[None], base_dir_path: str, title: str, short_desc: str) -> None:
+    """
+    Update the _summary.md file with the newly created design log entry.
     
-    max_number = 0
-    pattern = re.compile(r'^dl_(\d+)_.*\.md$')
+    Args:
+        response: The response object from add_document.
+        base_dir_path: The base directory path where the .assistant folder is located.
+        title: The title of the design log.
+        short_desc: A short description for the design log.
+    """
+    if not response.success:
+        return
     
-    for filename in os.listdir(design_logs_dir):
-        match = pattern.match(filename)
-        if match:
-            num = int(match.group(1))
-            if num > max_number:
-                max_number = num
+    design_logs_dir = os.path.join(base_dir_path, BASE_NAME, "design_logs")
+    summary_path = os.path.join(design_logs_dir, "_summary.md")
     
-    return max_number + 1
+    # Extract filename from the context message
+    for context in response.context:
+        if "Created new design log:" in context:
+            filename = context.split(": ")[1]
+            success, message = append_to_summary(summary_path, filename, short_desc)
+            response.add_context(message)
+            break
 
 
 @mcp.tool()
-def add_design_log(base_dir_path: str, title: str) -> GlyphMCPResponse[None]:
+def add_design_log(base_dir_path: str, title: str, short_desc: str) -> GlyphMCPResponse[None]:
     """
     Add a new design log file in the design log directory.
 
@@ -42,54 +61,20 @@ def add_design_log(base_dir_path: str, title: str) -> GlyphMCPResponse[None]:
     Args:
         base_dir_path: The base directory path where the .assistant folder is located.
         title: The title for the design log. The file will be named dl_{number}_{title}.md
+        short_desc: A short description for the design log. Will be used in the summary.
     
     Returns:
         GlyphMCPResponse indicating success or failure.
     """
-    response = GlyphMCPResponse[None]()
+    response = add_document(
+        base_dir_path=base_dir_path,
+        title=title,
+        subdirectory="design_logs",
+        prefix="dl",
+        template_asset="dl_template.md",
+        doc_type="design log"
+    )
     
-    try:
-        # Construct the design_logs directory path
-        design_logs_dir = os.path.join(base_dir_path, BASE_NAME, "design_logs")
-        
-        # Check if the assistant directory is initialized
-        if not os.path.exists(design_logs_dir):
-            response.add_context(f"Design logs directory not found at {design_logs_dir}. Please initialize the assistant directory first.")
-            return response
-        
-        # Get the next design log number
-        next_number = get_next_dl_number(design_logs_dir)
-        
-        # Sanitize the title for use in filename (replace spaces with underscores, remove special chars)
-        sanitized_title = re.sub(r'[^\w\s-]', '', title).strip()
-        sanitized_title = re.sub(r'[-\s]+', '_', sanitized_title).lower()
-        
-        # Create the new filename
-        new_filename = f"dl_{next_number}_{sanitized_title}.md"
-        new_filepath = os.path.join(design_logs_dir, new_filename)
-        
-        # Read the template
-        template_content = read_asset("dl_template.md")
-        
-        # Write the new design log file
-        with open(new_filepath, 'w', encoding='utf-8') as f:
-            f.write(template_content)
-        
-        response.add_context(f"Created new design log: {new_filename}")
-        
-        # Append entry to summary.md
-        summary_path = os.path.join(design_logs_dir, "_summary.md")
-        
-        if os.path.exists(summary_path):
-            with open(summary_path, 'a', encoding='utf-8') as f:
-                f.write(f"\n- **[{new_filename}]({new_filename})**: {title}\n")
-            response.add_context(f"Added entry to summary.md")
-        else:
-            response.add_context(f"Warning: summary.md not found at {summary_path}")
-        
-        response.success = True
-        
-    except Exception as e:
-        response.add_context(f"Failed to create design log: {str(e)}")
+    update_design_log_summary(response, base_dir_path, title, short_desc)
     
     return response

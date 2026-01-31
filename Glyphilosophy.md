@@ -65,8 +65,8 @@ A checklist for achieving a complex goal.
 
 Artifacts are files persisted from the ad-hoc directory using the `persist_artifact` tool. They are stored in the `.assistant/artifacts/` directory with a specific naming convention to ensure traceability.
 
-### Reference graphs
+### Reference graph
 
-`.csv` files named `rg_{serial_number}_{timestamp}.csv` stored in the `.assistant/reference_graphs/` directory. Each file represents a references graph, which is a directed graph where nodes are files and edges represent references or dependencies between those files. Has two columns: `start_point` and `end_point`, indicating a directed edge from one file to another.
+`.csv` file named `reference_graph.csv` stored directly in `.assistant/` directory. It represents a reference graph which is a directed graph where nodes are files and edges represent references or dependencies between those files. Has two columns: `start_point` and `end_point`, indicating a directed edge from one file to another.
 
 Since the references syntax is uniform across design logs, operations, and artifacts, the reference graph can be created/maintained by parsing all these files and extracting the references.
