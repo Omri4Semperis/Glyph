@@ -77,7 +77,7 @@ The main purpose of this file is to provide a quick overview of the design logs 
                 {"dir_name": "artifacts"},
                 {"dir_name": "design_logs", "contains": [
                     {
-                        "file_name": "summary.md",
+                        "file_name": "_summary.md",
                         "content": design_logs_summary_content
                     }
                 ]},

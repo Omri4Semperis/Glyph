@@ -1,6 +1,6 @@
 from mcp_object import mcp
 
-@mcp.tool()
+@mcp.prompt()
 def compact_conversation() -> str:
     """
     A useful prompt to summarize long conversations.

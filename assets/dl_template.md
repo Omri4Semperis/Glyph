@@ -22,10 +22,10 @@
 [AI assistant will ask questions here. Add answers below each question. Keep questions even after answering - they provide valuable context.]
 
 **Q: [Question from AI assistant]**
-A: [Your answer]
+A: [User will provide the answer here]
 
 **Q: [Another question]**
-A: [Your answer]
+A: [User's answer]
 
 ## Design
 
