@@ -134,9 +134,29 @@ def write_reference_mermaid(md_path: str, edges: list[tuple[str, str]], file_to_
         edges: List of edge tuples to write.
         file_to_dir: Dict mapping filename to its directory type.
     """
-    # Collect all unique nodes from edges
-    nodes = set()
+    # Detect and consolidate bidirectional links
+    edges_set = set(edges)
+    bidirectional_pairs = set()
+    consolidated_edges = []
+    
     for source, target in edges:
+        # Check if reverse edge exists
+        reverse = (target, source)
+        edge_pair = (min(source, target), max(source, target))
+        
+        if reverse in edges_set and edge_pair not in bidirectional_pairs:
+            # This is a bidirectional link - mark it and add only once
+            bidirectional_pairs.add(edge_pair)
+            consolidated_edges.append((source, target, True))  # True = bidirectional
+        elif (source, target) not in [(s, t) for s, t, _ in consolidated_edges]:
+            # Check if we haven't already added this as part of a bidirectional pair
+            reverse_pair = (min(target, source), max(target, source))
+            if reverse_pair not in bidirectional_pairs:
+                consolidated_edges.append((source, target, False))  # False = directional
+    
+    # Collect all unique nodes from consolidated edges
+    nodes = set()
+    for source, target, _ in consolidated_edges:
         nodes.add(source)
         nodes.add(target)
     
@@ -173,11 +193,12 @@ def write_reference_mermaid(md_path: str, edges: list[tuple[str, str]], file_to_
     
     lines.append("")
     
-    # Add edges
-    for source, target in edges:
+    # Add edges (using --- for bidirectional, --> for directional)
+    for source, target, is_bidirectional in consolidated_edges:
         safe_source = source.replace(".", "_").replace("-", "_").replace(" ", "_")
         safe_target = target.replace(".", "_").replace("-", "_").replace(" ", "_")
-        lines.append(f"    {safe_source} --> {safe_target}")
+        arrow = " --- " if is_bidirectional else " --> "
+        lines.append(f"    {safe_source}{arrow}{safe_target}")
     
     lines.append("```")
     
