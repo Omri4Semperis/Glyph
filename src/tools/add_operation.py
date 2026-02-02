@@ -1,24 +1,28 @@
 from mcp_object import mcp
 from response import GlyphMCPResponse
-from ._utils import add_document
+from ._utils import add_document, validate_absolute_path
 
 
 @mcp.tool()
-def add_operation(base_dir_path: str, title: str) -> GlyphMCPResponse[None]:
+def add_operation(abs_path: str, title: str) -> GlyphMCPResponse[None]:
     """
     Add a new operation document file in the operations directory.
     
     Prerequisite: Read the operation rules.
     
     Args:
-        base_dir_path: The base directory path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         title: The title for the operation. The file will be named op_{number}_{title}.md
     
     Returns:
         GlyphMCPResponse indicating success or failure.
     """
+    response = GlyphMCPResponse[None]()
+    if not validate_absolute_path(abs_path, response):
+        return response
+    
     return add_document(
-        base_dir_path=base_dir_path,
+        abs_path=abs_path,
         title=title,
         subdirectory="operations",
         prefix="op",

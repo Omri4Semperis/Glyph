@@ -3,6 +3,7 @@ import csv
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
+from ._utils import validate_absolute_path
 
 
 def get_all_filenames(directory: str) -> list[str]:
@@ -208,7 +209,7 @@ def write_reference_mermaid(md_path: str, edges: list[tuple[str, str]], file_to_
 
 
 @mcp.tool()
-def update_reference_graph(base_path: str) -> GlyphMCPResponse[None]:
+def update_reference_graph(abs_path: str) -> GlyphMCPResponse[None]:
     """
     Scan all design logs, operations, and artifacts for references and update reference_graph.csv.
     
@@ -220,15 +221,18 @@ def update_reference_graph(base_path: str) -> GlyphMCPResponse[None]:
     The CSV has two columns: start_point and end_point, representing directed edges in the reference graph.
     
     Args:
-        base_path: The base path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
     
     Returns:
         GlyphMCPResponse indicating success or failure with statistics.
     """
     response = GlyphMCPResponse[None]()
     
+    if not validate_absolute_path(abs_path, response):
+        return response
+    
     try:
-        assistant_dir = os.path.join(base_path, BASE_NAME)
+        assistant_dir = os.path.join(abs_path, BASE_NAME)
         
         if not os.path.exists(assistant_dir):
             response.add_context(
@@ -263,12 +267,12 @@ def update_reference_graph(base_path: str) -> GlyphMCPResponse[None]:
     return response
 
 
-def _query_reference_graph(base_path: str, file_name: str, match_column: str, return_column: str, context_msg: str) -> GlyphMCPResponse[list[str]]:
+def _query_reference_graph(abs_path: str, file_name: str, match_column: str, return_column: str, context_msg: str) -> GlyphMCPResponse[list[str]]:
     """
     Helper function to query the reference graph CSV.
     
     Args:
-        base_path: The base path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         file_name: The name of the file to search for.
         match_column: The column name to match against (e.g., 'start_point' or 'end_point').
         return_column: The column name to return values from.
@@ -281,13 +285,13 @@ def _query_reference_graph(base_path: str, file_name: str, match_column: str, re
     
     try:
         # First update the reference graph to ensure it's current
-        update_response = update_reference_graph(base_path)
+        update_response = update_reference_graph(abs_path)
         if not update_response.success:
             response.add_context("Failed to update reference graph")
             response.add_context(update_response.context)
             return response
         
-        assistant_dir = os.path.join(base_path, BASE_NAME)
+        assistant_dir = os.path.join(abs_path, BASE_NAME)
         csv_path = os.path.join(assistant_dir, "reference_graph.csv")
         
         if not os.path.exists(csv_path):
@@ -313,7 +317,7 @@ def _query_reference_graph(base_path: str, file_name: str, match_column: str, re
 
 
 @mcp.tool()
-def get_references_from(base_path: str, file_name: str) -> GlyphMCPResponse[list[str]]:
+def get_references_from(abs_path: str, file_name: str) -> GlyphMCPResponse[list[str]]:
     """
     Get all files that are referenced by the specified file.
     
@@ -323,14 +327,14 @@ def get_references_from(base_path: str, file_name: str) -> GlyphMCPResponse[list
     3. Return all files that the specified file references
     
     Args:
-        base_path: The base path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         file_name: The name of the file to find references from.
     
     Returns:
         GlyphMCPResponse containing a list of filenames that are referenced by the specified file.
     """
     return _query_reference_graph(
-        base_path, 
+        abs_path, 
         file_name, 
         match_column='start_point',
         return_column='end_point',
@@ -339,7 +343,7 @@ def get_references_from(base_path: str, file_name: str) -> GlyphMCPResponse[list
 
 
 @mcp.tool()
-def find_references_to(base_path: str, file_name: str) -> GlyphMCPResponse[list[str]]:
+def find_references_to(abs_path: str, file_name: str) -> GlyphMCPResponse[list[str]]:
     """
     Find all files that reference the specified file.
     
@@ -349,14 +353,14 @@ def find_references_to(base_path: str, file_name: str) -> GlyphMCPResponse[list[
     3. Return all files that reference the specified file
     
     Args:
-        base_path: The base path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         file_name: The name of the file to find references to.
     
     Returns:
         GlyphMCPResponse containing a list of filenames that reference the specified file.
     """
     return _query_reference_graph(
-        base_path, 
+        abs_path, 
         file_name, 
         match_column='end_point',
         return_column='start_point',

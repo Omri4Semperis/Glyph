@@ -8,6 +8,27 @@ from response import GlyphMCPResponse
 from read_an_asset import read_asset
 
 
+def validate_absolute_path(abs_path: str, response: GlyphMCPResponse) -> bool:
+    """
+    Validate that the provided path is an absolute path.
+    
+    Args:
+        abs_path: The path to validate.
+        response: Response object to add context messages to.
+    
+    Returns:
+        True if the path is absolute, False otherwise.
+    """
+    if not os.path.isabs(abs_path):
+        response.add_context(
+            f"Invalid path: '{abs_path}'. "
+            "The path must be absolute and full (e.g., 'C:\\Users\\...\\project' on Windows or '/home/user/.../project' on Linux/Mac). "
+            "Relative paths (like '.', '..', or 'folder/subfolder') are not allowed."
+        )
+        return False
+    return True
+
+
 def get_next_number(directory: str, prefix: str, extension: str = ".md") -> int:
     """
     Get the next document number by scanning existing files in a directory.
@@ -54,7 +75,7 @@ def sanitize_title(title: str) -> str:
     return title.replace(' ', '_')
 
 def add_document(
-    base_dir_path: str,
+    abs_path: str,
     title: str,
     subdirectory: str,
     prefix: str,
@@ -65,7 +86,7 @@ def add_document(
     Generic function to add a new document file.
     
     Args:
-        base_dir_path: The base directory path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         title: The title for the document.
         subdirectory: The subdirectory name (e.g., 'operations', 'design_logs').
         prefix: The file prefix (e.g., 'op', 'dl').
@@ -79,7 +100,7 @@ def add_document(
     
     try:
         # Construct the document directory path
-        doc_dir = os.path.join(base_dir_path, BASE_NAME, subdirectory)
+        doc_dir = os.path.join(abs_path, BASE_NAME, subdirectory)
         
         # Check if the assistant directory is initialized
         if not os.path.exists(doc_dir):

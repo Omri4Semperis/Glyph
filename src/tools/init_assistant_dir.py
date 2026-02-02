@@ -3,22 +3,23 @@ from sys import stdout
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
+from ._utils import validate_absolute_path
 
-def create_tree_recursive(base_path: str, structure: dict): 
+def create_tree_recursive(abs_path: str, structure: dict): 
     """
     Recursively create a directory tree based on the provided structure.
     
     Args:
-        base_path: The base path where the tree should be created.
+        abs_path: The absolute path where the tree should be created.
         structure: A dictionary defining the directory and file structure.
     """
     for item in structure.get("contains", []):
         if "dir_name" in item:
-            dir_path = os.path.join(base_path, item["dir_name"])
+            dir_path = os.path.join(abs_path, item["dir_name"])
             os.makedirs(dir_path, exist_ok=True)
             create_tree_recursive(dir_path, item)
         elif "file_name" in item:
-            file_path = os.path.join(base_path, item["file_name"])
+            file_path = os.path.join(abs_path, item["file_name"])
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(item.get("content", ""))
 
@@ -51,6 +52,9 @@ def init_assistant_dir(root_path: str, overwrite: bool) -> GlyphMCPResponse:
     """
 
     response = GlyphMCPResponse[None]()
+    
+    if not validate_absolute_path(root_path, response):
+        return response
 
     if is_initialized(root_path):
         if overwrite:

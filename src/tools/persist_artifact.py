@@ -3,7 +3,7 @@ import shutil
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
-from ._utils import get_next_number
+from ._utils import get_next_number, validate_absolute_path
 from typing import List
 
 
@@ -29,19 +29,19 @@ def validate_source_file(source_file_path: str, response: GlyphMCPResponse[None]
     return True
 
 
-def get_and_validate_dirs(base_dir_path: str, response: GlyphMCPResponse[None]) -> tuple[str, str] | None:
+def get_and_validate_dirs(abs_path: str, response: GlyphMCPResponse[None]) -> tuple[str, str] | None:
     """
     Get and validate the ad_hoc and artifacts directories.
     
     Args:
-        base_dir_path: The base directory path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         response: Response object to add context messages to.
     
     Returns:
         A tuple of (ad_hoc_dir, artifacts_dir) if both exist, None otherwise.
     """
-    ad_hoc_dir = os.path.join(base_dir_path, BASE_NAME, "ad_hoc")
-    artifacts_dir = os.path.join(base_dir_path, BASE_NAME, "artifacts")
+    ad_hoc_dir = os.path.join(abs_path, BASE_NAME, "ad_hoc")
+    artifacts_dir = os.path.join(abs_path, BASE_NAME, "artifacts")
 
     if not os.path.exists(ad_hoc_dir):
         response.add_context(f"ad_hoc directory not found: {ad_hoc_dir}")
@@ -88,7 +88,7 @@ def copy_artifact(source_file_path: str, artifacts_dir: str) -> tuple[str, str]:
 
 
 @mcp.tool()
-def persist_artifacts(base_dir_path: str, files: List[str]) -> GlyphMCPResponse[None]:
+def persist_artifacts(abs_path: str, files: List[str]) -> GlyphMCPResponse[None]:
     """
     Persist files from the ad_hoc directory to the artifacts directory.
     
@@ -96,7 +96,7 @@ def persist_artifacts(base_dir_path: str, files: List[str]) -> GlyphMCPResponse[
     art_{serial_number}_{original_file_name}.{original_extension}
     
     Args:
-        base_dir_path: The base directory path where the .assistant folder is located.
+        abs_path: The absolute path of the project's root where the .assistant folder is located.
         files: List of filenames to persist (excluding path, assumed to be in `.assistant/ad_hoc` dir).
     
     Returns:
@@ -104,8 +104,11 @@ def persist_artifacts(base_dir_path: str, files: List[str]) -> GlyphMCPResponse[
     """
     response = GlyphMCPResponse[None]()
     
+    if not validate_absolute_path(abs_path, response):
+        return response
+    
     try:
-        dirs = get_and_validate_dirs(base_dir_path, response)
+        dirs = get_and_validate_dirs(abs_path, response)
         if dirs is None:
             return response
         
