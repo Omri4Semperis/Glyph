@@ -299,12 +299,24 @@ def _query_reference_graph(abs_path: str, file_name: str, match_column: str, ret
             return response
         
         matching_files = []
+        file_exists_in_graph = False
         
         with open(csv_path, 'r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
+                # Check if file exists anywhere in the graph
+                if row['start_point'] == file_name or row['end_point'] == file_name:
+                    file_exists_in_graph = True
+                
+                # Check for matching references
                 if row[match_column] == file_name:
                     matching_files.append(row[return_column])
+        
+        # If file doesn't exist in the graph at all, fail with explanation
+        if not file_exists_in_graph:
+            response.add_context(f"File '{file_name}' does not exist in the project")
+            response.add_context("The file was not found in design_logs, operations, or artifacts directories")
+            return response
         
         response.success = True
         response.result = matching_files
