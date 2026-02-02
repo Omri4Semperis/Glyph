@@ -7,18 +7,19 @@ from response import GlyphMCPResponse
 
 def get_all_filenames(directory: str) -> list[str]:
     """
-    Get all filenames from a directory.
+    Get all filenames from a directory recursively.
     
     Args:
         directory: Path to the directory to scan.
     
     Returns:
-        List of filenames in the directory.
+        List of filenames in the directory and its subdirectories.
     """
-    if not os.path.exists(directory):
-        return []
-    
-    return [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    filenames = []
+    if os.path.exists(directory):
+        for root, dirs, files in os.walk(directory):
+            filenames.extend(files)
+    return filenames
 
 
 def find_file_references(file_path: str, target_filenames: list[str]) -> list[str]:
@@ -89,24 +90,23 @@ def build_reference_edges(assistant_dir: str, all_filenames: list[str]) -> tuple
         if not os.path.exists(directory):
             continue
             
-        for filename in os.listdir(directory):
-            # Skip _summary.md files as they trivially contain many filenames
-            if filename == "_summary.md":
-                continue
+        for root, dirs, files in os.walk(directory):
+            for filename in files:
+                # Skip _summary.md files as they trivially contain many filenames
+                if filename == "_summary.md":
+                    continue
+                    
+                file_path = os.path.join(root, filename)
                 
-            file_path = os.path.join(directory, filename)
-            if not os.path.isfile(file_path):
-                continue
-            
-            # Track which directory this file belongs to
-            file_to_dir[filename] = dir_name
-            
-            referenced_files = find_file_references(file_path, all_filenames)
-            
-            # Add edges (excluding self-references)
-            for referenced_file in referenced_files:
-                if referenced_file != filename:
-                    edges.append((filename, referenced_file))
+                # Track which directory this file belongs to
+                file_to_dir[filename] = dir_name
+                
+                referenced_files = find_file_references(file_path, all_filenames)
+                
+                # Add edges (excluding self-references)
+                for referenced_file in referenced_files:
+                    if referenced_file != filename:
+                        edges.append((filename, referenced_file))
     
     return edges, file_to_dir
 

@@ -3,6 +3,7 @@ if __name__ == "__main__":
         from mcp_object import mcp
 
         from prompts.compact_conversation import compact_conversation
+        from prompts.implement_command import implementation_command
 
         from skills._how_to_glyph import get_how_to_glyph
         from skills.get_dl_example_research import get_dl_example

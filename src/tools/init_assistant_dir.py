@@ -80,14 +80,15 @@ The main purpose of this file is to provide a quick overview of the design logs 
             "dir_name": BASE_NAME,
             "contains": [
                 {"dir_name": "ad_hoc"},
-                {"dir_name": "artifacts"},
+                {"dir_name": "artifacts", "contains": [{"dir_name": "archived"}]},
                 {"dir_name": "design_logs", "contains": [
                     {
                         "file_name": "_summary.md",
                         "content": design_logs_summary_content
-                    }
+                    },
+                    {"dir_name": "archived"}
                 ]},
-                {"dir_name": "operations"},
+                {"dir_name": "operations", "contains": [{"dir_name": "archived"}]},
                 {
                     "file_name": "reference_graph.csv",
                     "content": reference_graph_content
