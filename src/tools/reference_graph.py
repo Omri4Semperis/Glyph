@@ -162,7 +162,7 @@ def write_reference_mermaid(md_path: str, edges: list[tuple[str, str]], file_to_
         nodes.add(target)
     
     # Build Mermaid diagram
-    lines = ["```mermaid", "graph TD"]
+    lines = ["```mermaid", "graph LR"]
     
     # Add style classes
     lines.append("    classDef designLog fill:#FFC0CB,stroke:#000,color:#000")
