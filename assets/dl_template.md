@@ -67,18 +67,14 @@ A: [User's answer]
 
 [How do we know this work solves the original problem? For implementation: list acceptance criteria, test requirements, performance targets. For research: define what answers the research questions, validation methods for findings.]
 
-## Results
+### Learnings
 
-[Append this section during/after the work. Do NOT modify sections above.]
+*[To be documented during implementation]*
 
 ### Deviations from Original Plan
 
-[For implementation: Document any changes from the original design, with reasons. For research: Document changes to research methodology or scope.]
+*[To be documented]*
 
 ### Final Results
 
-[For implementation: Summarize final outcomes, test results, line coverage, performance metrics, etc. For research: Summarize findings, conclusions, data analysis results, answers to research questions.]
-
-### Learnings
-
-[A list of very short bullet points about what was learned during this work]
+*[To be documented]*

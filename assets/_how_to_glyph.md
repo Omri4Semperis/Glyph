@@ -36,7 +36,7 @@ However, this is not a strict requirement. If you create a design log without an
 ## Tools & Skills Quick Reference
 
 | Action | Tool |
-|--------|------|
+| - | - |
 | Initialize Glyph | `init_assistant_dir` |
 | Create operation doc | `add_operation` |
 | Create design log | `add_design_log` |
@@ -49,8 +49,6 @@ However, this is not a strict requirement. If you create a design log without an
 | Get design log rules | `get_dl_rules` |
 | Get design log examples | `get_dl_example` |
 | Get task guidelines | `get_task_implementation_guidelines` |
-
-
 
 ## Working with the Ad Hoc Directory
 
