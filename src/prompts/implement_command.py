@@ -49,7 +49,7 @@ def implementation_command(
 6. In this chat, generate a **one liner** ```txt snippet with a commit message for me to use, based on what's actually done. The message should start like this:
 
 ```txt
-[operation name]P{phase_number}/T{task_number} - <short task title>: Short description of the change
+[operation name] P{phase_number}/T{task_number} - <short task title>: Short description of the change
 ```
 
 **Note:**
