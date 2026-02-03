@@ -56,6 +56,7 @@ def implementation_command(
 
 1. This is a breathing project, and it may have changed since the tasks were created. Always check for the latest context and updates. If the codebase changed so much that the task is no longer relevant, inform me before proceeding.
 2. Marking tasks/D.O.D. items as done [x] must not just based on the tasks list. Always verify by checking the actual project state.
+3. Do not forget about the commit message. It should be based on what you actually did, not just the task description. If you deviated from the original plan, the commit message should reflect what you actually did, not what you planned to do.
 """
 
     return prompt
