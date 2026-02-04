@@ -2,17 +2,26 @@ if __name__ == "__main__":
     try:
         from mcp_object import mcp
 
-        from prompts.compact_conversation import compact_conversation_prompt
-        from prompts.implement_command import implementation_command_prompt
-        from prompts.create_an_operation_doc import create_an_operation_doc_prompt
+        # Prompts (consolidated)
+        from prompts.prompts import (
+            create_design_log_prompt,
+            create_operation_doc_prompt,
+            planning_prompt,
+            implementation_prompt,
+            code_review_prompt,
+            sync_lessons_learned_prompt,
+            compact_conversation_prompt
+        )
 
-        from skills._how_to_glyph import get_how_to_glyph
-        from skills.get_dl_example_research import get_dl_example
-        from skills.get_dl_rules import get_dl_rules
-        from skills.get_operation_rules import get_operation_rules
-        from skills.get_task_implementation_guidelines import get_task_implementation_guidelines
-        from skills.read_asset_exact import read_asset_exact
+        # Skills/Knowledge (consolidated)
+        from skills.knowledge import (
+            get_glyph_overview,
+            get_principles,
+            get_example,
+            read_asset_exact
+        )
 
+        # Tools (action tools)
         from tools.init_assistant_dir import init_assistant_dir
         from tools.md_to_dict import md_to_dict
         from tools.add_design_log import add_design_log

@@ -45,10 +45,9 @@ However, this is not a strict requirement. If you create a design log without an
 | Find what references a file | `find_references_to` |
 | Rebuild reference graph | `update_reference_graph` |
 | Parse markdown to dict | `md_to_dict` |
-| Get operation rules | `get_operation_rules` |
-| Get design log rules | `get_dl_rules` |
-| Get design log examples | `get_dl_example` |
-| Get task guidelines | `get_task_implementation_guidelines` |
+| Get Glyph overview | `get_glyph_overview` |
+| Get principles | `get_principles(topic)` |
+| Get examples | `get_example(type)` |
 
 ## Working with the Ad Hoc Directory
 
@@ -98,10 +97,22 @@ The `.assistant/ad_hoc` directory is a workspace for temporary files created dur
 
 ## Before Starting Work
 
-- **Task planning?** → `get_task_implementation_guidelines`
-- **Creating an operation?** → `get_operation_rules`
-- **Creating a design log?** → `get_dl_rules`
-- **Need examples?** → `get_dl_example`
+- **Task planning?** → `get_principles("task")`
+- **Creating an operation?** → `get_principles("operation")`
+- **Creating a design log?** → `get_principles("design_log")`
+- **Need examples?** → `get_example(type)` where type is: design_log_research, design_log_implementation, operation, code_review
+
+## Available Prompts (slash commands)
+
+| Purpose | Prompt |
+| - | - |
+| Create a design log | `/create_design_log_prompt` |
+| Create an operation doc | `/create_operation_doc_prompt` |
+| Plan a phase/task | `/planning_prompt` |
+| Implement a phase/task | `/implementation_prompt` |
+| Code review an operation | `/code_review_prompt` |
+| Sync lessons learned | `/sync_lessons_learned_prompt` |
+| Compact conversation | `/compact_conversation_prompt` |
 
 ## Communication Guidelines
 
