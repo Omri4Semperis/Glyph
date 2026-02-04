@@ -1,4 +1,4 @@
-Advanced Flowchart
+Advanced Flowchart with Various Node Shapes
 
 ```mermaid
 flowchart TB
@@ -6,34 +6,26 @@ flowchart TB
     classDef critical fill:#f96,stroke:#333,stroke-width:4px;
     classDef cloud fill:#00f2fe,stroke:#0d47a1;
 
-    subgraph Security_Layer [External Security]
+    subgraph Input_Processing [Input Processing]
         direction LR
-        WAF{{Web Application Firewall}}:::cloud
-        Auth{Auth Gateway}
+        Start[/Start/] --> Validate[\Validate Input\]
+        Validate --> DB_Check[(Check Database)]
     end
 
-    subgraph Internal_Logic [Process Engine]
+    subgraph Main_Logic [Main Processing]
         direction TB
-        A[/Input Data/] --> B{Decision?}
-        B -- Yes --> C[[Subprocess]]
-        B -- No --> D>Log Error]
+        DB_Check --> Decision{Valid?}
+        Decision -- Yes --> Process[[Process Data]]
+        Decision -- No --> Error>Log Error]
     end
 
-    WAF --> Auth
-    Auth --> A
-    C --- DB[(PostgreSQL)]:::critical
-    D -.-> Slack([Notify Team])
-```
+    subgraph Output_Stage [Output Stage]
+        Process --> Format{{Format Output}}
+        Format --> Final([Final Result])
+    end
 
-Flowchart: Advanced Node Shapes
-
-```mermaid
-flowchart LR
-    A[/Parallelogram/] --> B[\Back-Parallelogram\]
-    B --> C[(Cylinder / Database)]
-    C --> D>Flag or Banner]
-    D --> E{{Hexagon}}
-    E --> F([Stadium Shape])
+    Error -.-> Notify([Notify Admin])
+    Final --> Storage[(Store Result)]:::critical
 ```
 
 Complex Sequence Diagram
