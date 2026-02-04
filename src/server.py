@@ -2,8 +2,9 @@ if __name__ == "__main__":
     try:
         from mcp_object import mcp
 
-        from prompts.compact_conversation import compact_conversation
-        from prompts.implement_command import implementation_command
+        from prompts.compact_conversation import compact_conversation_prompt
+        from prompts.implement_command import implementation_command_prompt
+        from prompts.create_an_operation_doc import create_an_operation_doc_prompt
 
         from skills._how_to_glyph import get_how_to_glyph
         from skills.get_dl_example_research import get_dl_example

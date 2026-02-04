@@ -2,7 +2,7 @@ from typing_extensions import Literal
 from mcp_object import mcp
 
 @mcp.prompt()
-def implementation_command(
+def implementation_command_prompt(
     plan_or_implement: Literal["plan", "implement"],
     phase_number: int,
     task_number: int
@@ -24,7 +24,6 @@ def implementation_command(
 
 - Read the Background section of the document.
 - Read previous tasks/phases bottom lines / lessons learned, if any.
-- provide_specific_context_or_background_here
 - provide_specific_context_or_background_here
 
 **Before starting**:
