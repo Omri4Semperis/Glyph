@@ -4,6 +4,7 @@ from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
 from ._utils import get_next_number, validate_absolute_path
+from .reference_graph import update_reference_graph
 from typing import List
 
 
@@ -132,6 +133,14 @@ def persist_artifacts(abs_path: str, files: List[str]) -> GlyphMCPResponse[None]
             response.add_context(f"Persisted artifact: {new_filename}")
             response.add_context(f"Source: {source_file_path}")
             response.add_context(f"Destination: {new_filepath}")
+        
+        # Update reference graph after persisting artifacts
+        update_response = update_reference_graph(abs_path)
+        if not update_response.success:
+            response.add_context("Warning: Failed to update reference graph after persisting artifacts")
+            response.add_context(update_response.context)
+        else:
+            response.add_context("Reference graph updated successfully")
         
         response.success = True
         
