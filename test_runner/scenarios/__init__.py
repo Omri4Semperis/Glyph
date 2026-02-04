@@ -25,6 +25,9 @@ from test_runner.scenarios.operations import AddOperationSuccessScenario
 from test_runner.scenarios.artifacts import (
     PersistArtifactsSuccessScenario,
     PersistArtifactsFileNotFoundScenario,
+    PersistArtifactsWithDeleteScenario,
+    PersistArtifactsWithReferenceFixingScenario,
+    PersistArtifactsWithBothOptionsScenario,
 )
 from test_runner.scenarios.markdown import (
     MdToDictSuccessScenario,
@@ -60,6 +63,9 @@ SCENARIO_REGISTRY = {
     '18': FindReferencesToScenario,
     '19': InvalidAbsolutePathScenario,
     '20': MultipleDesignLogsNumberingScenario,
+    '21': PersistArtifactsWithDeleteScenario,
+    '22': PersistArtifactsWithReferenceFixingScenario,
+    '23': PersistArtifactsWithBothOptionsScenario,
 }
 
 

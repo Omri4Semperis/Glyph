@@ -1,5 +1,6 @@
 import os
 import shutil
+import re
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
@@ -88,8 +89,76 @@ def copy_artifact(source_file_path: str, artifacts_dir: str) -> tuple[str, str]:
     return new_filename, new_filepath
 
 
+def fix_references_in_file(file_path: str, old_filename: str, new_filename: str) -> int:
+    """
+    Replace all references to old_filename with new_filename in a file.
+    
+    Args:
+        file_path: Path to the file to update.
+        old_filename: The original filename to search for.
+        new_filename: The new filename to replace with.
+    
+    Returns:
+        Number of replacements made.
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Count occurrences before replacement
+        count = content.count(old_filename)
+        
+        if count > 0:
+            # Replace all occurrences
+            new_content = content.replace(old_filename, new_filename)
+            
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(new_content)
+        
+        return count
+    except Exception:
+        # Silently skip files that can't be read/written
+        return 0
+
+
+def fix_references_in_directories(assistant_dir: str, old_filename: str, new_filename: str) -> dict[str, int]:
+    """
+    Fix all references to old_filename in design_logs, operations, and artifacts directories.
+    
+    Args:
+        assistant_dir: Path to the .assistant directory.
+        old_filename: The original filename to search for.
+        new_filename: The new filename to replace with.
+    
+    Returns:
+        Dictionary mapping file paths to number of replacements made.
+    """
+    replacements = {}
+    
+    for dir_name in ["design_logs", "operations", "artifacts"]:
+        dir_path = os.path.join(assistant_dir, dir_name)
+        
+        if not os.path.exists(dir_path):
+            continue
+        
+        for root, dirs, files in os.walk(dir_path):
+            for filename in files:
+                file_path = os.path.join(root, filename)
+                count = fix_references_in_file(file_path, old_filename, new_filename)
+                
+                if count > 0:
+                    replacements[file_path] = count
+    
+    return replacements
+
+
 @mcp.tool()
-def persist_artifacts(abs_path: str, files: List[str]) -> GlyphMCPResponse[None]:
+def persist_artifacts(
+    abs_path: str, 
+    files: List[str],
+    delete_from_ad_hoc: bool = False,
+    fix_references: bool = False
+) -> GlyphMCPResponse[None]:
     """
     Persist files from the ad_hoc directory to the artifacts directory.
     
@@ -99,6 +168,9 @@ def persist_artifacts(abs_path: str, files: List[str]) -> GlyphMCPResponse[None]
     Args:
         abs_path: The absolute path of the project's root where the .assistant folder is located. Absolute path is required.
         files: List of filenames to persist (excluding path, assumed to be in `.assistant/ad_hoc` dir).
+        delete_from_ad_hoc: If True, delete the original files from ad_hoc directory after persisting. Defaults to False.
+        fix_references: If True, automatically scan all files in design_logs, operations, and artifacts directories 
+                       and update any references from the old ad_hoc filename to the new artifact filename. Defaults to False.
     
     Returns:
         GlyphMCPResponse indicating success or failure, with the new artifact filenames.
@@ -133,6 +205,27 @@ def persist_artifacts(abs_path: str, files: List[str]) -> GlyphMCPResponse[None]
             response.add_context(f"Persisted artifact: {new_filename}")
             response.add_context(f"Source: {source_file_path}")
             response.add_context(f"Destination: {new_filepath}")
+            
+            # Fix references if requested
+            if fix_references:
+                assistant_dir = os.path.join(abs_path, BASE_NAME)
+                replacements = fix_references_in_directories(assistant_dir, file_name, new_filename)
+                
+                if replacements:
+                    response.add_context(f"Fixed references to '{file_name}' -> '{new_filename}':")
+                    for ref_file, count in replacements.items():
+                        rel_path = os.path.relpath(ref_file, abs_path)
+                        response.add_context(f"  - {rel_path}: {count} replacement(s)")
+                else:
+                    response.add_context(f"No references to '{file_name}' found to fix")
+            
+            # Delete original file if requested
+            if delete_from_ad_hoc:
+                try:
+                    os.remove(source_file_path)
+                    response.add_context(f"Deleted original file from ad_hoc: {file_name}")
+                except Exception as e:
+                    response.add_context(f"Warning: Failed to delete original file {file_name}: {str(e)}")
         
         # Update reference graph after persisting artifacts
         update_response = update_reference_graph(abs_path)
