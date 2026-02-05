@@ -1,5 +1,4 @@
-```markdown
-Perform a code review of operation: {operation_name}
+Perform a code review of operation: {operation_name}. You may use Glyph's static code analysis tool to get some data about given files.
 
 **References:**
 
@@ -60,4 +59,3 @@ Generate a code review report following the example template. Include:
 1. Discuss findings with the user
 2. Create action items for any issues found
 3. If lessons learned are significant, suggest updating the design log
-```

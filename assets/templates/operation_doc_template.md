@@ -2,7 +2,7 @@
 
 ## Background
 
-<Provide background information about the operation.>
+<Provide background information about the operation. The background is encouraged to include mermaid charts where appropriate (glyph's mermaid tool can advise on this).>
 
 ## Phases
 

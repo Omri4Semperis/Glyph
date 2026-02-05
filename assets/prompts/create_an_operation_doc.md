@@ -4,9 +4,9 @@ Plan the creation of an operation document for step {step_to_create_doc_for} fro
 - Read the operation document guidelines; and finally:
 - write the creation plan for the operation document.
 
-The operation document's Background section must be comprehensive, exhaustive and detailed- Taking all of the relevant information from the design log you can find (anywhere in the design log, not just the step itself).
+The operation document's Background section must be comprehensive, exhaustive and detailed- Taking all of the relevant information from the design log you can find (anywhere in the design log, not just the step itself). The Background section is encouraged to include mermaid charts where appropriate (glyph's mermaid tool can advise on this).
 
-Before you create the doc, :
+Before you create the doc:
 
 1. Prove you read through the design log doc and understood what relevant information is there for the operation doc.
 2. Prove tou read through the operation document guidelines and understood them, showing me how you will apply them.

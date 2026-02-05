@@ -45,6 +45,7 @@ However, this is not a strict requirement. If you create a design log without an
 | Find what references a file | `find_references_to` |
 | Rebuild reference graph | `update_reference_graph` |
 | Parse markdown to dict | `md_to_dict` |
+| Analyze code (C#, Python) | `static_code_analysis` |
 | Get Glyph overview | `get_glyph_overview` |
 | Get principles | `get_principles(topic)` |
 | Get examples | `get_example(type)` |
