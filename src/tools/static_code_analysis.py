@@ -39,11 +39,130 @@ def get_supported_extensions() -> List[str]:
     return list(EXTENSION_MAP.keys())
 
 
+def get_minimal_unique_paths(file_paths: List[str]) -> Dict[str, str]:
+    """
+    Generate minimal unique paths for a list of file paths.
+    Returns a dict mapping full path to minimal unique suffix.
+    """
+    if not file_paths:
+        return {}
+    
+    # Normalize paths to use forward slashes
+    normalized = {p: p.replace('\\', '/') for p in file_paths}
+    
+    # Split each path into components (in reverse order)
+    path_components = {}
+    for full_path, norm_path in normalized.items():
+        parts = norm_path.split('/')
+        path_components[full_path] = list(reversed(parts))
+    
+    # Build minimal paths by adding components until unique
+    minimal_paths = {}
+    for full_path in file_paths:
+        components = path_components[full_path]
+        
+        # Start with just the filename
+        for depth in range(1, len(components) + 1):
+            candidate = '/'.join(reversed(components[:depth]))
+            
+            # Check if this candidate is unique
+            is_unique = True
+            for other_path in file_paths:
+                if other_path == full_path:
+                    continue
+                other_components = path_components[other_path]
+                other_candidate = '/'.join(reversed(other_components[:depth]))
+                if candidate == other_candidate:
+                    is_unique = False
+                    break
+            
+            if is_unique:
+                minimal_paths[full_path] = candidate
+                break
+        else:
+            # Fallback to full path if no unique suffix found
+            minimal_paths[full_path] = normalized[full_path]
+    
+    return minimal_paths
+
+
+def format_methods_table(all_metrics: List[Dict[str, Any]]) -> str:
+    """Generate a consolidated table of all methods across all files and classes."""
+    # Get minimal unique paths
+    file_paths = [m['path'] for m in all_metrics]
+    minimal_paths = get_minimal_unique_paths(file_paths)
+    
+    # Collect all methods
+    rows = []
+    for file_metrics in all_metrics:
+        file_path = file_metrics['path']
+        minimal_file = minimal_paths[file_path]
+        
+        # Process classes and their methods
+        for cls in file_metrics.get('classes', []):
+            class_name = cls['name']
+            for method in cls.get('methods', []):
+                rows.append({
+                    'file': minimal_file,
+                    'class': class_name,
+                    'method': method['name'],
+                    'lines': method['lines']['count'],
+                    'arguments': method['arg_count'],
+                    'access': method.get('access_modifier', ''),
+                    'return_type': method.get('return_type', ''),
+                    'async': method.get('is_async', False),
+                    'static': method.get('is_static', False),
+                    'line_stats': method['line_length_stats']
+                })
+        
+        # Process top-level functions
+        for func in file_metrics.get('functions', []):
+            rows.append({
+                'file': minimal_file,
+                'class': '',
+                'method': func['name'],
+                'lines': func['lines']['count'],
+                'arguments': func['arg_count'],
+                'access': func.get('access_modifier', ''),
+                'return_type': func.get('return_type', ''),
+                'async': func.get('is_async', False),
+                'static': func.get('is_static', False),
+                'line_stats': func['line_length_stats']
+            })
+    
+    if not rows:
+        return ""
+    
+    result = [
+        "## Consolidated Methods/Functions Table",
+        "",
+        "| File | Class | Method | Lines | Arguments | Access | Return Type | LL Min | LL Max | LL Mean | LL Median | LL Std |",
+        "| - | - | - | - | - | - | - | - | - | - | - | - |",
+    ]
+    
+    for row in rows:
+        stats = row['line_stats']
+        file_display = f"`{row['file']}`"
+        class_display = f"`{row['class']}`" if row['class'] else ""
+        method_display = f"`{row['method']}`"
+        access_display = row['access'] if row['access'] else ""
+        return_display = f"`{row['return_type']}`" if row['return_type'] else ""
+        
+        result.append(
+            f"| {file_display} | {class_display} | {method_display} | {row['lines']} | "
+            f"{row['arguments']} | {access_display} | {return_display} | "
+            f"{stats['min']} | {stats['max']} | {stats['mean']} | {stats['median']} | {stats['std']} |"
+        )
+    
+    result.append("")
+    return "\n".join(result)
+
+
 def format_line_stats_table(stats: Dict[str, Any], indent: str = "") -> str:
     """Format line statistics as a table row."""
     return (
         f"{indent}| count | min | max | mean | median | std |\n"
-        f"{indent}|-------|-----|-----|------|--------|-----|\n"
+        f"{indent}| - | - | - | - | - | - |\n"
         f"{indent}| {stats['count']} | {stats['min']} | {stats['max']} | "
         f"{stats['mean']} | {stats['median']} | {stats['std']} |"
     )
@@ -206,80 +325,43 @@ def format_summary_markdown(all_metrics: List[Dict[str, Any]]) -> str:
         ""
     ])
     
-    # Method/Function line count statistics
+    # Build a single consolidated metrics table
+    categories = []
     if all_method_line_counts:
-        result.extend([
-            "### Function/Method Line Counts",
-            f"| Metric | Value |",
-            f"|--------|-------|",
-            f"| count | {len(all_method_line_counts)} |",
-            f"| min | {min(all_method_line_counts)} |",
-            f"| max | {max(all_method_line_counts)} |",
-            f"| mean | {round(statistics.mean(all_method_line_counts), 2)} |",
-            f"| median | {round(statistics.median(all_method_line_counts), 2)} |",
-            f"| std | {round(statistics.stdev(all_method_line_counts), 2) if len(all_method_line_counts) > 1 else 0} |",
-            ""
-        ])
-    
-    # Class line count statistics
+        categories.append(("Function/Method Line Counts", all_method_line_counts))
     if all_class_line_counts:
-        result.extend([
-            "### Class Line Counts",
-            f"| Metric | Value |",
-            f"|--------|-------|",
-            f"| count | {len(all_class_line_counts)} |",
-            f"| min | {min(all_class_line_counts)} |",
-            f"| max | {max(all_class_line_counts)} |",
-            f"| mean | {round(statistics.mean(all_class_line_counts), 2)} |",
-            f"| median | {round(statistics.median(all_class_line_counts), 2)} |",
-            f"| std | {round(statistics.stdev(all_class_line_counts), 2) if len(all_class_line_counts) > 1 else 0} |",
-            ""
-        ])
-    
-    # Method argument count statistics
+        categories.append(("Class Line Counts", all_class_line_counts))
     if all_method_arg_counts:
-        result.extend([
-            "### Function/Method Argument Counts",
-            f"| Metric | Value |",
-            f"|--------|-------|",
-            f"| count | {len(all_method_arg_counts)} |",
-            f"| min | {min(all_method_arg_counts)} |",
-            f"| max | {max(all_method_arg_counts)} |",
-            f"| mean | {round(statistics.mean(all_method_arg_counts), 2)} |",
-            f"| median | {round(statistics.median(all_method_arg_counts), 2)} |",
-            f"| std | {round(statistics.stdev(all_method_arg_counts), 2) if len(all_method_arg_counts) > 1 else 0} |",
-            ""
-        ])
-    
-    # Class constructor parameter counts
+        categories.append(("Function/Method Argument Counts", all_method_arg_counts))
     if all_constructor_param_counts:
-        result.extend([
-            "### Class Constructor Parameter Counts",
-            f"| Metric | Value |",
-            f"|--------|-------|",
-            f"| count | {len(all_constructor_param_counts)} |",
-            f"| min | {min(all_constructor_param_counts)} |",
-            f"| max | {max(all_constructor_param_counts)} |",
-            f"| mean | {round(statistics.mean(all_constructor_param_counts), 2)} |",
-            f"| median | {round(statistics.median(all_constructor_param_counts), 2)} |",
-            f"| std | {round(statistics.stdev(all_constructor_param_counts), 2) if len(all_constructor_param_counts) > 1 else 0} |",
-            ""
-        ])
-    
-    # Property counts (C# specific but included if present)
+        categories.append(("Class Constructor Parameter Counts", all_constructor_param_counts))
     if all_property_counts:
-        result.extend([
-            "### Class Property Counts",
-            f"| Metric | Value |",
-            f"|--------|-------|",
-            f"| count | {len(all_property_counts)} |",
-            f"| min | {min(all_property_counts)} |",
-            f"| max | {max(all_property_counts)} |",
-            f"| mean | {round(statistics.mean(all_property_counts), 2)} |",
-            f"| median | {round(statistics.median(all_property_counts), 2)} |",
-            f"| std | {round(statistics.stdev(all_property_counts), 2) if len(all_property_counts) > 1 else 0} |",
-            ""
-        ])
+        categories.append(("Class Property Counts", all_property_counts))
+    
+    if categories:
+        result.append("### Metrics Summary")
+        result.append("")
+        
+        # Build header
+        header = "| Category | Count | Min | Max | Mean | Median | Std |"
+        separator = "| - | - | - | - | - | - | - |"
+        
+        result.append(header)
+        result.append(separator)
+        
+        # Build rows (one per category)
+        for cat_name, values in categories:
+            count = len(values)
+            min_val = min(values)
+            max_val = max(values)
+            mean_val = round(statistics.mean(values), 2)
+            median_val = round(statistics.median(values), 2)
+            std_val = round(statistics.stdev(values), 2) if count > 1 else 0
+            
+            row = f"| {cat_name} | {count} | {min_val} | {max_val} | {mean_val} | {median_val} | {std_val} |"
+            result.append(row)
+        
+        result.append("")
     
     return "\n".join(result)
 
@@ -290,6 +372,8 @@ def format_analysis_markdown(all_metrics: List[Dict[str, Any]]) -> str:
         "# Static Code Analysis Report",
         "",
         format_summary_markdown(all_metrics),
+        "",
+        format_methods_table(all_metrics),
         "",
         "## Detailed File Analysis",
         ""
