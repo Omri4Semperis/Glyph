@@ -156,8 +156,8 @@ def fix_references_in_directories(assistant_dir: str, old_filename: str, new_fil
 def persist_artifacts(
     abs_path: str, 
     files: List[str],
-    delete_from_ad_hoc: bool = False,
-    fix_references: bool = False
+    delete_from_ad_hoc: bool,
+    fix_references: bool
 ) -> GlyphMCPResponse[None]:
     """
     Persist files from the ad_hoc directory to the artifacts directory.
@@ -168,9 +168,9 @@ def persist_artifacts(
     Args:
         abs_path: The absolute path of the project's root where the .assistant folder is located. Absolute path is required.
         files: List of filenames to persist (excluding path, assumed to be in `.assistant/ad_hoc` dir).
-        delete_from_ad_hoc: If True, delete the original files from ad_hoc directory after persisting. Defaults to False.
+        delete_from_ad_hoc: If True, delete the original files from ad_hoc directory after persisting.
         fix_references: If True, automatically scan all files in design_logs, operations, and artifacts directories 
-                       and update any references from the old ad_hoc filename to the new artifact filename. Defaults to False.
+                       and update any references from the old ad_hoc filename to the new artifact filename.
     
     Returns:
         GlyphMCPResponse indicating success or failure, with the new artifact filenames.
