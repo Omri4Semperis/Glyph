@@ -8,7 +8,7 @@ In this prompt:
 
 # Your mission
 
-Perform a code review of operation: <operation_name>. You may use Glyph's static code analysis tool to get some data about given files.
+Perform a code review of operation: <operation_name>. You may use Glyph's static code analysis tool to get some data about given files, and mermaid diagrams (through Glyph's mermaid support) to visualize complex code structures or flows if needed.
 
 ## Additional References
 
@@ -45,7 +45,7 @@ Perform a code review of operation: <operation_name>. You may use Glyph's static
 
 ## Output
 
-Generate a code review report (Saved to `.assist/ad_hoc`) following the example template. Include:
+Generate a code review report (save it to `.assist/ad_hoc`) following the example template. Include:
 
 - Summary table with pass/fail/warning status
 - Detailed findings for each review category
