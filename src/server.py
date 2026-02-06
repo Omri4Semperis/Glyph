@@ -18,9 +18,9 @@ if __name__ == "__main__":
             get_glyph_overview,
             get_principles,
             get_example,
-            read_asset_exact
+            read_asset_exact,
+            mermaid_whisperer
         )
-        from skills.mermaid_whisperer import mermaid_whisperer
 
         # Tools (action tools)
         from tools.init_assistant_dir import init_assistant_dir
