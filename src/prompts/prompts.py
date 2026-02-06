@@ -8,6 +8,64 @@ from mcp_object import mcp
 from read_an_asset import read_asset
 
 
+def _format_task_display(task_number: str | int) -> str:
+    """
+    Convert task_number to grammatically correct display format.
+    
+    Examples:
+        - 1 → "Task 1"
+        - "3" → "Task 3"
+        - "1-3" → "Tasks 1-3"
+        - "1, 2, 5" → "Tasks 1, 2, 5"
+        - "all" → "all tasks"
+    """
+    task_str = str(task_number)
+    
+    if task_str == "all":
+        return "all tasks"
+    elif task_str.isdigit():
+        return f"Task {task_str}"
+    else:
+        # It's a range like "1-3" or comma-separated like "1, 2, 5"
+        return f"Tasks {task_str}"
+
+
+def _load_phase_prompt(
+    asset_filename: str,
+    phase_number: int,
+    task_number: str | int,
+    operation_document: str,
+    additional_context: str = "Nothing specific, but feel free to read more files"
+) -> str:
+    """
+    Load and format a phase prompt (planning or implementation).
+    
+    Args:
+        asset_filename: The markdown asset file to load (e.g., "planning_command.md")
+        phase_number: The phase number
+        task_number: The task(s) to display
+        operation_document: The operation document name/path
+        additional_context: Optional context to include in the prompt
+        
+    Returns:
+        Formatted prompt text
+        
+    Raises:
+        ValueError: If phase_number < 1
+    """
+    if phase_number < 1:
+        raise ValueError(f"phase_number must be >= 1, got {phase_number}")
+    
+    template = read_asset(asset_filename)
+    task_display = _format_task_display(task_number)
+    return template.format(
+        phase_number=phase_number,
+        task_display=task_display,
+        operation_document=operation_document,
+        additional_context=additional_context
+    )
+
+
 # =============================================================================
 # DESIGN LOG & OPERATION CREATION
 # =============================================================================
@@ -16,7 +74,7 @@ from read_an_asset import read_asset
 def create_design_log_prompt(
     topic: str,
     design_log_type: Literal["research", "implementation", "both"] = "both",
-    additional_context: str = ""
+    additional_context: str = "Nothing specific, but feel free to read more files"
 ) -> str:
     """
     Trigger the creation of a new design log.
@@ -38,18 +96,25 @@ def create_design_log_prompt(
 
 
 @mcp.prompt()
-def create_operation_doc_prompt(step_to_create_doc_for: float) -> str:
+def create_operation_doc_prompt(
+    step_to_create_doc_for: float,
+    design_log_name: str = "Design Log"
+) -> str:
     """
     Trigger the creation of an operation document from a design log step.
 
     Args:
         step_to_create_doc_for: The step number to create the operation document for
+        design_log_name: Name or path of the design log (default: "Design Log")
 
     Returns:
         The prompt for creating an operation document.
     """
     template = read_asset("create_an_operation_doc.md")
-    return template.format(step_to_create_doc_for=step_to_create_doc_for)
+    return template.format(
+        step_to_create_doc_for=step_to_create_doc_for,
+        design_log_name=design_log_name
+    )
 
 
 # =============================================================================
@@ -57,35 +122,67 @@ def create_operation_doc_prompt(step_to_create_doc_for: float) -> str:
 # =============================================================================
 
 @mcp.prompt()
-def planning_prompt(phase_number: int, task_number: int) -> str:
+def planning_prompt(
+    phase_number: int,
+    task_number: str | int = "all",
+    operation_document: str = "Operation Document",
+    additional_context: str = "Nothing specific, but feel free to read more files"
+) -> str:
     """
     Trigger planning of a phase/task from an operation document.
 
     Args:
         phase_number: The phase number to plan
-        task_number: The task number to plan
+        task_number: The task(s) to plan. Can be:
+                     - Single task: 1, 2, 5
+                     - Range: "1-3"
+                     - Multiple: "1, 2, 5"
+                     - All tasks: "all" (default)
+        operation_document: Name or path of the operation document (default: "Operation Document")
+        additional_context: Optional context to include in the prompt
 
     Returns:
         The planning prompt.
     """
-    template = read_asset("planning_command.md")
-    return template.format(phase_number=phase_number, task_number=task_number)
+    return _load_phase_prompt(
+        "planning_command.md",
+        phase_number,
+        task_number,
+        operation_document,
+        additional_context
+    )
 
 
 @mcp.prompt()
-def implementation_prompt(phase_number: int, task_number: int) -> str:
+def implementation_prompt(
+    phase_number: int,
+    task_number: str | int = "all",
+    operation_document: str = "Operation Document",
+    additional_context: str = "Nothing specific, but feel free to read more files"
+) -> str:
     """
     Trigger implementation of a phase/task from an operation document.
 
     Args:
         phase_number: The phase number to implement
-        task_number: The task number to implement
+        task_number: The task(s) to implement. Can be:
+                     - Single task: 1, 2, 5
+                     - Range: "1-3"
+                     - Multiple: "1, 2, 5"
+                     - All tasks: "all" (default)
+        operation_document: Name or path of the operation document (default: "Operation Document")
+        additional_context: Optional context to include in the prompt
 
     Returns:
         The implementation prompt.
     """
-    template = read_asset("implementation_command.md")
-    return template.format(phase_number=phase_number, task_number=task_number)
+    return _load_phase_prompt(
+        "implementation_command.md",
+        phase_number,
+        task_number,
+        operation_document,
+        additional_context
+    )
 
 
 # =============================================================================
@@ -95,7 +192,8 @@ def implementation_prompt(phase_number: int, task_number: int) -> str:
 @mcp.prompt()
 def code_review_prompt(
     operation_name: str = "No operation name provided",
-    design_log_name: str = "No design log provided"
+    design_log_name: str = "No design log provided",
+    additional_context: str = "Nothing specific, but feel free to read more files"
 ) -> str:
     """
     Trigger a code review of an operation.
@@ -110,29 +208,30 @@ def code_review_prompt(
     template = read_asset("code_review.md")
     return template.format(
         operation_name=operation_name,
-        design_log_name=design_log_name
+        design_log_name=design_log_name,
+        additional_context=additional_context
     )
 
 
 @mcp.prompt()
 def sync_lessons_learned_prompt(
-    sync_mode: Literal["single", "batch", "scan"] = "single",
-    operation_list: str = ""
+    operations_list: str = "Please specify operation document paths",
+    design_logs_list: str = "Design logs will be auto-detected from operation references"
 ) -> str:
     """
     Sync lessons learned from operations back to design logs.
 
     Args:
-        sync_mode: Mode - "single", "batch", or "scan" (find all unsynced)
-        operation_list: Comma-separated operation doc paths, or "all" for scan mode
+        operations_list: Comma-separated operation doc paths to sync from
+        design_logs_list: Comma-separated design log paths to sync to (auto-detected if not specified)
 
     Returns:
         The sync lessons learned prompt.
     """
     template = read_asset("sync_lessons_learned.md")
     return template.format(
-        sync_mode=sync_mode,
-        operation_list=operation_list or "Please specify operation document paths"
+        operations_list=operations_list,
+        design_logs_list=design_logs_list
     )
 
 

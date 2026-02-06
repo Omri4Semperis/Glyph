@@ -1,38 +1,50 @@
-Plan Phase {phase_number} / Task {task_number} from NameOfOperationDocument
+---
+In this prompt:
 
-**Context/background:**
+{phase_number} = {{phase_number}}
+{task_display} = {{task_display}}
+{operation_document} = {{operation_document}}
+{additional_context} = {{additional_context}}
+---
 
-- Read the Background section of the document.
-- Read previous tasks/phases bottom lines / lessons learned, if any.
-- AdditionalContextOrBackgroundHere
+# Your mission
 
-**Before starting:**
+Plan Phase {phase_number} / {task_display} from {operation_document}
 
-1. Check if something you're about to implement already exists and can be re-used or slightly adapted. If so, this might even mean you need to adapt the Phase/Task Operation document. Let me know and hold on with the rest of the planning.
-2. Remember SOLID, DRY and KISS. Do not overengineer. If task is complex, tell me how you're going to adhere to these principles. If the task is simple, no need.
-3. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification before proceeding.
+## Before you start
 
-**How to plan:**
+1. Check if the task is still relevant. This is a living project—if it's changed significantly, inform me before proceeding.
+2. Read the Background section of the operation document.
+3. Read previous task/phase bottom lines and lessons learned, if any.
+4. {additional_context}
 
-1. Define a detailed plan for the task. The plan must include:
-   - Objectives: What the task aims to achieve.
-   - Steps: A clear sequence of actions to complete the task.
-   - Dependencies: Any prerequisites or external factors that might affect the task.
-   - Risk Assessment: Identify possible risks and mitigation strategies. Write this as a narrative, not a table.
-2. Ensure the plan is actionable and realistic. Avoid overcomplicating.
-3. Ask the user if they have any reservations, questions, or clarifications they'd like addressed before proceeding.
+## Planning principles
 
-**When done:**
+1. **Reuse over creation:** Check if reusable/adaptable solutions exist, but only if it doesn't add unnecessary complexity. If creating something new is simpler—do that instead.
+2. **Balance SOLID, DRY, and KISS:** Do not overengineer. For complex tasks, explain how you'll keep them simple.
+3. **Clarify ambiguity:** If the task description is unclear, ask me with specific options (e.g., "A, B, or C?"). Avoid assumptions.
 
-1. Add lessons learned / bottom line for this task/phase in the document. Make it concise and to the point. Do not mention obvious things (e.g. no need to mention success as it's considered the norm).
-2. Consider future phases/tasks in the same document. If during planning you discovered/did something that influences other tasks/phases- add this as a comment to the relevant task/phase in the document such that it awaits the future implementer/planner when they work on it.
-3. In this chat, generate a **one liner** ```txt snippet with a commit message for me to use, based on what's actually done. The message should start like this:
+## Define your plan
+
+Create a detailed plan for {phase_number} / {task_display} which includes:
+
+- **Current state:** Brief description of the current situation
+- **Objectives:** What the task aims to achieve
+- **Steps:** Clear sequence of actions. Start with benchmarking (warnings, errors, test fails). End with cleanup and verification (no new warnings/errors, tests pass). Final action: generate commit message format shown below.
+- **Dependencies:** Prerequisites or external factors
+- **Risk Assessment:** Possible risks and mitigation strategies (free-text paragraph)
+
+## Getting feedback
+
+- For **complex plans** (anything beyond straightforward steps): Present with enumerated options and wait for approval
+- For **straightforward plans:** Simply ask for go-ahead
+
+## After implementation
+
+1. Add lessons learned/bottom line to the operation doc specifically under {phase_number} / {task_display}'s section (succinct; skip obvious items. e.g. No need to mention success as it's the norm).
+2. Add comments to future tasks/phases if you discovered something affecting them, such that the comments await future developers.
+3. Generate a commit message (Base the commit message on what you actually did, not just the task description. If you deviated, reflect that in the message.):
 
 ```txt
-[operation name] P{phase_number}/T{task_number} - <short task title>: Short description of the change
+[operation name] P-{phase_number}/T-{task_display} - <short task title>: Description of actual change
 ```
-
-**Note:**
-
-1. This is a breathing project, and it may have changed since the tasks were created. Always check for the latest context and updates. If the codebase changed so much that the task is no longer relevant, inform me before proceeding.
-2. Do not forget about the commit message. It should be based on what you actually did, not just the task description. If you deviated from the original plan, the commit message should reflect what you actually did, not what you planned to do.

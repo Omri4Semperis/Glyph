@@ -1,21 +1,21 @@
-```markdown
-Sync lessons learned from operations back to design logs.
+---
+In this prompt:
 
-**Mode:** {sync_mode}
-<!-- Options: single (one operation), batch (multiple operations), or scan (find all unsynced) -->
+{operations_list} = {{operations_list}}
+{design_logs_list} = {{design_logs_list}}
+---
 
-**Target Operations:**
+# Your mission
 
-{operation_list}
-<!-- List operation doc paths, or "all" for scan mode -->
+Sync lessons learned from {operations_list} back to {design_logs_list}.
 
-**Process:**
+## Process
 
 1. **For each operation document:**
    - Read the operation document completely
    - Extract all "Lessons Learned" sections from tasks and phases
    - Extract the "Lessons Learned during Operation" section
-   - Identify the related design log from the References section
+   - Identify the related design logs from the References section
 
 2. **Categorize lessons:**
    - **General lessons**: Apply to the overall approach or architecture
@@ -30,16 +30,16 @@ Sync lessons learned from operations back to design logs.
      - Future considerations → Add to "Future Improvements" section or create one
 
 4. **Update design logs:**
-   - Add lessons concisely (1-2 sentences each)
+   - Add lessons concisely (minimal but clear)
    - Preserve existing content
    - Use clear attribution: "From [op_xxx]: lesson text"
    - Avoid duplicating lessons already present
 
-**Output format:**
+## Output format
 
 For each operation processed, report:
 
-```
+```txt
 Operation: {operation_name}
 Related Design Log: {design_log_name}
 Lessons synced: {count}
@@ -48,9 +48,8 @@ Lessons synced: {count}
 ...
 ```
 
-**After syncing:**
+## After syncing
 
 1. Summarize total operations processed and lessons synced
 2. Highlight any operations without a linked design log
 3. Highlight any design logs that couldn't be updated (file not found, etc.)
-```

@@ -1,38 +1,40 @@
-Implement Phase {phase_number} / Task {task_number} from "file_name_or_hyperlink".
+---
+In this prompt:
 
-**Context/background:**
+{phase_number} = {{phase_number}}
+{task_display} = {{task_display}}
+{operation_document} = {{operation_document}}
+{additional_context} = {{additional_context}}
+---
 
-- Read the Background section of the document.
-- Read previous tasks/phases bottom lines / lessons learned, if any.
-- provide_specific_context_or_background_here
+# Your mission
 
-**Before starting:**
+Implement Phase {phase_number} / {task_display} from {operation_document}.
 
-1. Check if something you're about to implement already exists and can be re-used or slightly adapted. If so, this might even mean you need to adapt the Phase/Task Operation document. Let me know and hold on with the rest of the implementation.
-2. Remember SOLID, DRY and KISS. Do not overengineer. If task is complex, tell me how you're going to adhere to these principles. If the task is simple, no need.
-3. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification before proceeding.
+## Before you start
 
-**How to implement:**
+1. Check if the task is still relevant. This is a living project—if it's changed significantly, inform me before proceeding.
+2. Read the Background section of the operation document.
+3. Read previous task/phase bottom lines and lessons learned, if any.
+4. {additional_context}
+5. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification.
+6. Check if something you're about to implement already exists and can be reused or slightly adapted. If so, let me know before proceeding.
 
-1. Read the task description carefully, determine which other documents that I haven't mentioned might also be relevant, and read them. You may use Glyph tools to help you find relevant documents if needed.
+## How to implement
+
+1. Identify relevant documents and read them (use Glyph tools if needed to find related materials).
 2. Build and run all tests to establish a benchmark (if applicable).
-3. Ask the user if they have any reservations, questions, or clarifications they'd like addressed before proceeding.
+3. Implement the task, adhering to SOLID, DRY, and KISS principles.
+4. Build/Run tests and compare to benchmark (if applicable).
 
-**When done:**
+## After implementation
 
-1. Build/Run tests and compare to benchmark (if applicable).
-2. Checkmark [x] the task in the task list in the document if applicable.
-3. If this is the last task of the phase, also verify that the phase's D.O.D. checklist is done and mark [x] on done items.
-4. Add lessons learned / bottom line for this task/phase in the document. Make it concise and to the point. Do not mention obvious things (e.g. no need to mention success as it's considered the norm).
-5. Consider future phases/tasks in the same document. If during implementation you discovered/did something that influences other tasks/phases- add this as a comment to the relevant task/phase in the document such that it awaits the future implementer/planner when they work on it.
-6. In this chat, generate a **one liner** ```txt snippet with a commit message for me to use, based on what's actually done. The message should start like this:
+1. Checkmark [x] the task(s) in the task list in the document if applicable.
+2. If this is the last task of the phase, verify that the phase's D.O.D. checklist is complete and mark [x] on done items.
+3. Add lessons learned / bottom line for this task/phase in the document (succinct; skip obvious items).
+4. Consider future phases/tasks. If you discovered something affecting them, add a comment to the relevant task/phase.
+5. Generate a commit message (base it on what you actually did, not just the task description):
 
 ```txt
-[operation name] P{phase_number}/T{task_number} - <short task title>: Short description of the change
+[operation name] P-{phase_number}/T-{task_display} - <short task title>: Description of actual change
 ```
-
-**Note:**
-
-1. This is a breathing project, and it may have changed since the tasks were created. Always check for the latest context and updates. If the codebase changed so much that the task is no longer relevant, inform me before proceeding.
-2. Marking tasks/D.O.D. items as done [x] must not just based on the tasks list. Always verify by checking the actual project state.
-3. Do not forget about the commit message. It should be based on what you actually did, not just the task description. If you deviated from the original plan, the commit message should reflect what you actually did, not what you planned to do.

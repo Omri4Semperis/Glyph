@@ -1,8 +1,21 @@
-Perform a code review of operation: #{operation_name} . You may use Glyph's static code analysis tool to get some data about given files.
+---
+In this prompt:
 
-Additional References: #{design_log_name}
+{operation_name} = {{operation_name}}
+{design_log_name} = {{design_log_name}}
+{additional_context} = {{additional_context}}
+---
 
-**Review Checklist**:
+# Your mission
+
+Perform a code review of operation: {operation_name}. You may use Glyph's static code analysis tool to get some data about given files.
+
+## Additional References
+
+- {design_log_name}
+- {additional_context}
+
+## Review Checklist
 
 1. **Functionality**
    - Do all implemented features match the requirements?
@@ -14,7 +27,6 @@ Additional References: #{design_log_name}
    - Does it follow project conventions and patterns?
    - Is there appropriate error handling?
    - Are SOLID, DRY, and KISS principles followed?
-   - You may use Glyph's static code analysis tool to get some data about code quality.
 
 3. **Test Coverage**
    - Are there sufficient unit tests?
@@ -31,19 +43,20 @@ Additional References: #{design_log_name}
    - Are there security vulnerabilities?
    - Is input validation present?
 
-**Output**:
+## Output
 
-Generate a code review report following the example template. Include:
+Generate a code review report (Saved to `.assist/ad_hoc`) following the example template. Include:
 
 - Summary table with pass/fail/warning status
 - Detailed findings for each review category
 - Specific code issues with locations and suggestions
-- Recommendations categorized by priority (Must Fix, Should Fix, Nice to Have)
+- **Action Items Summary**: A clear, concise title-level list of improvements categorized by priority:
+  - **Critical/Blocking**: Must be fixed before merge (security issues, functional bugs, breaking changes)
+  - **Important**: Should be fixed soon (code quality issues, missing tests, technical debt)
+  - **Optional**: Nice to have (minor refactoring, style improvements, optimizations)
 - Lessons learned that should propagate back to the design log- and haven't been documented yet
 
-**Save to** `.assist/ad_hoc`
-
-**After review**:
+## *After review
 
 1. Create action items for any issues found
 2. If lessons learned are significant, suggest updating the design log
