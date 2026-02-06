@@ -54,6 +54,33 @@ Once a template has been created for an operation using one of the MCP's tools, 
 - For each actionable task (i.e., tasks that change code), start with a build, run, and test verification to establish a baseline. At the end of the task, perform the same verification to ensure no regressions were introduced.
 - If a task is the last in a phase, ensure to include verification of the phase D.O.D. as a subtask.
 
+### Difficulty Levels
+  
+Phases Overview Requirements:
+
+- The `Phases overview` section of an operation **must** include two elements:
+  1. A markdown table summarizing phases with columns: **Phase**, **# Tasks**, **Max Difficulty**, **Description**. The **Max Difficulty** is the highest `Task Difficulty` among tasks in that phase (Breezy|Low|Medium|High|Nightmare).
+  2. A DAG showing dependencies at the phase and task level. Use a Mermaid `flowchart` with phase `subgraph`s and task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`). This graph must show ordering and cross-phase/task dependencies.
+
+These two elements give both a concise tabular summary and an explicit visual dependency map to help planning and verification.
+
+Operations now include standardized difficulty levels that must be recorded for every task and for each phase. Use the following scale to label tasks and phases:
+
+- **Breezy**: Changes to a single existing file, involving just a few (well-defined) line additions, deletions, or modifications.
+- **Low**: Changes limited to one or two files, with well-defined and straightforward modifications, or a single file with a focused functionality to add, change, or remove.
+- **Medium**: Modifications spanning several files (up to 5), involving moderate complexity—such as adding a new feature, refactoring a module, or implementing a new class/function with dependencies.
+- **High**: Significant changes across multiple files (up to 7), introducing new modules, complex refactoring, or integrating external libraries. Requires thorough testing and validation.
+- **Nightmare**: Large-scale changes affecting most or all of the 10-file limit, such as major architectural updates, migrating a core component, or replacing a foundational dependency. Demands extensive planning, testing, and debugging.
+
+Guidance on applying difficulty levels:
+
+- **Task Difficulty**: Every actionable task must include a single `Task Difficulty` label chosen from the scale above. This label helps implementers understand expected scope and testing effort.
+- **Phase Difficulty**: Each phase should include an explicit `Phase Difficulty` label. By default the phase difficulty should be the maximum difficulty of its contained tasks (e.g., if any task is `High`, the phase is at least `High`) unless the phase owner documents a different, justified phase-level assessment.
+- **Testing & Validation**: All difficulty levels imply testing and build/run validation. Higher difficulty levels demand broader test coverage, integration testing, or manual verification steps as appropriate.
+- **When to escalate**: If during implementation a task grows beyond its originally assigned difficulty, update the task's `Task Difficulty`, re-evaluate the `Phase Difficulty`, and document the reason in the task notes.
+
+### Phases
+
 ### Dynamic Updates
 
 - Document any new tasks identified during implementation.

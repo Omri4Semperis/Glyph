@@ -6,7 +6,34 @@
 
 ## Phases
 
-**Phases overview**: <Briefly describe each phase, how many tasks it includes, and its purpose. Add a directed acyclic graph (DAG) inside a mermaid chart snippet if necessary to illustrate dependencies between phases (each phase as a subgraph) and tasks (each task as a node in the subgraphs)>
+**Phases overview**:
+
+The phases overview must include two elements:
+
+1) A summary table with these columns: **Phase**, **# Tasks**, **Max Difficulty**, **Description**. Fill the table with each phase's number, how many tasks it contains, the maximal difficulty (Breezy|Low|Medium|High|Nightmare) among its tasks, and a short description of the phase goal.
+
+Example table:
+
+| Phase | # Tasks | Max Difficulty | Description |
+| - | - | - | - |
+| Phase 1 | 2 | Medium | Implement client-side validation and unit tests |
+| Phase 2 | 1 | Low | Update docs and add examples |
+
+2) A DAG showing dependencies at the phase and task level. Use a Mermaid `flowchart` (top-down) and group tasks under phase subgraphs. Label task nodes as `P{phase}/T{task}` (e.g., `P1/T1`). Example:
+
+```mermaid
+flowchart TD
+	subgraph Phase1["Phase 1"]
+		P1T1["P1/T1: Init"]
+		P1T2["P1/T2: Add feature"]
+	end
+	subgraph Phase2["Phase 2"]
+		P2T1["P2/T1: Integration"]
+	end
+	P1T2 --> P2T1
+```
+
+Include both elements in the `Phases overview` so readers get a concise phase summary and an explicit dependency graph.
 
 ### Phase 1: <Phase Title>
 
@@ -17,6 +44,8 @@
 - [ ] <D.O.D. Item 1>
 - [ ] <D.O.D. Item 2>
 - [ ] ...
+
+**Phase Difficulty:** <Breezy|Low|Medium|High|Nightmare>
 
 #### P1/Task 1: <Task Title>
 
@@ -32,6 +61,8 @@
 
 - [ ] <Subtask 1>
 - [ ] <Subtask 2>
+
+**Task Difficulty:** <Breezy|Low|Medium|High|Nightmare>
 
 **P1/Task 1 Lessons Learned:**
 <Briefly write here what you learned or important considerations. Be concise! If nothing to add, remove this section.>
