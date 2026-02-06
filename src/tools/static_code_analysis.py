@@ -158,117 +158,95 @@ def format_methods_table(all_metrics: List[Dict[str, Any]]) -> str:
     return "\n".join(result)
 
 
-def format_line_stats_table(stats: Dict[str, Any], indent: str = "") -> str:
-    """Format line statistics as a table row."""
-    return (
-        f"{indent}| count | min | max | mean | median | std |\n"
-        f"{indent}| - | - | - | - | - | - |\n"
-        f"{indent}| {stats['count']} | {stats['min']} | {stats['max']} | "
-        f"{stats['mean']} | {stats['median']} | {stats['std']} |"
-    )
+def format_files_table(all_metrics: List[Dict[str, Any]]) -> str:
+    """Generate a compact table of all files."""
+    file_paths = [m['path'] for m in all_metrics]
+    minimal_paths = get_minimal_unique_paths(file_paths)
 
-
-def format_method_markdown(method: Dict[str, Any], indent: str = "") -> str:
-    """Format method metrics as markdown."""
-    lines = method['lines']
     result = [
-        f"{indent}##### `{method['name']}`",
-        f"{indent}- **Lines**: {lines['start']}-{lines['end']} ({lines['count']} lines)",
-        f"{indent}- **Arguments**: {method['arg_count']}",
+        "## File Overview",
+        "",
+        "| File | Lang | Lines | Classes | Funcs | Namespaces | Usings | LL Max | LL Mean | LL Std |",
+        "| - | - | - | - | - | - | - | - | - | - |",
     ]
-    
-    # Add optional fields
-    if method.get('access_modifier'):
-        result.append(f"{indent}- **Access**: {method['access_modifier']}")
-    if method.get('return_type'):
-        result.append(f"{indent}- **Return Type**: `{method['return_type']}`")
-    if method.get('is_async'):
-        result.append(f"{indent}- **Async**: Yes")
-    if method.get('is_static'):
-        result.append(f"{indent}- **Static**: Yes")
-    
-    result.extend([
-        f"{indent}- **Line Length Statistics**:",
-        format_line_stats_table(method['line_length_stats'], indent + "  ")
-    ])
+
+    for m in all_metrics:
+        file_display = f"`{minimal_paths[m['path']]}`"
+        lang = m['language']
+        lines = m['line_count']
+        classes = m['class_count']
+        funcs = m['function_count']
+        ns = ', '.join(m.get('namespaces', [])) or '-'
+        usings = len(m.get('using_statements', []))
+        stats = m['line_length_stats']
+        error_note = f" ⚠ {m['parse_error']}" if m.get('parse_error') else ""
+
+        result.append(
+            f"| {file_display}{error_note} | {lang} | {lines} | {classes} | {funcs} | "
+            f"{ns} | {usings} | {stats['max']} | {stats['mean']} | {stats['std']} |"
+        )
+
+    result.append("")
     return "\n".join(result)
 
 
-def format_class_markdown(cls: Dict[str, Any]) -> str:
-    """Format class metrics as markdown."""
-    lines = cls['lines']
-    result = [
-        f"#### Class: `{cls['name']}`",
-        f"- **Lines**: {lines['start']}-{lines['end']} ({lines['count']} lines)",
-        f"- **Constructor Parameters**: {cls['constructor_param_count']}",
-        f"- **Method Count**: {cls['method_count']}",
-    ]
-    
-    # Add optional fields
-    if cls.get('access_modifier'):
-        result.append(f"- **Access**: {cls['access_modifier']}")
-    if cls.get('property_count', 0) > 0:
-        result.append(f"- **Property Count**: {cls['property_count']}")
-    if cls.get('is_abstract'):
-        result.append(f"- **Abstract**: Yes")
-    if cls.get('is_static'):
-        result.append(f"- **Static**: Yes")
-    if cls.get('base_classes'):
-        result.append(f"- **Base Classes**: {', '.join(cls['base_classes'])}")
-    if cls.get('interfaces'):
-        result.append(f"- **Interfaces**: {', '.join(cls['interfaces'])}")
-    
-    result.extend([
-        f"- **Line Length Statistics**:",
-        format_line_stats_table(cls['line_length_stats'], "  "),
-        ""
-    ])
-    
-    if cls.get('methods'):
-        result.append("**Methods:**\n")
-        for method in cls['methods']:
-            result.append(format_method_markdown(method, ""))
-            result.append("")
-    
-    return "\n".join(result)
+def format_classes_table(all_metrics: List[Dict[str, Any]]) -> str:
+    """Generate a compact table of all classes."""
+    file_paths = [m['path'] for m in all_metrics]
+    minimal_paths = get_minimal_unique_paths(file_paths)
 
+    rows = []
+    for m in all_metrics:
+        file_display = minimal_paths[m['path']]
+        for cls in m.get('classes', []):
+            inheritance_parts = []
+            if cls.get('base_classes'):
+                inheritance_parts.extend(cls['base_classes'])
+            if cls.get('interfaces'):
+                inheritance_parts.extend(cls['interfaces'])
+            inheritance = ', '.join(inheritance_parts) if inheritance_parts else '-'
 
-def format_file_markdown(file_metrics: Dict[str, Any]) -> str:
-    """Format file metrics as markdown."""
+            flags = []
+            if cls.get('is_abstract'):
+                flags.append('abstract')
+            if cls.get('is_static'):
+                flags.append('static')
+            flags_str = ', '.join(flags) if flags else '-'
+
+            stats = cls['line_length_stats']
+            rows.append({
+                'file': file_display,
+                'name': cls['name'],
+                'lines': cls['lines']['count'],
+                'access': cls.get('access_modifier', '-'),
+                'ctor_params': cls['constructor_param_count'],
+                'methods': cls['method_count'],
+                'props': cls.get('property_count', 0),
+                'inheritance': inheritance,
+                'flags': flags_str,
+                'll_max': stats['max'],
+                'll_mean': stats['mean'],
+                'll_std': stats['std'],
+            })
+
+    if not rows:
+        return ""
+
     result = [
-        f"### File: `{file_metrics['path']}`",
-        f"- **Language**: {file_metrics['language']}",
-        f"- **Total Lines**: {file_metrics['line_count']}",
-        f"- **Classes**: {file_metrics['class_count']}",
-        f"- **Top-level Functions**: {file_metrics['function_count']}",
+        "## Class Overview",
+        "",
+        "| File | Class | Lines | Access | Ctor Params | Methods | Props | Inherits | Flags | LL Max | LL Mean | LL Std |",
+        "| - | - | - | - | - | - | - | - | - | - | - | - |",
     ]
-    
-    # Add optional fields
-    if file_metrics.get('namespaces'):
-        result.append(f"- **Namespaces**: {', '.join(file_metrics['namespaces'])}")
-    if file_metrics.get('using_statements'):
-        result.append(f"- **Using Statements**: {len(file_metrics['using_statements'])}")
-    
-    if file_metrics.get('parse_error'):
-        result.append(f"- **Parse Error**: {file_metrics['parse_error']}")
-    
-    result.extend([
-        f"- **Line Length Statistics**:",
-        format_line_stats_table(file_metrics['line_length_stats'], "  "),
-        ""
-    ])
-    
-    if file_metrics.get('classes'):
-        result.append("#### Classes\n")
-        for cls in file_metrics['classes']:
-            result.append(format_class_markdown(cls))
-    
-    if file_metrics.get('functions'):
-        result.append("#### Top-level Functions\n")
-        for func in file_metrics['functions']:
-            result.append(format_method_markdown(func, ""))
-            result.append("")
-    
+
+    for r in rows:
+        result.append(
+            f"| `{r['file']}` | `{r['name']}` | {r['lines']} | {r['access']} | "
+            f"{r['ctor_params']} | {r['methods']} | {r['props']} | "
+            f"{r['inheritance']} | {r['flags']} | {r['ll_max']} | {r['ll_mean']} | {r['ll_std']} |"
+        )
+
+    result.append("")
     return "\n".join(result)
 
 
@@ -368,32 +346,19 @@ def format_summary_markdown(all_metrics: List[Dict[str, Any]]) -> str:
 
 def format_analysis_markdown(all_metrics: List[Dict[str, Any]]) -> str:
     """Format the complete analysis as markdown."""
-    result = [
+    sections = [
         "# Static Code Analysis Report",
         "",
         format_summary_markdown(all_metrics),
         "",
-        format_methods_table(all_metrics),
+        format_files_table(all_metrics),
         "",
-        "## Detailed File Analysis",
-        ""
+        format_classes_table(all_metrics),
+        "",
+        format_methods_table(all_metrics),
     ]
-    
-    # Group by language for better organization
-    by_language: Dict[str, List[Dict[str, Any]]] = {}
-    for m in all_metrics:
-        lang = m['language']
-        if lang not in by_language:
-            by_language[lang] = []
-        by_language[lang].append(m)
-    
-    for lang in sorted(by_language.keys()):
-        result.append(f"### {lang.title()} Files\n")
-        for file_metrics in by_language[lang]:
-            result.append(format_file_markdown(file_metrics))
-            result.append("\n---\n")
-    
-    return "\n".join(result)
+
+    return "\n".join(sections)
 
 
 @mcp.tool()
