@@ -7,7 +7,7 @@ In this prompt:
 
 # Your mission
 
-Plan the creation of a new operation document for step {step_to_create_doc_for} from {design_log_name}.
+Plan the creation of a new operation document for step {{step_to_create_doc_for}} from {{design_log_name}}.
 
 ## Instructions
 

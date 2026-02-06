@@ -7,7 +7,7 @@ In this prompt:
 
 # Your mission
 
-Sync lessons learned from {operations_list} back to {design_logs_list}.
+Sync lessons learned from {{operations_list}} back to {{design_logs_list}}.
 
 ## Process
 

@@ -8,9 +8,9 @@ In this prompt:
 
 # Your mission
 
-Create a design log for {topic}
+Create a design log for {{topic}}
 
-**Design Log Type:** {design_log_type}
+**Design Log Type:** {{design_log_type}}
 <!-- Options: research, implementation, or both -->
 
 ## Before starting
@@ -21,7 +21,7 @@ Create a design log for {topic}
 
 ## Context
 
-- {additional_context}
+- {{additional_context}}
 
 ## Process
 

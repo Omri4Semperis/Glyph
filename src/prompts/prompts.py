@@ -3,9 +3,38 @@ Consolidated prompts module.
 
 All Glyph prompts (slash commands) in one place.
 """
-from typing import Literal
+from typing import Dict, List, Literal
 from mcp_object import mcp
 from read_an_asset import read_asset
+
+
+def replace_in_prompts(prompt: str, replacements_dict: Dict[str, str]) -> str:
+    """
+    Replace placeholders in a prompt string based on a replacements dictionary.
+
+    Args:
+        prompt: The original prompt string with placeholders
+        replacements_dict: A dictionary mapping placeholders to their replacements
+
+    Returns:
+        The prompt string with placeholders replaced
+    """
+    warnings: List[str] = []
+
+    for k, v in replacements_dict.items():
+        this = "{{" + k + "}}"
+        that = v
+
+        if this not in prompt:
+            warnings.append(f"Placeholder {this} not found in prompt.")
+            continue
+        
+        prompt = prompt.replace(this, that)
+    
+    if warnings:
+        prompt += "\n\n-----WARNING:\n\n" + "\n".join(warnings)
+
+    return prompt
 
 
 def _format_task_display(task_number: str | int) -> str:
@@ -58,12 +87,12 @@ def _load_phase_prompt(
     
     template = read_asset(asset_filename)
     task_display = _format_task_display(task_number)
-    return template.format(
-        phase_number=phase_number,
-        task_display=task_display,
-        operation_document=operation_document,
-        additional_context=additional_context
-    )
+    return replace_in_prompts(template, {
+        "phase_number": str(phase_number),
+        "task_display": task_display,
+        "operation_document": operation_document,
+        "additional_context": additional_context
+    })
 
 
 # =============================================================================
@@ -88,17 +117,17 @@ def create_design_log_prompt(
         The prompt for creating a design log.
     """
     template = read_asset("create_design_log.md")
-    return template.format(
-        topic=topic,
-        design_log_type=design_log_type,
-        additional_context=additional_context or "No additional context provided."
-    )
+    return replace_in_prompts(template, {
+        "topic": topic,
+        "design_log_type": design_log_type,
+        "additional_context": additional_context or "No additional context provided."
+    })
 
 
 @mcp.prompt()
 def create_operation_doc_prompt(
     step_to_create_doc_for: float,
-    design_log_name: str = "Design Log"
+    design_log_name: str
 ) -> str:
     """
     Trigger the creation of an operation document from a design log step.
@@ -111,10 +140,10 @@ def create_operation_doc_prompt(
         The prompt for creating an operation document.
     """
     template = read_asset("create_an_operation_doc.md")
-    return template.format(
-        step_to_create_doc_for=step_to_create_doc_for,
-        design_log_name=design_log_name
-    )
+    return replace_in_prompts(template, {
+        "step_to_create_doc_for": str(step_to_create_doc_for),
+        "design_log_name": design_log_name
+    })
 
 
 # =============================================================================
@@ -206,11 +235,11 @@ def code_review_prompt(
         The code review prompt.
     """
     template = read_asset("code_review.md")
-    return template.format(
-        operation_name=operation_name,
-        design_log_name=design_log_name,
-        additional_context=additional_context
-    )
+    return replace_in_prompts(template, {
+        "operation_name": operation_name,
+        "design_log_name": design_log_name,
+        "additional_context": additional_context
+    })
 
 
 @mcp.prompt()
@@ -229,10 +258,10 @@ def sync_lessons_learned_prompt(
         The sync lessons learned prompt.
     """
     template = read_asset("sync_lessons_learned.md")
-    return template.format(
-        operations_list=operations_list,
-        design_logs_list=design_logs_list
-    )
+    return replace_in_prompts(template, {
+        "operations_list": operations_list,
+        "design_logs_list": design_logs_list
+    })
 
 
 # =============================================================================

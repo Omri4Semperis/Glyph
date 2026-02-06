@@ -8,12 +8,12 @@ In this prompt:
 
 # Your mission
 
-Perform a code review of operation: {operation_name}. You may use Glyph's static code analysis tool to get some data about given files.
+Perform a code review of operation: {{operation_name}}. You may use Glyph's static code analysis tool to get some data about given files.
 
 ## Additional References
 
-- {design_log_name}
-- {additional_context}
+- {{design_log_name}}
+- {{additional_context}}
 
 ## Review Checklist
 
