@@ -6,7 +6,7 @@ from ._utils import add_document, validate_absolute_path
 @mcp.tool()
 def add_operation(abs_path: str, title: str) -> GlyphMCPResponse[None]:
     """
-    Add a new operation document file in the operations directory.
+    Add a new operation document file in the operations directory
     
     Prerequisite: Read the operation rules.
     

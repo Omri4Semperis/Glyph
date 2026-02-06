@@ -10,13 +10,13 @@
 
 The phases overview must include two elements:
 
-1) A summary table with these columns: **Phase**, **# Tasks**, **Max Difficulty**, **Description**. Fill the table with each phase's number, how many tasks it contains, the maximal difficulty (Breezy|Low|Medium|High|Nightmare) among its tasks, and a short description of the phase goal.
+1) A summary table with these columns: **Phase**, **# Tasks**, **Difficulties**, **Description**. Fill the table with each phase's number, how many tasks it contains, a comma-separated list of each task's difficulty (Breezy|Low|Medium|High|Nightmare), and a short description of the phase goal.
 
 Example table:
 
-| Phase | # Tasks | Max Difficulty | Description |
+| Phase | # Tasks | Difficulties | Description |
 | - | - | - | - |
-| Phase 1 | 2 | Medium | Implement client-side validation and unit tests |
+| Phase 1 | 2 | Medium, Low | Implement client-side validation and unit tests |
 | Phase 2 | 1 | Low | Update docs and add examples |
 
 2) A DAG showing dependencies at the phase and task level. Use a Mermaid `flowchart` (top-down) and group tasks under phase subgraphs. Label task nodes as `P{phase}/T{task}` (e.g., `P1/T1`). Example:

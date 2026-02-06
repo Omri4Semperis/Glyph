@@ -59,7 +59,7 @@ Once a template has been created for an operation using one of the MCP's tools, 
 Phases Overview Requirements:
 
 - The `Phases overview` section of an operation **must** include two elements:
-  1. A markdown table summarizing phases with columns: **Phase**, **# Tasks**, **Max Difficulty**, **Description**. The **Max Difficulty** is the highest `Task Difficulty` among tasks in that phase (Breezy|Low|Medium|High|Nightmare).
+  1. A markdown table summarizing phases with columns: **Phase**, **# Tasks**, **Difficulties**, **Description**. The **Difficulties** column lists each task's individual difficulty (Breezy|Low|Medium|High|Nightmare) as a comma-separated list (e.g., `Medium, Low, Medium`).
   2. A DAG showing dependencies at the phase and task level. Use a Mermaid `flowchart` with phase `subgraph`s and task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`). This graph must show ordering and cross-phase/task dependencies.
 
 These two elements give both a concise tabular summary and an explicit visual dependency map to help planning and verification.

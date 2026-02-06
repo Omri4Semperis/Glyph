@@ -29,3 +29,7 @@ The operation document's Background section must be comprehensive, exhaustive an
 - Describe how testing and validation will scale with the difficulty (e.g., baseline build/tests for Breezy/Low, unit+integration for Medium, broader integration/manual testing for High/Nightmare).
 
 The operation document must reflect these difficulty assignments in its phases and tasks so implementers know expected scope and verification effort.
+
+6. In your phases overview, include both:
+   - A markdown table with columns: **Phase**, **# Tasks**, **Difficulties**, **Description**. The **Difficulties** column must list each task's individual difficulty as a comma-separated list (e.g., `High, Medium, Low`).
+   - A DAG (Mermaid flowchart) showing phase and task dependencies with task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`, `P2/T1`).
