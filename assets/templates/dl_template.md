@@ -55,6 +55,12 @@ A: [User's answer]
 
 [Break down the work into phases. For implementation: describe implementation phases. For research: describe research phases (literature review, data collection, analysis, synthesis). If more details are required, create one or more operation markdown documents using Glyph's tool.]
 
+### Step Difficulty
+
+**Difficulty:** Read: [X/10] | Write: [X/10] | Logic: [X/10] | **Average: [X.X/10]**
+
+[Add this section after every step to evaluate the complexity of the step in terms of reading, writing, and logic.]
+
 ## Examples
 
 [Implementation only: Show good and bad coding patterns with code examples. For research: provide example data, analysis outputs, or findings. Remove this section if not applicable.]

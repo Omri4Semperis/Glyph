@@ -28,7 +28,12 @@ Create a design log for <topic>
 3. **Ask questions**: List unknowns that need answers before proceeding
 4. **Research options**: For research logs, explore alternatives and trade-offs
 5. **Design solution**: For implementation logs, detail the architecture and plan
-6. **Create the log**: Use Glyph's `add_design_log` tool to create the file, then populate it
+6. **Evaluate step difficulty**: After each step, assess the difficulty using the following metrics:
+   - **Read**: How much context is involved (e.g., number of files/lines)?
+   - **Write**: How much new/modified code is required?
+   - **Logic**: How complex and demanding is the step to implement?
+   - **Average**: Calculate the average difficulty.
+7. **Create the log**: Use Glyph's `add_design_log` tool to create the file, then populate it
 
 ## When creating the log
 
