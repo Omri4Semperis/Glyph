@@ -34,7 +34,7 @@ Glyph is a Model Context Protocol (MCP) server designed to help developers organ
      "args": [
        "run",
        "--directory",
-       "C:\\Users\\YourUsername\\OneDrive - Semperis\\Desktop\\Glyph\\src",
+       "C:\\Path\\To\\the\\src\\dir\\inside\\Glyph\\src",
        "python",
        "server.py"
      ]
