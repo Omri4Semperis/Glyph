@@ -1,35 +1,51 @@
-# Design Log: [Feature/Research Topic Name]
+# Design Log: [Title]
 
-**Date:** [YYYY-MM-DD]
-**Author:** Glyph AI Assistant
-**Type:** [Research | Implementation | Both]
-**Related Logs:** [Link to related design logs, if any]
+- **Date:** [YYYY-MM-DD]
+- **Author:** Glyph AI Assistant
+- **Type:** [Research | Implementation | Both]
+- **Related Logs:** [Link to related design logs, operations docs, artifacts (if any)]
 
 ---
-**Note**: This is a general template, which can be adapted for both research and implementation design logs. Depending on the type, some sections may be omitted or modified. You may also add sections as needed for the specific work. Remove this comment if not needed anymore.
+**Note**: This is a general template, which can be adapted for both research and implementation design logs. Depending on the type and specific goal, some sections may be omitted, modified or added. Remove this comment when not needed anymore.
 ---
 
 ## Background
 
-[Provide context about the current state of the system, why this feature/research is needed, and any relevant history. For research: include what is currently known and unknown. For implementation: describe the current system state.]
+### context
 
-## Problem
+[Provide context about the current state of the system and any relevant history. For research: include what is currently known and unknown. For implementation: describe the current system state.]
+
+### Problem
 
 [Clearly state what problem you're trying to solve or what you need to understand. For research: frame as questions to answer or hypotheses to validate. For implementation: specify requirements and constraints.]
 
 ## Questions and Answers
 
-[AI assistant will ask questions here. Add answers below each question. Keep questions even after answering - they provide valuable context.]
+> Keep questions even after answering - they provide valuable context.
+
+[After having established the context and problem, the AI assistant will add questions here and **pause** to let the user answer them. The AI will wait for user confirmation before continuing with the rest of the document. If possible, each question should have suggested answers to help guide the user.]
+
+> **Note to AI**: After populating this section with questions, STOP and explicitly ask the user to answer the questions and notify you when ready to continue.
 
 **Q: [Question from AI assistant]**
-A: [User will provide the answer here]
+A: [Leave empty or provide a few answers for the user to choose from]
 
-**Q: [Another question]**
-A: [User's answer]
+**Q: [...]**
+A: [...]
 
-## Design
+[More Q&As as needed]
 
-[For implementation: Describe the proposed solution in detail. Include file paths, type signatures, data structures, API endpoints, etc. For research: Describe the research methodology, data sources, analysis approach, etc. Remove subsections below that are not applicable.]
+---
+**⏸️ PAUSE POINT**: The AI assistant will stop here and wait for the user to answer the questions above before continuing to populate the sections below.
+---
+
+## Further analysis
+
+[Following the answers in the Q&A section, the AI assistant may need to perform further analysis to clarify the problem, explore alternatives, or refine the design. This section can include additional research, data analysis, or technical exploration as needed. It is also possible to remove this section if no further analysis is needed after the Q&A phase.]
+
+## Decided approach
+
+[For implementation: Describe the proposed solution in detail. The level of details should be such that a senior developer could understand and implement it- even if they had to make some decisions on their own. Include file paths, type signatures, data structures, API endpoints, charts and diagrams etc. For research: Describe the research methodology, data sources, analysis approach, etc.]
 
 ### Architecture / Research Design
 
@@ -47,40 +63,62 @@ A: [User's answer]
 
 [Implementation only: Where will new/modified files live? Remove this section if not applicable.]
 
-### Type Signatures
+### Key Type Signatures
 
 [Implementation only: If using TypeScript or similar, include type definitions. Remove this section if not applicable.]
 
-## Plan
-
-[Break down the work into phases. For implementation: describe implementation phases. For research: describe research phases (literature review, data collection, analysis, synthesis). If more details are required, create one or more operation markdown documents using Glyph's tool.]
-
-### Step Difficulty
-
-**Difficulty:** Read: [X/10] | Write: [X/10] | Logic: [X/10] | **Average: [X.X/10]**
-
-[Add this section after every step to evaluate the complexity of the step in terms of reading, writing, and logic.]
-
-## Examples
+### Examples
 
 [Implementation only: Show good and bad coding patterns with code examples. For research: provide example data, analysis outputs, or findings. Remove this section if not applicable.]
 
-## Trade-offs
+### Trade-offs
 
 [Discuss alternatives considered and why you chose this approach. For implementation: technical trade-offs, architecture choices. For research: methodology choices, data source trade-offs, analysis approach alternatives.]
 
 ## Verification Criteria
 
-[How do we know this work solves the original problem? For implementation: list acceptance criteria, test requirements, performance targets. For research: define what answers the research questions, validation methods for findings.]
+[What would it take to consider this design log's work "done"? For implementation: list acceptance criteria, test requirements, performance targets. For research: define what answers the research questions, validation methods for findings.]
 
-### Learnings
+## Plan
 
-*[To be documented during implementation]*
+[Break down the work into phases, and group phases by topic. For implementation: describe implementation phases. For research: describe research phases (literature review, data collection, analysis, synthesis). This should be a high-level plan, not a detailed task list. If it's critical to have more than just a couple of sentence- include an artifact file and refer to it in the step itself. Remove this section if not applicable.]
+
+**Steps overview**:
+[A table grouping steps by topic and showing basic info about each step]
+
+| Topic | Step | Status | Title | Read effort | Write effort | Logic effort | Average effort |
+| - | - | - | - | - | - | - | - |
+| [Topic 1] | S1 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 1] | [X/10] | [X/10] | [X/10] | [X.X/10] |
+| [Topic 1] | S2 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 2] | [X/10] | [X/10] | [X/10] | [X.X/10] |
+| [Topic 2] | S3 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 3] | [X/10] | [X/10] | [X/10] | [X.X/10] |
+
+### Step 1: [Title of Step 1]
+
+- Status: ✅/⚠️/❌/⏳
+- Effort: Read: [X/10] | Write: [X/10] | Logic: [X/10] | Average: [X.X/10]
+- In a nutshell: [1 short sentence describing the step]
+- References: [Links to relevant design logs, operations docs, artifacts, code files, research papers, etc. May be left empty before implementation/planning of this step starts]
+
+#### Step 1 details
+
+[High level details about the step, including what needs to be done, how it should be done, and any relevant information. For implementation: include technical details, file paths, type signatures, data structures, API endpoints, charts and diagrams etc. For research: describe research activities, data sources, analysis approach, etc.]
+
+#### Step 1 comments from other locations
+
+[If there are relevant comments from other design logs, operations docs, code reviews, steps, etc. that provide context or information for this step, they can be included here. This is especially useful if the step is related to or dependent on work done in other places.]
+
+#### Step 1 lessons learned from this step that are only relevant as context for looking into this step in the future
+
+[When implementing this step, there may be specific insights, challenges, or decisions that are particularly relevant for anyone looking at this step in the future. This section can be used to document those lessons learned, which can provide valuable context and guidance for future work related to this step.]
+
+### Step 2: [Title of Step 2]
+
+[etc. etc.]
+
+### Learnings from all steps
+
+[Lessons learned/important actions taken during the implementation of the steps that are relevant for the overall design log and not just for a specific step. This can include insights about the problem, the solution, the process, or any other aspect that is important to document for future reference.]
 
 ### Deviations from Original Plan
 
-*[To be documented]*
-
-### Final Results
-
-*[To be documented]*
+[Document any significant deviations from the original plan, including changes in approach, unexpected challenges, or new insights that led to adjustments in the design or implementation. This section helps provide context for why certain decisions were made and how the final outcome may differ from the initial plan.]

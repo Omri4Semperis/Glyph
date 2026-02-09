@@ -1,3 +1,7 @@
+Design logs are meant to be written such that a senior developer could understand and implement the design based on the information provided, even if they had to make some decisions on their own. This means that design logs should include specific details such as file paths, type signatures, data structures, API endpoints, charts and diagrams when relevant. The goal is to provide enough information for someone to implement the design without needing to ask too many follow-up questions.
+
+When creating an operation doc out of a plan step in this design log, you should consider all information in this design log- including background, Q&A, decisions etc, and even the lessons learned section at the bottom.
+
 # Design Log Methodology Rules
 
 The project follows a rigorous design log methodology for all significant features and architectural changes.
@@ -10,12 +14,36 @@ The project follows a rigorous design log methodology for all significant featur
 
 ## When Creating Design Logs
 
-1. **Structure**: Background → Problem → Questions and Answers → Design → Implementation Plan → Examples → Trade-offs
+### Two-Phase Creation Process
+
+Design logs are created in **two phases** with a user input pause in between:
+
+**Phase 1: Initial Creation (Stop at Q&A)**
+1. **Create the file** using the `add_design_log` tool
+2. **Populate through Q&A section**:
+   - Background (context)
+   - Problem statement
+   - Questions and Answers section with your questions
+3. **STOP and wait for user** to answer the questions
+4. **Explicitly instruct the user**: Tell them you've added questions in the Q&A section and ask them to answer the questions and notify you when ready
+
+**Phase 2: Complete the Document (After User Answers)**
+5. **Resume after user confirmation** that questions are answered
+6. **Complete remaining sections**:
+   - Further analysis (if needed based on answers)
+   - Decided approach (architecture/research design)
+   - Verification criteria
+   - Plan (with step breakdown and difficulty ratings)
+   - Examples, trade-offs, etc.
+
+### Content Guidelines
+
+1. **Structure**: Background → Problem → Questions and Answers → Further Analysis → Decided Approach → Verification Criteria → Plan
 2. **Be specific**: Include file paths, type signatures, validation rules
 3. **Show examples**: Use ✅/❌ for good/bad patterns, include realistic code
 4. **Explain why**: Don't just describe what, explain rationale and trade-offs
-5. **Ask Questions (in the file)**: For anything that is not clear, or missing information
-6. **When answering question**: keep the questions, just add answers
+5. **Ask Questions (in the file)**: For anything that is not clear, or missing information - these questions should be targeted and relevant to design decisions
+6. **When answering question**: keep the questions, just add answers (this happens during the pause between Phase 1 and Phase 2)
 7. **Be brief**: write short explanations and only what most relevant
 8. **Draw Diagrams**: Use mermaid inline diagrams when it makes sense
 9. **Define verification criteria**: how do we know the implementation solves the original problem
