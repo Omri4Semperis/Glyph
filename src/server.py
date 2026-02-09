@@ -15,12 +15,13 @@ if __name__ == "__main__":
 
         # Skills/Knowledge (consolidated)
         from skills.knowledge import (
-            get_glyph_overview,
-            get_principles,
+            get_skill,
             get_example,
-            read_asset_exact,
-            
+            get_template,
         )
+        
+        # Asset reading
+        from read_an_asset import read_asset_exact
 
         # Tools (action tools)
         from tools.init_assistant_dir import init_assistant_dir
