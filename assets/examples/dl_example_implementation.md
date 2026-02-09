@@ -96,9 +96,11 @@ Add "Export to CSV" button that:
 
 > These questions were asked by the AI assistant during the planning phase and answered by the user/product owner to guide the implementation.
 
-**Q: Should the export respect the current filters and sorting, or export all data?**
+### Q1
 
-**A:** Absolutely. The export should mirror the current table view exactly, including all active filters, sorting, column visibility settings, and pagination state. This ensures consistency between what users see on screen and what they receive in their export. We've seen confusion in similar products where exports didn't match the displayed view, leading to data integrity concerns.
+**Q1: Should the export respect the current filters and sorting, or export all data?**
+
+**A1:** Absolutely. The export should mirror the current table view exactly, including all active filters, sorting, column visibility settings, and pagination state. This ensures consistency between what users see on screen and what they receive in their export. We've seen confusion in similar products where exports didn't match the displayed view, leading to data integrity concerns.
 
 | Table State Element | Include in Export | Reasoning |
 | - | - | - |
@@ -109,9 +111,11 @@ Add "Export to CSV" button that:
 | **Search Highlights** | ❌ No | Cosmetic styling not needed in CSV |
 | **Row Selection** | ❌ No | Exports filtered data, not just selected rows |
 
-**Q: What's the maximum dataset size we need to support?**
+### Q2
 
-**A:** Based on our current data analysis, the largest dataset in production is approximately 80k rows, but we need to plan for growth. Setting the target at 100k rows provides a 25% buffer for future expansion. This aligns with industry standards for web-based data exports and ensures we can handle enterprise-scale datasets without performance degradation.
+**Q2: What's the maximum dataset size we need to support?**
+
+**A2:** Based on our current data analysis, the largest dataset in production is approximately 80k rows, but we need to plan for growth. Setting the target at 100k rows provides a 25% buffer for future expansion. This aligns with industry standards for web-based data exports and ensures we can handle enterprise-scale datasets without performance degradation.
 
 ```mermaid
 graph LR

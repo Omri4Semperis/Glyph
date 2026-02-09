@@ -28,11 +28,15 @@
 
 > **Note to AI**: After populating this section with questions, STOP and explicitly ask the user to answer the questions and notify you when ready to continue.
 
-**Q: [Question from AI assistant]**
-A: [Leave empty or provide a few answers for the user to choose from]
+### Q1
 
-**Q: [...]**
-A: [...]
+**Q1: [Question from AI assistant]**
+A1: [Leave empty or provide a few answers for the user to choose from]
+
+### Q2
+
+**Q2: [Question from AI assistant]**
+A2: [Leave empty or provide a few answers for the user to choose from]
 
 [More Q&As as needed]
 
