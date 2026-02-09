@@ -1,4 +1,4 @@
-# Code Review Report: [Feature/Module Name]
+# Code Review Report: [What's being reviewed]
 
 > **CRITICAL: Issue Consistency Rule**
 >
@@ -7,9 +7,13 @@
 > - ✅ Good/Pass - No action needed
 > - OR it's a tracked issue: `[issue_X emoji]` where emoji = ❌ Blocking, ⚠️ Important, ℹ️ Optional, 🦋 Cosmetic
 >
+> For example, if a severe issue is found in code quality, it should be tagged as "[issue_7 ❌]" in the Code Quality section, then also appear in the Bottom Line table with the same tag, be counted in the Executive Summary, and have a recommendation in the Recommendations section.
+>
 > **NO standalone warnings, concerns, or recommendations without issue tracking.**
 >
 > Every issue MUST appear in: (1) First mention in detailed sections, (2) Bottom Line table, (3) Summary Table Status column, (4) Executive Summary count, (5) Recommendations section.
+>
+> [Remove this note when review is done and all issues are tracked consistently]
 
 ## Basic Data
 
@@ -20,8 +24,6 @@
 - **Operation Document:** [Link to operation document if applicable]
 - **Additional References:** [PR link, commit hash, requirements document, etc.]
 
----
-
 ## Detailed Review
 
 ### 1. Functionality Review
@@ -30,14 +32,14 @@
 
 | Requirement | Status | Evidence |
 | - | - | - |
-| [Requirement 1] | ✅ | [Specific reference to implementation or test] |
-| [Requirement 2] | ✅ or [issue_X emoji] | [Specific reference to implementation or test] |
-| [Requirement 3] | ✅ or [issue_X emoji] | [Specific reference to implementation or test] |
+| [Req 1] | ✅ or [issue_X emoji] | [Specific reference to implementation or test] |
+| [Req 2] | ✅ | [Specific reference to implementation or test] |
+| [Req 3] | ✅ | [Specific reference to implementation or test] |
 
 #### [Optional: Feature Flow Diagram]
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Start] --> B[Step 1]
     B --> C[Step 2]
     C --> D[End]
@@ -54,12 +56,12 @@ flowchart TD
 1. **[Deviation 1]:** [Description]
    - **Reason:** [Why the deviation was necessary]
    - **Documentation:** [Where is this documented]
-   - **Assessment:** ✅ Acceptable / ⚠️ Needs discussion / ❌ Should not have been made
+   - **Assessment:** ✅ / ⚠️ / ❌
 
 2. **[Deviation 2]:** [Description]
    - **Reason:** [Why the deviation was necessary]
    - **Documentation:** [Where is this documented]
-   - **Assessment:** ✅ Acceptable / ⚠️ Needs discussion / ❌ Should not have been made
+   - **Assessment:** ✅ / ⚠️ / ❌
 
 ### 2. Code Quality Review
 
@@ -91,9 +93,9 @@ flowchart TD
 
 #### Project Conventions & Patterns
 
-- **Naming conventions:** ✅ or [issue_X emoji] [Assessment]
-- **Code structure:** ✅ or [issue_X emoji] [Assessment]
-- **Architecture compliance:** ✅ or [issue_X emoji] [Assessment]
+- **Naming conventions:** ✅ [Assessment]
+- **Code structure:** ✅ [Assessment]
+- **Architecture compliance:** ✅ [Assessment]
 
 #### [Optional: Module Architecture Diagram]
 
@@ -101,29 +103,12 @@ flowchart TD
 graph LR
     A[Module A] -->|dependency| B[Module B]
     B -->|uses| C[Module C]
-    
-    style A fill:#fff4e1
-    style B fill:#e1f5ff
-    style C fill:#e1f5ff
 ```
 
 #### Code Readability & Structure
 
-**Positive Observations:**
-
-- [Observation 1]
-- [Observation 2]
-- [Observation 3]
-
-**Issues (if any):**
-
-- [issue_1 ⚠️] **[Issue Title]** at [Location]
-  - **Details:** [Description of the issue]
-  - **Recommendation:** [Suggested fix]
-
-- [issue_2 ⚠️] **[Issue Title]** at [Location]
-  - **Details:** [Description of the issue]
-  - **Recommendation:** [Suggested fix]
+- ✅ or [issue_X emoji] [Observation 1]
+- ✅ or [Observation 2]
 
 #### Inline Comments & Documentation
 
@@ -134,23 +119,15 @@ graph LR
 #### Error Handling
 
 - **Try/Catch Blocks:** ✅ or [issue_X emoji] [Assessment]
-- **Error Messages:** ✅ or [issue_X emoji] [Assessment]
-- **Error Recovery:** ✅ or [issue_X emoji] [Assessment]
-- **Edge Case Errors:** ✅ or [issue_X emoji] [Assessment]
-
-**Issues (if any):**
-
-- [issue_X ⚠️] **[Error Handling Issue]** at [Location]
-  - **Details:** [What could fail and how it's handled]
-  - **Recommendation:** [Suggested improvement]
+- **Error Messages:** ✅ [Assessment]
+- **Error Recovery:** ✅ [Assessment]
+- **Edge Case Errors:** ✅ [Assessment]
 
 #### Logging
 
 - **Log Coverage:** ✅ or [issue_X emoji] [Assessment]
-- **Log Levels:** ✅ or [issue_X emoji] [Assessment]
-- **Sensitive Data:** ✅ or [issue_X emoji] [Assessment]
-
----
+- **Log Levels:** ✅ [Assessment]
+- **Sensitive Data:** ✅ [Assessment]
 
 ### 3. Testing Review
 
@@ -179,11 +156,6 @@ graph TB
     
     T1 -->|X tests| S1
     T2 -->|Y tests| S2
-    
-    style T1 fill:#d4edda
-    style T2 fill:#d4edda
-    style S1 fill:#cce5ff
-    style S2 fill:#cce5ff
 ```
 
 #### Integration Tests
@@ -215,14 +187,6 @@ graph TB
 - **Test Clarity:** ✅ or [issue_X emoji] [Assessment]
 - **Test Independence:** ✅ or [issue_X emoji] [Assessment]
 
-**Issues (if any):**
-
-- [issue_X ⚠️] **[Testing Issue]** at [Location]
-  - **Details:** [What's concerning about the tests]
-  - **Recommendation:** [Suggested improvement]
-
----
-
 ### 4. Documentation Review
 
 #### Code and Documentation Alignment
@@ -235,25 +199,17 @@ graph TB
 | README | [Link if applicable] | ✅ Updated or [issue_X emoji] | [Brief note] |
 | Inline Docs | Source files | ✅ Complete or [issue_X emoji] | [Brief note] |
 
-#### Relevant External Documentation
+#### External Documentation
 
-- **[Documentation Type 1]:** [Assessment and findings]
-- **[Documentation Type 2]:** [Assessment and findings]
-- **[Documentation Type 3]:** [Assessment and findings]
-
-**Issues (if any):**
-
-- [issue_X ⚠️] **[Documentation Issue]** - [Document/Section]
-  - **Details:** [What's missing or incorrect]
-  - **Recommendation:** [Suggested action]
+- **[Documentation Type 1]:** ✅ or [issue_X emoji] [Assessment and findings]
+- **[Documentation Type 2]:** ✅ or [issue_X emoji] [Assessment and findings]
+- **[Documentation Type 3]:** ✅ or [issue_X emoji] [Assessment and findings]
 
 #### Lessons Learned Documentation
 
 - **In Design Log:** ✅ Documented or [issue_X emoji] [Details]
 - **In Operation Document:** ✅ Documented or [issue_X emoji] [Details]
 - **Should lessons be propagated to other projects?** ✅ Yes / No - [Reasoning]
-
----
 
 ### 5. Performance & Security Review
 
@@ -273,10 +229,6 @@ graph TB
 graph LR
     A[Small load<br/>Xms] --> B[Medium load<br/>Yms]
     B --> C[Large load<br/>Zms]
-    
-    style A fill:#d4edda,stroke:#28a745
-    style B fill:#d4edda,stroke:#28a745
-    style C fill:#d4edda,stroke:#28a745
 ```
 
 **Performance Assessment:**
@@ -301,11 +253,11 @@ graph LR
 - ✅ Secure or [issue_X emoji]
 - [Assessment of how sensitive data is handled]
 
-**Security Observations:**
+**Security Findings:**
 
-- ✅ [Positive security finding]
-- ✅ [Positive security finding]
-- [issue_X emoji] [Security concern or recommendation]
+- ✅ or [issue_X emoji] [Security finding 1]
+- ✅ or [Security finding 2]
+- ✅ or [Security finding 3]
 
 ### 6. Lessons Learned
 
@@ -331,48 +283,46 @@ graph LR
 
 | Issue # | Category | Location(s) | Origin | Severity | Recommendation |
 | - | - | - | - | - | - |
-| 1 | [Category] | [File/Method] | [DL or OP reference] | ❌ Blocking / ⚠️ Important / ℹ️ Optional / 🦋 Cosmetic | [Action - 4 words max] |
-| 2 | [Category] | [File/Method] | [DL or OP reference] | ❌ Blocking / ⚠️ Important / ℹ️ Optional / 🦋 Cosmetic | [Action - 4 words max] |
-| 3 | [Category] | [File/Method] | [DL or OP reference] | ❌ Blocking / ⚠️ Important / ℹ️ Optional / 🦋 Cosmetic | [Action - 4 words max] |
-
----
+| issue_1 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
+| issue_2 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
+| issue_3 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
 
 ## Summary Table
 
 | Aspect | Status | Details |
 | - | - | - |
-| **Functionality** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary] |
-| **Code Quality** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary] |
-| **Architecture** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary] |
-| **Test Coverage** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary] |
-| **Documentation** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary] |
-| **Performance** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary, if reviewed] |
-| **Security** | ✅ Pass or ⚠️ Warning [issue_X emoji, issue_Y emoji] or ❌ Blocking [issue_X emoji] | [One sentence summary, if reviewed] |
-
----
+| **Functionality** | ✅ / ⚠️ / ❌ | [One sentence summary, including which issue_X caused it] |
+| **Code Quality** | ✅ / ⚠️ / ❌ | [One sentence summary] |
+| **Architecture** | ✅ / ⚠️ / ❌ | [One sentence summary] |
+| **Test Coverage** | ✅ / ⚠️ / ❌ | [One sentence summary] |
+| **Documentation** | ✅ / ⚠️ / ❌ | [One sentence summary] |
+| **Performance** | ✅ / ⚠️ / ❌ | [One sentence summary] |
+| **Security** | ✅ / ⚠️ / ❌ | [One sentence summary] |
 
 ## Executive Summary
 
 Overall [good/acceptable/poor] implementation with [X] identified issues.
 
-### ❌ [X] Blocking Issues (Must fix before merge)
+### ❌ Blocking Issues (Must fix before merge)
 
 - **issue_X:** [One-line description]
 - **issue_Y:** [One-line description]
 
-### ⚠️ [Y] Important Issues (Recommended)
+### ⚠️ Important Issues (Recommended)
 
 - **issue_X:** [One-line description]
 - **issue_Y:** [One-line description]
 - **issue_Z:** [One-line description]
 
-### ℹ️ [Z] Optional Issues (Nice-to-have)
+### ℹ️ Optional Issues (Nice-to-have)
+
+- **issue_X:** [One-line description]
+
+### 🦋 Cosmetic Issues (Minor)
 
 - **issue_X:** [One-line description]
 
 **Conclusion**: [Summary of what must be done before merge and what should be follow-up work]
-
----
 
 ## Recommendations
 
@@ -391,11 +341,9 @@ Overall [good/acceptable/poor] implementation with [X] identified issues.
 
 1. [Action for issue_X] (issue_X)
 
-**Note:** [If there are many issues] A more detailed action plan should be created and addressed.
+> **Note:** Only show specific recommendations to resolve issues if the solutions are easy to do. If there are many issues or they're complex- then suggest to the user to create a more detailed action plan (operation). Remove this note when done.
 
----
-
-## Consistency Checklist
+## Consistency Checklist [Remove when review is done]
 
 Before finalizing this review, verify:
 
