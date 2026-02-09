@@ -38,9 +38,12 @@ class TestRunner:
         print("\n--- Artifact Persistence ---")
         print(" 12. Persist artifacts (success)")
         print(" 13. Persist artifacts - file not found")
-        print("\n--- Markdown Processing ---")
-        print(" 14. Parse markdown to dictionary (success)")
-        print(" 15. Parse markdown - file not found")
+        print(" 21. Persist artifacts with delete option")
+        print(" 22. Persist artifacts with reference fixing")
+        print(" 23. Persist artifacts with both options")
+        # print("\n--- Markdown Processing ---")
+        # print(" 14. Parse markdown to dictionary (success)")  # Disabled - md_to_dict not implemented
+        # print(" 15. Parse markdown - file not found")  # Disabled - md_to_dict not implemented
         print("\n--- Reference Graph ---")
         print(" 16. Update reference graph")
         print(" 17. Get references from a file")

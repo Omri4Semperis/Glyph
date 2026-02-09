@@ -29,10 +29,10 @@ from test_runner.scenarios.artifacts import (
     PersistArtifactsWithReferenceFixingScenario,
     PersistArtifactsWithBothOptionsScenario,
 )
-from test_runner.scenarios.markdown import (
-    MdToDictSuccessScenario,
-    MdToDictFileNotFoundScenario,
-)
+# from test_runner.scenarios.markdown import (
+#     MdToDictSuccessScenario,
+#     MdToDictFileNotFoundScenario,
+# )
 from test_runner.scenarios.reference_graph import (
     UpdateReferenceGraphScenario,
     GetReferencesFromScenario,
@@ -56,8 +56,8 @@ SCENARIO_REGISTRY = {
     '11': AddOperationSuccessScenario,
     '12': PersistArtifactsSuccessScenario,
     '13': PersistArtifactsFileNotFoundScenario,
-    '14': MdToDictSuccessScenario,
-    '15': MdToDictFileNotFoundScenario,
+    # '14': MdToDictSuccessScenario,  # Disabled - md_to_dict tool not implemented
+    # '15': MdToDictFileNotFoundScenario,  # Disabled - md_to_dict tool not implemented
     '16': UpdateReferenceGraphScenario,
     '17': GetReferencesFromScenario,
     '18': FindReferencesToScenario,

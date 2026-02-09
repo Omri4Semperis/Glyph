@@ -11,7 +11,7 @@ from ._utils import validate_absolute_path, sanitize_title
 
 
 @mcp.tool()
-def create_code_review(
+def add_code_review(
     abs_path: str,
     what_is_being_reviewed: str = "Feature/Module Name",
     design_log: str = "N/A",

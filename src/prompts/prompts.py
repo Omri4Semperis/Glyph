@@ -109,7 +109,7 @@ def _load_phase_prompt(
 # =============================================================================
 
 @mcp.prompt()
-def create_design_log_prompt(
+def create_design_log(
     topic: str,
     design_log_type: Literal["research", "implementation", "both"] = "both",
     additional_context: str = "Nothing specific, but feel free to read more files"
@@ -134,7 +134,7 @@ def create_design_log_prompt(
 
 
 @mcp.prompt()
-def create_operation_doc_prompt(
+def create_operation_doc(
     step_to_create_doc_for: int | float | str,
     design_log_name: str
 ) -> str:
@@ -160,7 +160,7 @@ def create_operation_doc_prompt(
 # =============================================================================
 
 @mcp.prompt()
-def planning_prompt(
+def plan_phase_or_task(
     phase_number: int | float,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
@@ -192,7 +192,7 @@ def planning_prompt(
 
 
 @mcp.prompt()
-def implementation_prompt(
+def implement_phase_or_task(
     phase_number: int | float,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
@@ -228,7 +228,7 @@ def implementation_prompt(
 # =============================================================================
 
 @mcp.prompt()
-def code_review_prompt(
+def perform_code_review(
     what_is_being_reviewed: str = "No name provided",
     design_log_name: str = "No design log provided",
     additional_context: str = "Nothing specific, but feel free to read more files"
@@ -253,7 +253,7 @@ def code_review_prompt(
 
 
 @mcp.prompt()
-def sync_lessons_learned_prompt(
+def sync_lessons_learned(
     operations_list: str = "Please specify operation document paths",
     design_logs_list: str = "Design logs will be auto-detected from operation references"
 ) -> str:
@@ -279,7 +279,7 @@ def sync_lessons_learned_prompt(
 # =============================================================================
 
 @mcp.prompt()
-def compact_conversation_prompt() -> str:
+def compact_conversation() -> str:
     """
     Summarize a long conversation for context transfer to a new session.
 
