@@ -1,14 +1,14 @@
 In this prompt:
 
-<topic> = {{topic}}
-<design_log_type> = {{design_log_type}}
-<additional_context> = {{additional_context}}
+[topic] = {{topic}}
+[design_log_type] = {{design_log_type}}
+[additional_context] = {{additional_context}}
 
 # Your mission
 
-Create a design log for <topic>
+Create a design log for [topic]
 
-**Design Log Type:** <design_log_type>
+**Design Log Type:** [design_log_type]
 <!-- Options: research, implementation, or both -->
 
 ## Before starting
@@ -19,7 +19,7 @@ Create a design log for <topic>
 
 ## Context
 
-- <additional_context>
+- [additional_context]
 
 ## Process
 
@@ -33,7 +33,7 @@ Create a design log for <topic>
    - **Write**: How much new/modified code is required?
    - **Logic**: How complex and demanding is the step to implement?
    - **Average**: Calculate the average difficulty.
-7. **Create the log (Phase 1 - Initial Creation)**: 
+7. **Create the log (Phase 1 - Initial Creation)**:
    - Use Glyph's `add_design_log` tool to create the file
    - Populate the following sections:
      - Background (context and problem)

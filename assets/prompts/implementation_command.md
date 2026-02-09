@@ -1,13 +1,13 @@
 In this prompt:
 
-<phase_number> = {{phase_number}}
-<task_display> = {{task_display}}
-<operation_document> = {{operation_document}}
-<additional_context> = {{additional_context}}
+[phase_number] = {{phase_number}}
+[task_display] = {{task_display}}
+[operation_document] = {{operation_document}}
+[additional_context] = {{additional_context}}
 
 # Your mission
 
-Plan/Implement Phase <phase_number> / <task_display> from <operation_document>.
+Plan/Implement Phase [phase_number] / [task_display] from [operation_document].
 
 **Mode:** If you're in Planning mode, create a detailed plan and wait for approval. If you're in Implementation mode, proceed with execution.
 
@@ -16,7 +16,7 @@ Plan/Implement Phase <phase_number> / <task_display> from <operation_document>.
 1. Check if the task is still relevant. This is a living project—if it's changed significantly, inform me before proceeding.
 2. Read the Background section of the operation document.
 3. Read previous task/phase bottom lines and lessons learned, if any.
-4. <additional_context>
+4. [additional_context]
 5. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification.
 6. Check if something you're about to implement already exists and can be reused or slightly adapted. If so, let me know before proceeding.
 
@@ -28,7 +28,7 @@ Plan/Implement Phase <phase_number> / <task_display> from <operation_document>.
 
 ## Define your plan (for Planning mode)
 
-Create a detailed plan for <phase_number> / <task_display> which includes:
+Create a detailed plan for [phase_number] / [task_display] which includes:
 
 - **Current state:** Brief description of the current situation
 - **Objectives:** What the task aims to achieve
@@ -37,6 +37,7 @@ Create a detailed plan for <phase_number> / <task_display> which includes:
 - **Risk Assessment:** Possible risks and mitigation strategies (free-text paragraph)
 
 **Getting feedback:**
+
 - For **complex plans** (anything beyond straightforward steps): Present with enumerated options and wait for approval
 - For **straightforward plans:** Simply ask for go-ahead
 
@@ -56,7 +57,7 @@ Create a detailed plan for <phase_number> / <task_display> which includes:
 5. Generate a commit message (base it on what you actually did, not just the task description. If you deviated, reflect that in the message):
 
 ```txt
-[operation name] P-<phase_number>/T-<task_display> - <short task title>: Description of actual change
+[operation name] P-[phase_number]/T-[task_display] - <short task title>: Description of actual change
 ```
 
 ## Updating documentation with lessons learned

@@ -1,17 +1,17 @@
 In this prompt:
 
-<what_is_being_reviewed> = {{what_is_being_reviewed}}
-<design_log_name> = {{design_log_name}}
-<additional_context> = {{additional_context}}
+[what_is_being_reviewed] = {{what_is_being_reviewed}}
+[design_log_name] = {{design_log_name}}
+[additional_context] = {{additional_context}}
 
 # Your mission
 
-Perform a code review of <what_is_being_reviewed>.
+Perform a code review of [what_is_being_reviewed].
 
 ## Additional References
 
-- <design_log_name>
-- <additional_context>
+- [design_log_name]
+- [additional_context]
 
 ## Review structure
 
