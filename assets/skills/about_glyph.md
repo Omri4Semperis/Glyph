@@ -22,6 +22,10 @@ Link files using standard markdown syntax:
 
 Or use descriptive text: `[See research on X](.assistant/design_logs/dl_1_title.md)`
 
+### Tip: Use Mermaid Diagrams
+
+When explaining complex relationships or structures, consider using graphic Mermaid schemas instead of written explanations. Visual diagrams are often clearer and more intuitive, especially for illustrating workflows, dependencies, or hierarchies.
+
 ## Core Structural Principle
 
 **Design logs should be linked to operations or artifacts.** This is a best practice for maintaining a well-organized Glyph workspace. When possible, every design log should reference or be referenced by at least one operation or artifact. This helps create:
