@@ -160,17 +160,18 @@ def persist_artifacts(
     fix_references: bool
 ) -> GlyphMCPResponse[None]:
     """
-    Persist files from the ad_hoc directory to the artifacts directory.
+    Persist files from the ad_hoc directory or other locations to the artifacts directory.
     
     Copies each file to the .assistant/artifacts/ directory and renames it with the pattern:
     art_{serial_number}_{original_file_name}.{original_extension}
     
     Args:
         abs_path: The absolute path of the project's root where the .assistant folder is located. Absolute path is required.
-        files: List of filenames to persist (excluding path, assumed to be in `.assistant/ad_hoc` dir).
-        delete_from_ad_hoc: If True, delete the original files from ad_hoc directory after persisting.
+        files: List of filenames or full file paths to persist. If a filename without path is provided, 
+               it's assumed to be in `.assistant/ad_hoc` dir. Full absolute paths are also supported.
+        delete_from_ad_hoc: If True, delete the original files from their source location after persisting.
         fix_references: If True, automatically scan all files in design_logs, operations, and artifacts directories 
-                       and update any references from the old ad_hoc filename to the new artifact filename.
+                       and update any references from the old filename to the new artifact filename.
     
     Returns:
         GlyphMCPResponse indicating success or failure, with the new artifact filenames.
@@ -192,7 +193,13 @@ def persist_artifacts(
             return response
         
         for file_name in files:
-            source_file_path = os.path.join(ad_hoc_dir, file_name)
+            # Determine if file_name is a full path or just a filename
+            if os.path.isabs(file_name):
+                # Use the full path as-is
+                source_file_path = file_name
+            else:
+                # Treat as filename in ad_hoc directory
+                source_file_path = os.path.join(ad_hoc_dir, file_name)
             
             # Validate source file
             if not validate_source_file(source_file_path, response):
