@@ -81,6 +81,26 @@ def sanitize_title(title: str) -> str:
     """
     return title.replace(' ', '_')
 
+
+def append_to_summary(summary_path: str, filename: str, short_desc: str) -> tuple[bool, str]:
+    """
+    Append an entry to a _summary.md file.
+    
+    Args:
+        summary_path: Path to the _summary.md file.
+        filename: The filename of the new document.
+        short_desc: A short description for the new document.
+    
+    Returns:
+        A tuple of (success: bool, message: str).
+    """
+    if os.path.exists(summary_path):
+        with open(summary_path, 'a', encoding='utf-8') as f:
+            f.write(f"- `{filename}`: {short_desc}\n")
+        return True, "Added entry to summary.md"
+    else:
+        return False, f"Warning: summary.md not found at {summary_path}"
+
 def add_document(
     abs_path: str,
     title: str,

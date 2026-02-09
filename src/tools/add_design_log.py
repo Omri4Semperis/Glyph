@@ -2,28 +2,7 @@ import os
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
-from ._utils import add_document, validate_absolute_path
-
-
-def append_to_summary(summary_path: str, filename: str, short_desc: str) -> tuple[bool, str]:
-    """
-    Append an entry to a summary.md file.
-    
-    Args:
-        summary_path: Path to the summary.md file.
-        filename: The filename of the new document.
-        title: The title of the new document.
-        short_desc: A short description for the new document.
-    
-    Returns:
-        A tuple of (success: bool, message: str).
-    """
-    if os.path.exists(summary_path):
-        with open(summary_path, 'a', encoding='utf-8') as f:
-            f.write(f"- `{filename}`: {short_desc}\n")
-        return True, "Added entry to summary.md"
-    else:
-        return False, f"Warning: summary.md not found at {summary_path}"
+from ._utils import add_document, validate_absolute_path, append_to_summary
 
 
 def update_design_log_summary(response: GlyphMCPResponse[None], abs_path: str, title: str, short_desc: str) -> None:

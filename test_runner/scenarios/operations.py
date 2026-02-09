@@ -30,9 +30,9 @@ class AddOperationSuccessScenario(BaseScenario):
         init_assistant_dir(op_project, False)
         
         print(f"\nProject directory: {op_project}")
-        print("Calling: add_operation(abs_path=project_path, title='Database Migration')")
+        print("Calling: add_operation(abs_path=project_path, title='Database Migration', short_desc='Migrating database schema')")
         
-        response = add_operation(op_project, "Database Migration")
+        response = add_operation(op_project, "Database Migration", "Migrating database schema")
         
         self.print_result("Response Object", str(response.model_dump()))
         

@@ -35,12 +35,18 @@ class PersistArtifactsSuccessScenario(BaseScenario):
         
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
-        print("    files=['test_artifact1.txt', 'test_artifact2.py']")
+        print("    files=['test_artifact1.txt', 'test_artifact2.py'],")
+        print("    descriptions={'test_artifact1.txt': 'First test artifact', 'test_artifact2.py': 'Python test artifact'},")
+        print("    delete_from_ad_hoc=False,")
+        print("    fix_references=False")
         print(")")
         
         response = persist_artifacts(
             self.env.test_project_dir,
-            ['test_artifact1.txt', 'test_artifact2.py']
+            ['test_artifact1.txt', 'test_artifact2.py'],
+            descriptions={'test_artifact1.txt': 'First test artifact', 'test_artifact2.py': 'Python test artifact'},
+            delete_from_ad_hoc=False,
+            fix_references=False
         )
         
         self.print_result("Response Object", str(response.model_dump()))
@@ -64,9 +70,15 @@ class PersistArtifactsFileNotFoundScenario(BaseScenario):
         )
         
         print(f"\nProject directory: {self.env.test_project_dir}")
-        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'])")
+        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'], descriptions={'nonexistent.txt': 'Non-existent file'}, delete_from_ad_hoc=False, fix_references=False)")
         
-        response = persist_artifacts(self.env.test_project_dir, ['nonexistent.txt'])
+        response = persist_artifacts(
+            self.env.test_project_dir, 
+            ['nonexistent.txt'],
+            descriptions={'nonexistent.txt': 'Non-existent file'},
+            delete_from_ad_hoc=False,
+            fix_references=False
+        )
         
         self.print_result("Response Object", str(response.model_dump()))
 
@@ -104,13 +116,17 @@ class PersistArtifactsWithDeleteScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['temp_test.txt'],")
-        print("    delete_from_ad_hoc=True")
+        print("    descriptions={'temp_test.txt': 'Temporary test file'},")
+        print("    delete_from_ad_hoc=True,")
+        print("    fix_references=False")
         print(")")
         
         response = persist_artifacts(
             project_dir,
             ['temp_test.txt'],
-            delete_from_ad_hoc=True
+            descriptions={'temp_test.txt': 'Temporary test file'},
+            delete_from_ad_hoc=True,
+            fix_references=False
         )
         
         print(f"\nFile exists after: {os.path.exists(test_file)}")
@@ -170,12 +186,16 @@ class PersistArtifactsWithReferenceFixingScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['referenced_file.txt'],")
+        print("    descriptions={'referenced_file.txt': 'File with references'},")
+        print("    delete_from_ad_hoc=False,")
         print("    fix_references=True")
         print(")")
         
         response = persist_artifacts(
             project_dir,
             ['referenced_file.txt'],
+            descriptions={'referenced_file.txt': 'File with references'},
+            delete_from_ad_hoc=False,
             fix_references=True
         )
         
@@ -234,6 +254,7 @@ class PersistArtifactsWithBothOptionsScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['complete_test.txt'],")
+        print("    descriptions={'complete_test.txt': 'Complete test file'},")
         print("    delete_from_ad_hoc=True,")
         print("    fix_references=True")
         print(")")
@@ -241,6 +262,7 @@ class PersistArtifactsWithBothOptionsScenario(BaseScenario):
         response = persist_artifacts(
             project_dir,
             ['complete_test.txt'],
+            descriptions={'complete_test.txt': 'Complete test file'},
             delete_from_ad_hoc=True,
             fix_references=True
         )

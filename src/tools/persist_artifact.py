@@ -4,9 +4,9 @@ import re
 from mcp_object import mcp
 from config import BASE_NAME
 from response import GlyphMCPResponse
-from ._utils import get_next_number, validate_absolute_path
+from ._utils import get_next_number, validate_absolute_path, append_to_summary
 from .reference_graph import update_reference_graph
-from typing import List
+from typing import List, Dict
 
 
 def validate_source_file(source_file_path: str, response: GlyphMCPResponse[None]) -> bool:
@@ -156,6 +156,7 @@ def fix_references_in_directories(assistant_dir: str, old_filename: str, new_fil
 def persist_artifacts(
     abs_path: str, 
     files: List[str],
+    descriptions: Dict[str, str],
     delete_from_ad_hoc: bool,
     fix_references: bool
 ) -> GlyphMCPResponse[None]:
@@ -169,6 +170,8 @@ def persist_artifacts(
         abs_path: The absolute path of the project's root where the .assistant folder is located. Absolute path is required.
         files: List of filenames or full file paths to persist. If a filename without path is provided, 
                it's assumed to be in `.assistant/ad_hoc` dir. Full absolute paths are also supported.
+        descriptions: Dictionary mapping each filename to its short description. Keys should match the filenames in `files`.
+                     Each description will be added to the artifacts summary.
         delete_from_ad_hoc: If True, delete the original files from their source location after persisting.
         fix_references: If True, automatically scan all files in design_logs, operations, and artifacts directories 
                        and update any references from the old filename to the new artifact filename.
@@ -192,21 +195,41 @@ def persist_artifacts(
             response.add_context("No files specified to persist.")
             return response
         
+        # Validate descriptions
+        if not descriptions:
+            response.add_context("No descriptions provided. Each artifact requires a short description.")
+            return response
+        
+        artifacts_summary_path = os.path.join(artifacts_dir, "_summary.md")
+        
         for file_name in files:
             # Determine if file_name is a full path or just a filename
             if os.path.isabs(file_name):
                 # Use the full path as-is
                 source_file_path = file_name
+                # Extract just the filename for the description lookup
+                lookup_name = os.path.basename(file_name)
             else:
                 # Treat as filename in ad_hoc directory
                 source_file_path = os.path.join(ad_hoc_dir, file_name)
+                lookup_name = file_name
             
             # Validate source file
             if not validate_source_file(source_file_path, response):
                 continue  # Skip invalid files but continue with others
             
+            # Check if description is provided for this file
+            if lookup_name not in descriptions:
+                response.add_context(f"Warning: No description provided for {lookup_name}. Skipping.")
+                continue
+            
             # Copy the artifact
             new_filename, new_filepath = copy_artifact(source_file_path, artifacts_dir)
+            
+            # Add to summary
+            short_desc = descriptions[lookup_name]
+            success, message = append_to_summary(artifacts_summary_path, new_filename, short_desc)
+            response.add_context(message)
             
             # Add success context
             response.add_context(f"Persisted artifact: {new_filename}")

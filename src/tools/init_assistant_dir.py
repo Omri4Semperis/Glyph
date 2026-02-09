@@ -76,6 +76,24 @@ The main purpose of this file is to provide a quick overview of the design logs 
 
 """
 
+    operations_summary_content = """# Operations summary
+
+This file contains a summary of operations. Each operation is documented by file name and a brief description.
+The main purpose of this file is to provide a quick overview of the operations for easy reference, without having to read the entire content of each operation.
+
+## Operations
+
+"""
+
+    artifacts_summary_content = """# Artifacts summary
+
+This file contains a summary of artifacts. Each artifact is documented by file name and a brief description.
+The main purpose of this file is to provide a quick overview of the artifacts for easy reference, without having to read the entire content of each artifact.
+
+## Artifacts
+
+"""
+
     reference_graph_content = """start_point,end_point
 """
 
@@ -84,7 +102,13 @@ The main purpose of this file is to provide a quick overview of the design logs 
             "dir_name": BASE_NAME,
             "contains": [
                 {"dir_name": "ad_hoc"},
-                {"dir_name": "artifacts", "contains": [{"dir_name": "archived"}]},
+                {"dir_name": "artifacts", "contains": [
+                    {
+                        "file_name": "_summary.md",
+                        "content": artifacts_summary_content
+                    },
+                    {"dir_name": "archived"}
+                ]},
                 {"dir_name": "design_logs", "contains": [
                     {
                         "file_name": "_summary.md",
@@ -92,7 +116,13 @@ The main purpose of this file is to provide a quick overview of the design logs 
                     },
                     {"dir_name": "archived"}
                 ]},
-                {"dir_name": "operations", "contains": [{"dir_name": "archived"}]},
+                {"dir_name": "operations", "contains": [
+                    {
+                        "file_name": "_summary.md",
+                        "content": operations_summary_content
+                    },
+                    {"dir_name": "archived"}
+                ]},
                 {
                     "file_name": "reference_graph.csv",
                     "content": reference_graph_content

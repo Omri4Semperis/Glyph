@@ -75,7 +75,7 @@ class GetReferencesFromScenario(BaseScenario):
         
         add_design_log(ref_project, "Main Design", "Main design doc")
         add_design_log(ref_project, "Sub Design", "Sub design doc")
-        add_operation(ref_project, "Implementation Steps")
+        add_operation(ref_project, "Implementation Steps", "Steps to implement the feature")
         
         # Add cross-references
         dl_dir = os.path.join(ref_project, ".assistant", "design_logs")
