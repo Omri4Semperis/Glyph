@@ -67,6 +67,9 @@ Include both elements in the `Phases overview` so readers get a concise phase su
 **P1/Task 1 Lessons Learned:**
 <Briefly write here what you learned or important considerations. Be concise! If nothing to add, remove this section.>
 
+**Phase 1 Lessons Learned:**
+<Write here lessons learned from the entire Phase 1. Be concise! If nothing to add, remove this section.>
+
 ### Phase 2: <Phase Title>
 
 etc.
