@@ -10,6 +10,36 @@ Glyph is an MCP that helps developers manage long-term tasks and projects with A
 - **Ad-hoc Directory**: Temporary workspace (`.assistant/ad_hoc/`) for experiments and intermediate work. Reset between operations.
 - **Reference Graph**: CSV file tracking all references between design logs, operations, and artifacts
 
+## Directory Structure
+
+When you initialize Glyph using `init_assistant_dir`, it creates the following structure in your project:
+
+```
+.assistant/
+├── ad_hoc/                    # Temporary workspace for intermediate files
+├── artifacts/                 # Persisted important files
+│   ├── _summary.md           # Summary of all artifacts with descriptions
+│   └── archived/             # Archived artifacts
+├── design_logs/              # Design decisions and research
+│   ├── _summary.md           # Summary of all design logs with descriptions
+│   └── archived/             # Archived design logs
+├── operations/               # Task checklists and operations
+│   ├── _summary.md           # Summary of all operations with descriptions
+│   └── archived/             # Archived operations
+└── reference_graph.csv       # Tracks all cross-references between documents
+```
+
+**File naming conventions:**
+- Design logs: `dl_{number}_{title}.md` (e.g., `dl_1_Authentication_Design.md`)
+- Operations: `op_{number}_{title}.md` (e.g., `op_1_Database_Migration.md`)
+- Artifacts: `art_{number}_{filename}.ext` (e.g., `art_1_config_template.json`)
+
+**Summary files:**
+Each main directory contains a `_summary.md` file that provides a quick overview of all documents in that directory with their descriptions. This is automatically updated when you create new documents.
+
+**If your directory structure is corrupted:**
+You can reinitialize it using `init_assistant_dir` with `overwrite=True`, which will backup your existing `.assistant` directory and create a fresh structure.
+
 ## Reference Syntax
 
 Link files using standard markdown syntax:
