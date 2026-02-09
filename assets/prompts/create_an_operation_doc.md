@@ -10,10 +10,12 @@ Plan the creation of a new operation document for step [step_to_create_doc_for] 
 ## Instructions
 
 - First read the glyph rules; then:
-- Read the operation document guidelines; and finally:
+- Read the operation document guidelines; then:
+- Read an example operation document using `get_example("operation")` to understand the expected format and structure; and finally:
 - write the creation plan for the operation document.
 
 The operation document's Background section must be comprehensive, exhaustive and detailed- Taking all of the relevant information from the design log you can find (anywhere in the design log, not just the step itself). The Background section must include:
+
 - **State**: Current state of the system/process
 - **Goal**: Desired outcome of this operation
 - **Approach**: High-level summary of phases and tasks

@@ -13,8 +13,9 @@ Create a design log for [topic]
 ## Before starting
 
 1. Read the design log principles using `get_design_log_principles`
-2. Read the `about_glyph` skill to understand the workflow
-3. Ask clarifying questions if the scope is unclear
+2. Read an example design log using `get_example("design_log_research")` or `get_example("design_log_implementation")` to understand the expected format and structure
+3. Read the `about_glyph` skill to understand the workflow
+4. Ask clarifying questions if the scope is unclear
 
 ## Context
 
