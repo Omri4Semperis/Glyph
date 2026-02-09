@@ -77,8 +77,7 @@ def get_skill(
 @mcp.tool()
 def get_example(
     example: Literal[
-        "design_log_research",
-        "design_log_implementation",
+        "design_log",
         "operation_doc",
         "code_review"
     ]
@@ -91,8 +90,7 @@ def get_example(
 
     Args:
         example: Type of example to retrieve:
-            - "design_log_research": Example design log focused on research
-            - "design_log_implementation": Example design log focused on implementation
+            - "design_log": Example design log
             - "operation_doc": Example operation document
             - "code_review": Example code review report
 
@@ -100,8 +98,7 @@ def get_example(
         The content of the requested example.
     """
     file_map = {
-        "design_log_research": "dl_example_research.md",
-        "design_log_implementation": "dl_example_implementation.md",
+        "design_log": "dl_example_implementation.md",
         "operation_doc": "operation_example.md",
         "code_review": "code_review_example.md"
     }
