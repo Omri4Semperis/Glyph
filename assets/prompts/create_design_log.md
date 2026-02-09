@@ -9,7 +9,6 @@ In this prompt:
 Create a design log for [topic]
 
 **Design Log Type:** [design_log_type]
-<!-- Options: research, implementation, or both -->
 
 ## Before starting
 
