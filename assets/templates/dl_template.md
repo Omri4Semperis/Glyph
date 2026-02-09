@@ -3,10 +3,11 @@
 - **Date:** [YYYY-MM-DD]
 - **Author:** Glyph AI Assistant
 - **Type:** [Research | Implementation | Both]
-- **Related Logs:** [Link to related design logs, operations docs, artifacts (if any)]
+- **Related Docs:** [Link to related design logs, operations docs, artifacts (if any)]
 
 ---
-**Note**: This is a general template, which can be adapted for both research and implementation design logs. Depending on the type and specific goal, some sections may be omitted, modified or added. Remove this comment when not needed anymore.
+
+**Note**: This is a general template, which can be adapted for both research and implementation design logs. Depending on the type and specific goal, some sections may be omitted, modified or added. Remove this comment when not needed anymore
 ---
 
 ## Background
@@ -36,7 +37,8 @@ A: [...]
 [More Q&As as needed]
 
 ---
-**⏸️ PAUSE POINT**: The AI assistant will stop here and wait for the user to answer the questions above before continuing to populate the sections below.
+
+**⏸️ PAUSE POINT**: The AI assistant will stop here and wait for the user to answer the questions above before continuing to populate the sections below
 ---
 
 ## Further analysis
@@ -86,24 +88,23 @@ A: [...]
 **Steps overview**:
 [A table grouping steps by topic and showing basic info about each step]
 
-| Topic | Step | Status | Title | Read effort | Write effort | Logic effort | Average effort |
-| - | - | - | - | - | - | - | - |
-| [Topic 1] | S1 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 1] | [X/10] | [X/10] | [X/10] | [X.X/10] |
-| [Topic 1] | S2 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 2] | [X/10] | [X/10] | [X/10] | [X.X/10] |
-| [Topic 2] | S3 | ✅ (Done), ⚠️ (Done with issues), ❌ (Not done yet), ⏳ (In progress) | [Title of Step 3] | [X/10] | [X/10] | [X/10] | [X.X/10] |
+| Topic | Step | Status | Title | Effort (Read, Write, Logic, Average) |
+| - | - | - | - | - |
+| [Topic 1 name] | S1 | ❌ (Pending), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted) | [Title of Step 1] | [X/10], [X/10], [X/10], **[X.X/10]** |
+| [Topic 1 name] | S2 | ❌/⏳/✅/⚠️ | [Title of Step 2] | [X/10], [X/10], [X/10], **[X.X/10]** |
+| [Topic 2 name] | S3 | ❌/⏳/✅/⚠️ | [Title of Step 3] | [X/10], [X/10], [X/10], **[X.X/10]** |
 
-### Step 1: [Title of Step 1]
+### Step 1: [Title of Step 1] ❌/⏳/✅/⚠️
 
-- Status: ✅/⚠️/❌/⏳
-- Effort: Read: [X/10] | Write: [X/10] | Logic: [X/10] | Average: [X.X/10]
-- In a nutshell: [1 short sentence describing the step]
-- References: [Links to relevant design logs, operations docs, artifacts, code files, research papers, etc. May be left empty before implementation/planning of this step starts]
+| Effort (Read, Write, Logic, Average) | In a nutshell | References |
+| - | - | - |
+| 5, 6, 8, **6.3** | [One short sentence describing the step] | [Links to relevant design logs, operations docs, artifacts, code files, research papers, etc. May be left empty before implementation/planning of this step starts] |
 
 #### Step 1 details
 
 [High level details about the step, including what needs to be done, how it should be done, and any relevant information. For implementation: include technical details, file paths, type signatures, data structures, API endpoints, charts and diagrams etc. For research: describe research activities, data sources, analysis approach, etc.]
 
-#### Step 1 comments from other locations
+#### Step 1 comments from other steps/locations
 
 [If there are relevant comments from other design logs, operations docs, code reviews, steps, etc. that provide context or information for this step, they can be included here. This is especially useful if the step is related to or dependent on work done in other places.]
 
