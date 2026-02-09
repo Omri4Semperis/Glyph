@@ -229,23 +229,24 @@ def implementation_prompt(
 
 @mcp.prompt()
 def code_review_prompt(
-    operation_name: str = "No operation name provided",
+    what_is_being_reviewed: str = "No name provided",
     design_log_name: str = "No design log provided",
     additional_context: str = "Nothing specific, but feel free to read more files"
 ) -> str:
     """
-    Trigger a code review of an operation.
+    Trigger a code review of an entity.
 
     Args:
-        operation_name: (Optional) Name of the operation being reviewed
+        what_is_being_reviewed: (Optional) Name of the entity being reviewed
         design_log_name: (Optional) Name of the related design log
+        additional_context: (Optional) Additional context for the review
 
     Returns:
         The code review prompt.
     """
     template = read_asset("code_review.md")
     return replace_in_prompts(template, {
-        "operation_name": operation_name,
+        "what_is_being_reviewed": what_is_being_reviewed,
         "design_log_name": design_log_name,
         "additional_context": additional_context
     })

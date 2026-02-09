@@ -33,25 +33,6 @@ Or use descriptive text: `[See research on X](.assistant/design_logs/dl_1_title.
 
 However, this is not a strict requirement. If you create a design log without an immediate connection, consider proposing to link it to an operation or artifact later, but it's optional.
 
-## Tools & Skills Quick Reference
-
-| Action | Tool |
-| - | - |
-| Initialize Glyph | `init_assistant_dir` |
-| Create operation doc | `add_operation` |
-| Create design log | `add_design_log` |
-| Save important files | `persist_artifacts` |
-| Find what a file references | `get_references_from` |
-| Find what references a file | `find_references_to` |
-| Rebuild reference graph | `update_reference_graph` |
-| Parse markdown to dict | `md_to_dict` |
-| Analyze code (C#, Python) | `static_code_analysis` |
-| Get Glyph overview | `get_glyph_overview` |
-| Get principles | `get_principles(topic)` |
-| Get examples | `get_example(type)` |
-| Read asset file | `read_asset_exact(relative_path)` |
-| Mermaid chart examples | `mermaid_whisperer()` |
-
 ## Working with the Ad Hoc Directory
 
 The `.assistant/ad_hoc` directory is a workspace for temporary files created during operations.
@@ -97,25 +78,6 @@ The `.assistant/ad_hoc` directory is a workspace for temporary files created dur
 7. **Query** → Use `get_references_from` / `find_references_to` to navigate structure
 
 **Key insight:** Design logs should reference or be referenced by operations/artifacts. Use the reference tools to verify your knowledge graph is coherent.
-
-## Before Starting Work
-
-- **Task planning?** → `get_principles("task")`
-- **Creating an operation?** → `get_principles("operation")`
-- **Creating a design log?** → `get_principles("design_log")`
-- **Need examples?** → `get_example(type)` where type is: design_log_research, design_log_implementation, operation, code_review
-
-## Available Prompts (slash commands)
-
-| Purpose | Prompt |
-| - | - |
-| Create a design log | `/create_design_log_prompt` |
-| Create an operation doc | `/create_operation_doc_prompt` |
-| Plan a phase/task | `/planning_prompt` |
-| Implement a phase/task | `/implementation_prompt` |
-| Code review an operation | `/code_review_prompt` |
-| Sync lessons learned | `/sync_lessons_learned_prompt` |
-| Compact conversation | `/compact_conversation_prompt` |
 
 ## Communication Guidelines
 
