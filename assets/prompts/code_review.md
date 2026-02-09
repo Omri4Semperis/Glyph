@@ -6,7 +6,7 @@ In this prompt:
 
 # Your mission
 
-Perform a code review of <what_is_being_reviewed>. You may use Glyph's static code analysis tool to get some data about given files, and mermaid diagrams (through Glyph's mermaid tool) to visualize complex code structures or flows if needed.
+Perform a code review of <what_is_being_reviewed>.
 
 ## Additional References
 
@@ -125,9 +125,9 @@ In any point of the review, alongside the good things, an issue may be mentioned
 
 ## Final notes
 
-You may use Glyph's `get_example("code_review")` tool to see a code review example for reference. **STUDY THE EXAMPLE CAREFULLY** to see how issues are tracked consistently throughout the entire document - from first mention in detailed sections, to the Bottom Line table, to the Summary Table, to the Executive Summary, and finally to Recommendations.
-
-You may use Glyph's `create_code_review` tool to generate a template report based on the above structure (which it generates and saves in `.assistant/ad_hoc`), and fill it with the findings from your review.
+- You may use Glyph's `create_code_review` tool to generate a template report based on the above structure (which it generates and saves in `.assistant/ad_hoc`), and fill it with the findings from your review.
+- You may use Glyph's `get_example("code_review")` tool to see a code review example for reference. **STUDY THE EXAMPLE CAREFULLY** to see how issues are tracked consistently throughout the entire document - from first mention in detailed sections, to the Bottom Line table, to the Summary Table, to the Executive Summary, and finally to Recommendations.
+- You may use Glyph's static code analysis tool to get some data about given files, and mermaid diagrams (through Glyph's mermaid tool) to visualize complex code structures or flows if needed.
 
 **Before submitting the review, verify**:
 
