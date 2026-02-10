@@ -33,7 +33,7 @@ def get_skill(
         "about_glyph",
         "about_design_logs",
         "about_operation_docs",
-        "how_to_plan_or_implement_a_phase_or_task",
+        "how_to_implement_a_phase_or_task",
         "mermaid_tips_and_tricks"
     ]
 ) -> GlyphMCPResponse[str]:
@@ -47,7 +47,7 @@ def get_skill(
             - "about_glyph": Complete guide to all Glyph tools and skills
             - "about_design_logs": Guidelines for creating and maintaining design logs
             - "about_operation_docs": Guidelines for creating and managing operations
-            - "how_to_plan_or_implement_a_phase_or_task": Guidelines for planning and implementing tasks
+            - "how_to_implement_a_phase_or_task": Guidelines for planning and implementing tasks
             - "mermaid_tips_and_tricks": Examples and tips for creating Mermaid diagrams
 
     Returns:
@@ -57,7 +57,7 @@ def get_skill(
         "about_glyph": "about_glyph.md",
         "about_design_logs": "about_design_logs.md",
         "about_operation_docs": "about_operation_docs.md",
-        "how_to_plan_or_implement_a_phase_or_task": "how_to_plan_or_implement_a_phase_or_task.md",
+        "how_to_implement_a_phase_or_task": "how_to_implement_a_phase_or_task.md",
         "mermaid_tips_and_tricks": "mermaid_tips_and_tricks.md"
     }
     

@@ -1,11 +1,12 @@
 # Things to keep in mind during task planning and implementation
 
-When planning and implementing tasks, please adhere to the following guidelines to ensure consistency, quality, and maintainability:
+When planning and implementing tasks, adhere to the following guidelines to ensure consistency, quality, and maintainability:
 
 ## Pre-Implementation
 
-- **Important**: The operation doc doesn't live in a vacuum. It's possible that during implementation or between phases the code base would change. Therefore, the first subtask of each task should be to review the current code base and determine whether the task is still valid as is, or whether it needs to be adjusted (in which case - stop execution and inform the user).
-- Any code-changing task (i.e., not research or documentation tasks) must start with a build, run, and test verification to establish a baseline.
+- **Important:** The documentation doesn't live in a vacuum. It's possible that during implementation or between phases the codebase would change. Therefore, the first subtask of each task should be to review the current codebase and determine whether the task is still valid as is, or whether it needs to be adjusted (in which case—stop execution and inform the user).
+- **Establish a baseline:** Any code-changing task (i.e., not research or documentation tasks) must start with a comprehensive build, run, and test verification to establish a baseline. Note all warnings and errors.
+- **Check for reusability:** Determine whether the task might reuse or adapt existing solutions before proceeding.
 
 ## Implementation Principles
 
@@ -15,21 +16,25 @@ When planning and implementing tasks, please adhere to the following guidelines 
 
 ## Post-Implementation
 
-- At the end of each code-changing task, the build must pass and all unit/component tests must be successful. Perform the same verification as at the start to ensure no regressions were introduced.
-- If a task is the last in a phase, ensure to include verification of the phase D.O.D. as a subtask.
-- Once a task is done, provide the user in the chat with a concise commit message summarizing the changes made in that task, formatted as a ```txt snippet, like so:
+- **Verify with baseline:** Perform the same build/run/test verification as at the start. Compare warnings and errors to the baseline to ensure no regressions were introduced.
+- **Mark completion:** All completed subtasks (in their checklists), tasks (in task lists), and phases (in phases overview and D.O.D. sections) must be explicitly marked with `[x]`.
+- **Phase verification:** If a task is the last in a phase, ensure to verify the phase D.O.D. checklist is complete and mark `[x]` on all done items.
+- **Document concisely:** Update lessons learned and bottom lines as applicable (see Documentation Guidelines below).
+- **Provide commit message:** Once a task is done, provide the commit message as a ```txt snippet in conventional format:
 
-```txt
-[operation name]Px/Ty - <short task title>: <details>.
-```
-
-Where `x` and `y` are the phase and task numbers respectively.
+  ```txt
+  [operation name] P-[phase_number]/T-[task_number] - <short task title>: <actual changes made>
+  ```
 
 ## Documentation Guidelines
 
-- Keep the operation document clear and concise.
-- When documenting lessons learned, include only relevant information that could impact future tasks or phases. Avoid unnecessary details, trivial learnings, lengthy narratives, and reporting of successful implementations which are assumed to be the norm.
-- If during implementation you discover something that might be relevant to other tasks/phases, update those sections with a comment so the next implementer will see the new information.
+- **Keep operation docs and design logs lean:** Avoid unnecessary bloat. Keep content clear, concise, and focused on actionable information.
+- **Lessons learned must be non-trivial:** Only document insights that meaningfully impact future work or decisions. Exclude:
+  - Successful implementations (assumed to be the norm)
+  - Trivial observations or obvious outcomes
+  - Lengthy narratives or blow-by-blow accounts
+- **Proactive annotations:** When implementing a task and discovering information relevant to future tasks/phases, add comments to those sections so the next implementer will be informed. This applies backward (to past phases) and forward (to future ones).
+- **Reference guidelines:** If during implementation you discover something that should be reflected in design logs or future operation docs, update those docs with a comment explaining the discovery.
 
 ## Dynamic Updates
 

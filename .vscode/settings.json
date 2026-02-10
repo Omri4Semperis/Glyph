@@ -11,7 +11,7 @@
       "approve": true,
       "matchCommandLine": true
     },
-    "/^python -c \"import sys; sys\\.path\\.insert\\(0, 'src'\\); from skills\\.knowledge import get_skill; skills = \\['about_glyph', 'about_design_logs', 'about_operation_docs', 'how_to_plan_or_implement_a_phase_or_task', 'mermaid_tips_and_tricks'\\]; print\\('Testing all skills:'\\); \\[print\\(f'  \\{s\\}: Success=\\{get_skill\\(s\\)\\.success\\}'\\) for s in skills\\]\"$/": {
+    "/^python -c \"import sys; sys\\.path\\.insert\\(0, 'src'\\); from skills\\.knowledge import get_skill; skills = \\['about_glyph', 'about_design_logs', 'about_operation_docs', 'how_to_implement_a_phase_or_task', 'mermaid_tips_and_tricks'\\]; print\\('Testing all skills:'\\); \\[print\\(f'  \\{s\\}: Success=\\{get_skill\\(s\\)\\.success\\}'\\) for s in skills\\]\"$/": {
       "approve": true,
       "matchCommandLine": true
     }
