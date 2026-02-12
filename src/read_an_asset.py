@@ -84,7 +84,10 @@ def read_asset(filename: str) -> str:
     error_lines.append(f"Example: read_asset_exact('{matches[0][0]}')")
     
     raise ValueError('\n'.join(error_lines))
-    
+
+
+def read_asset_exact(relative_path: str) -> str:
+    """
     Use this function when multiple files have the same name and you need to specify
     which one to read, or when you know the exact location of the file.
     
