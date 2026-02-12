@@ -55,7 +55,7 @@ Take into account:
 
 ## Updating documentation with lessons learned
 
-As you plan and implement, new lessons may be learned or important actions may be taken which influence more than just the current thing you're doing. If such knowledge is achieved, then update the documentation in the correct place:
+As you're working, new lessons may be learned or important actions may be taken which influence more than just the current thing you're doing. If such knowledge is achieved, then update the documentation in the correct place:
 
 ```md
 | Scope | Update Location |
@@ -71,7 +71,7 @@ Updating is important both **forward** (for future implementers) but also **back
 
 ## Final Reminders
 
-- **Read the permanent rules:** Use Glyph's tool get the `how_to_implement_a_phase_or_task.md` skill, which contains the authoritative guidelines for planning and implementation.
+- **Read the permanent rules:** Use Glyph's tool get the `how_to_implement_a_phase_or_task.md` skill, which contains the authoritative guidelines for completing tasks.
 - **Mark everything as done:** All completed subtasks (in checklists), tasks (in task lists), and phases (in overview and D.O.D. sections) must be marked with `[x]`.
 - **Lessons learned must be non-trivial and succinct:** Only document insights that could impact future work. Avoid lengthy narratives or reporting of successful implementations (assumed to be the norm).
 - **Benchmark bookends:** Always start with baseline (build/test/warnings) and end with verification (build/test/warnings again) to catch unexpected regressions.

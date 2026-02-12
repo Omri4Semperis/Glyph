@@ -1,6 +1,6 @@
-# Things to keep in mind during task planning and implementation
+# Things to keep in mind during tasks work
 
-When planning and implementing tasks, adhere to the following guidelines to ensure consistency, quality, and maintainability:
+When working on tasks, adhere to the following guidelines to ensure consistency, quality, and maintainability:
 
 ## Pre-Implementation
 
@@ -10,7 +10,7 @@ When planning and implementing tasks, adhere to the following guidelines to ensu
 
 ## Implementation Principles
 
-- **KISS (Keep It Simple, Stupid)**: When planning and implementing, avoid unnecessary complexity. Each phase and task should be as straightforward as possible.
+- **KISS (Keep It Simple, Stupid)**: Avoid unnecessary complexity. Each phase and task should be as straightforward as possible.
 - **SOLID principles**: Keep each task adhering to the principles of good software design (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
 - **Testing is Integral**: Testing is not a separate phase or task—it is part of every task and phase. Each phase should include explicit testing subtasks that verify the phase's work. Testing should never be deferred or grouped into a dedicated "testing phase." Examples of testing include: unit tests, integration tests, performance tests, cross-browser testing, end-to-end testing, and stress testing. The type of testing depends on the phase's goals.
 
