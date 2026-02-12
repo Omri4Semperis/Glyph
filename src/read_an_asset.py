@@ -45,53 +45,45 @@ def read_asset(filename: str) -> str:
     Reads the content of a file from the assets directory.
     Searches recursively through all subdirectories to find the file.
     
-    If multiple files with the same name exist, returns an error message
-    with details about each match and recommends using read_asset_exact().
-    
     Args:
         filename: The name of the file to read (e.g., 'example.txt').
     
     Returns:
-        The content of the asset file as a string, or an error message.
+        The content of the asset file as a string.
+    
+    Raises:
+        FileNotFoundError: If the file is not found.
+        ValueError: If multiple files with the same name exist.
     """    
-    try:
-        matches = _find_all_matches(filename)
-        
-        if len(matches) == 0:
-            return f"Asset file '{filename}' not found in assets directory or any subdirectory."
-        
-        if len(matches) == 1:
-            rel_path, abs_path = matches[0]
-            with open(abs_path, 'r', encoding='utf-8') as file:
-                return file.read()
-        
-        # Multiple matches found - provide helpful error
-        error_lines = [
-            f"Multiple assets named '{filename}' found ({len(matches)} matches).",
-            "",
-            "Please use read_asset_exact() with the relative path instead:",
-            ""
-        ]
-        
-        for rel_path, abs_path in matches:
-            preview = _get_file_preview(abs_path)
-            error_lines.append(f"  Path: {rel_path}")
-            error_lines.append(f"  Preview:")
-            for line in preview.split('\n'):
-                error_lines.append(f"    | {line}")
-            error_lines.append("")
-        
-        error_lines.append(f"Example: read_asset_exact('{matches[0][0]}')")
-        
-        return '\n'.join(error_lines)
-        
-    except Exception as e:
-        return f"Error reading asset file '{filename}': {str(e)}"
-
-
-def read_asset_exact(relative_path: str) -> str:
-    """
-    Reads the content of a file from the assets directory using an exact relative path.
+    matches = _find_all_matches(filename)
+    
+    if len(matches) == 0:
+        raise FileNotFoundError(f"Asset file '{filename}' not found in assets directory or any subdirectory.")
+    
+    if len(matches) == 1:
+        rel_path, abs_path = matches[0]
+        with open(abs_path, 'r', encoding='utf-8') as file:
+            return file.read()
+    
+    # Multiple matches found - provide helpful error
+    error_lines = [
+        f"Multiple assets named '{filename}' found ({len(matches)} matches).",
+        "",
+        "Please use read_asset_exact() with the relative path instead:",
+        ""
+    ]
+    
+    for rel_path, abs_path in matches:
+        preview = _get_file_preview(abs_path)
+        error_lines.append(f"  Path: {rel_path}")
+        error_lines.append(f"  Preview:")
+        for line in preview.split('\n'):
+            error_lines.append(f"    | {line}")
+        error_lines.append("")
+    
+    error_lines.append(f"Example: read_asset_exact('{matches[0][0]}')")
+    
+    raise ValueError('\n'.join(error_lines))
     
     Use this function when multiple files have the same name and you need to specify
     which one to read, or when you know the exact location of the file.
@@ -102,19 +94,18 @@ def read_asset_exact(relative_path: str) -> str:
     
     Returns:
         The content of the asset file as a string.
+    
+    Raises:
+        FileNotFoundError: If the file is not found at the specified path.
     """    
-    try:
-        assets_dir = _get_assets_dir()
-        file_path = os.path.join(assets_dir, relative_path)
-        
-        # Normalize path separators for cross-platform compatibility
-        file_path = os.path.normpath(file_path)
-        
-        if not os.path.isfile(file_path):
-            return f"Asset file '{relative_path}' not found. Ensure the path is relative to the assets directory."
-        
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return file.read()
-        
-    except Exception as e:
-        return f"Error reading asset file '{relative_path}': {str(e)}"
+    assets_dir = _get_assets_dir()
+    file_path = os.path.join(assets_dir, relative_path)
+    
+    # Normalize path separators for cross-platform compatibility
+    file_path = os.path.normpath(file_path)
+    
+    if not os.path.isfile(file_path):
+        raise FileNotFoundError(f"Asset file '{relative_path}' not found. Ensure the path is relative to the assets directory.")
+    
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()

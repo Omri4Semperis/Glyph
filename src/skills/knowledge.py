@@ -12,13 +12,12 @@ from read_an_asset import read_asset
 def _read_asset_with_response(filename: str) -> GlyphMCPResponse[str]:
     """Read an asset file and return it wrapped in a GlyphMCPResponse."""
     response = GlyphMCPResponse[str]()
-    content = read_asset(filename)
-    
-    if content.startswith("Asset file") or content.startswith("Error reading"):
-        response.add_context(content)
-    else:
+    try:
+        content = read_asset(filename)
         response.success = True
         response.result = content
+    except (FileNotFoundError, ValueError) as e:
+        response.add_context(str(e))
     
     return response
 
