@@ -44,52 +44,10 @@ def _normalize_number(value: int | float | str) -> str:
     return str(value)
 
 
-def _parse_phase_number(value: int | float | str) -> tuple[int | float, str]:
-    """
-    Validate and normalize a phase number.
-
-    Accepts numeric values or numeric strings. Rejects ranges or multiple values.
-    """
-    if isinstance(value, (int, float)):
-        phase_num = int(value) if isinstance(value, float) and value.is_integer() else value
-    else:
-        raw = str(value).strip()
-        if not raw:
-            raise ValueError("phase_number must be a single number, got empty string")
-
-        # Reject ranges or multiple values like "1-2", "1 and 2", "1,2".
-        if (
-            "," in raw
-            or " and " in raw
-            or "&" in raw
-            or " to " in raw
-            or ("-" in raw[1:])
-        ):
-            raise ValueError(
-                "phase_number must be a single number (e.g., 1). "
-                "Use task_number for multiple tasks."
-            )
-
-        try:
-            phase_num = float(raw)
-        except ValueError as exc:
-            raise ValueError(
-                "phase_number must be a single number (e.g., 1)"
-            ) from exc
-
-        if phase_num.is_integer():
-            phase_num = int(phase_num)
-
-    if isinstance(phase_num, (int, float)) and phase_num < 1:
-        raise ValueError(f"phase_number must be >= 1, got {phase_num}")
-
-    return phase_num, _normalize_number(phase_num)
-
-
 def _format_task_display(task_number: str | int | float) -> str:
     """
     Convert task_number to grammatically correct display format.
-    
+
     Examples:
         - 1 → "Task 1"
         - "3" → "Task 3"
@@ -98,7 +56,7 @@ def _format_task_display(task_number: str | int | float) -> str:
         - "all" → "all tasks"
     """
     task_str = _normalize_number(task_number)
-    
+
     if task_str == "all":
         return "all tasks"
     elif task_str.isdigit():
@@ -110,7 +68,7 @@ def _format_task_display(task_number: str | int | float) -> str:
 
 def _load_phase_prompt(
     asset_filename: str,
-    phase_number: int | float | str,
+    phase_number: str,
     task_number: str | int | float,
     operation_document: str,
     additional_context: str = "Nothing specific, but feel free to read more files"
@@ -120,7 +78,7 @@ def _load_phase_prompt(
     
     Args:
         asset_filename: The markdown asset file to load (e.g., "planning_command.md")
-        phase_number: The phase number
+        phase_number: The phase identifier (can be a single number or a list like "1 and 2")
         task_number: The task(s) to display
         operation_document: The operation document name/path
         additional_context: Optional context to include in the prompt
@@ -128,16 +86,11 @@ def _load_phase_prompt(
     Returns:
         Formatted prompt text
         
-    Raises:
-        ValueError: If phase_number < 1
     """
-    # Normalize and validate phase number
-    _, phase_str = _parse_phase_number(phase_number)
-    
     template = read_asset(asset_filename)
     task_display = _format_task_display(task_number)
     return replace_in_prompts(template, {
-        "phase_number": phase_str,
+        "phase_number": _normalize_number(phase_number),
         "task_display": task_display,
         "operation_document": operation_document,
         "additional_context": additional_context
@@ -201,7 +154,7 @@ def create_operation_doc(
 
 @mcp.prompt()
 def plan_phase_or_task(
-    phase_number: int | float | str,
+    phase_number: str,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
     additional_context: str = "Nothing specific, but feel free to read more files"
@@ -210,7 +163,7 @@ def plan_phase_or_task(
     Trigger planning of a phase/task from an operation document.
 
     Args:
-        phase_number: The phase number to plan
+        phase_number: The phase identifier to plan (single or multiple, e.g., "1 and 2")
         task_number: The task(s) to plan. Can be:
                      - Single task: 1, 2, 5
                      - Range: "1-3"
@@ -233,7 +186,7 @@ def plan_phase_or_task(
 
 @mcp.prompt()
 def implement_phase_or_task(
-    phase_number: int | float | str,
+    phase_number: str,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
     additional_context: str = "Nothing specific, but feel free to read more files"
@@ -242,7 +195,7 @@ def implement_phase_or_task(
     Trigger implementation of a phase/task from an operation document.
 
     Args:
-        phase_number: The phase number to implement
+        phase_number: The phase identifier to implement (single or multiple, e.g., "1 and 2")
         task_number: The task(s) to implement. Can be:
                      - Single task: 1, 2, 5
                      - Range: "1-3"
