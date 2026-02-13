@@ -38,6 +38,11 @@ from test_runner.scenarios.reference_graph import (
     GetReferencesFromScenario,
     FindReferencesToScenario,
 )
+from test_runner.scenarios.archive import (
+    ArchiveDesignLogScenario,
+    ArchiveOperationScenario,
+    ArchiveArtifactScenario,
+)
 from test_runner.scenarios.validation import InvalidAbsolutePathScenario
 
 
@@ -66,6 +71,9 @@ SCENARIO_REGISTRY = {
     '21': PersistArtifactsWithDeleteScenario,
     '22': PersistArtifactsWithReferenceFixingScenario,
     '23': PersistArtifactsWithBothOptionsScenario,
+    '24': ArchiveDesignLogScenario,
+    '25': ArchiveOperationScenario,
+    '26': ArchiveArtifactScenario,
 }
 
 

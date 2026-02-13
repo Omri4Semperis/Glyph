@@ -29,6 +29,7 @@ if __name__ == "__main__":
         from tools.add_operation import add_operation
         from tools.create_code_review import add_code_review
         from tools.persist_artifact import persist_artifacts
+        from tools.archive_doc import archive_document
         from tools.reference_graph import update_reference_graph, get_references_from, find_references_to
         from tools.static_code_analysis import static_code_analysis
 
