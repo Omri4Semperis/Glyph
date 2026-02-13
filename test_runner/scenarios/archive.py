@@ -10,7 +10,7 @@ import sys
 # Add src to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
-from tools.archive_doc import archive_document
+from tools.archive_doc import archive_document, unarchive_document
 from tools.add_design_log import add_design_log
 from tools.add_operation import add_operation
 from tools.persist_artifact import persist_artifacts
@@ -202,3 +202,148 @@ class ArchiveArtifactScenario(BaseScenario):
         print("\nAfter archiving - dl_1_System_Architecture.md content:")
         with open(dl1_path, 'r') as f:
             print(f.read())
+
+
+class UnarchiveDesignLogScenario(BaseScenario):
+    """Scenario: Unarchive a design log and verify that all references are restored."""
+    
+    def run(self):
+        self.print_header(
+            "Unarchive-1",
+            "Unarchive Design Log",
+            "Unarchive a design log and verify that all references are restored."
+        )
+        
+        # Create a project and set up archived content
+        unarchive_project = os.path.join(self.env.temp_dir, "unarchive_project")
+        os.makedirs(unarchive_project)
+        init_assistant_dir(unarchive_project, False)
+        
+        # Add design logs
+        add_design_log(unarchive_project, "Authentication", "Auth system design")
+        add_design_log(unarchive_project, "Database Schema", "DB design")
+        add_operation(unarchive_project, "Implement Auth", "Auth implementation")
+        
+        dl_dir = os.path.join(unarchive_project, ".assistant", "design_logs")
+        op_dir = os.path.join(unarchive_project, ".assistant", "operations")
+        
+        # Add cross-references
+        dl2_path = os.path.join(dl_dir, "dl_2_Database_Schema.md")
+        with open(dl2_path, 'a') as f:
+            f.write("\n\nThis aligns with dl_1_Authentication.md requirements.")
+        
+        op1_path = os.path.join(op_dir, "op_1_Implement_Auth.md")
+        with open(op1_path, 'a') as f:
+            f.write("\n\nRefer to dl_1_Authentication.md for design.")
+        
+        dl1_path = os.path.join(dl_dir, "dl_1_Authentication.md")
+        with open(dl1_path, 'a') as f:
+            f.write("\n\nUses database from dl_2_Database_Schema.md")
+        
+        # Archive the first design log
+        archive_document(unarchive_project, "design_log", 1)
+        
+        print(f"\nProject directory: {unarchive_project}")
+        print("\nAfter archiving - dl_2_Database_Schema.md content:")
+        with open(dl2_path, 'r') as f:
+            print(f.read())
+        
+        archived_path = os.path.join(dl_dir, "archived", "dl_1_Authentication.md")
+        print("\nArchived file content:")
+        with open(archived_path, 'r') as f:
+            print(f.read())
+        
+        print("\nCalling: unarchive_document(abs_path=project_path, doc_type='design_log', number=1, short_desc='Auth system design')")
+        
+        response = unarchive_document(unarchive_project, "design_log", 1, "Auth system design")
+        
+        self.print_result("Response Object", str(response.model_dump()))
+        
+        # Verify the file was moved back
+        original_path = os.path.join(dl_dir, "dl_1_Authentication.md")
+        
+        print("\n--- Verification ---")
+        print(f"Original file exists: {os.path.exists(original_path)}")
+        print(f"Archived file still exists: {os.path.exists(archived_path)}")
+        
+        # Check if references were restored
+        print("\nAfter unarchiving - dl_2_Database_Schema.md content:")
+        with open(dl2_path, 'r') as f:
+            print(f.read())
+        
+        print("\nAfter unarchiving - op_1_Implement_Auth.md content:")
+        with open(op1_path, 'r') as f:
+            print(f.read())
+        
+        print("\nUnarchived file content (should have restored internal references):")
+        if os.path.exists(original_path):
+            with open(original_path, 'r') as f:
+                print(f.read())
+
+
+class UnarchiveWithoutDescriptionScenario(BaseScenario):
+    """Scenario: Unarchive without providing description (summary not updated)."""
+    
+    def run(self):
+        self.print_header(
+            "Unarchive-2",
+            "Unarchive Without Description",
+            "Unarchive a document without providing a description for the summary."
+        )
+        
+        # Create a project
+        unarchive_project = os.path.join(self.env.temp_dir, "unarchive_no_desc_project")
+        os.makedirs(unarchive_project)
+        init_assistant_dir(unarchive_project, False)
+        
+        # Add and archive an operation
+        add_operation(unarchive_project, "Setup Environment", "Initial setup")
+        archive_document(unarchive_project, "operation", 1)
+        
+        print(f"\nProject directory: {unarchive_project}")
+        
+        # Check summary before unarchiving
+        op_dir = os.path.join(unarchive_project, ".assistant", "operations")
+        summary_path = os.path.join(op_dir, "_summary.md")
+        
+        print("\noperations/_summary.md content before unarchiving:")
+        with open(summary_path, 'r') as f:
+            print(f.read())
+        
+        print("\nCalling: unarchive_document(abs_path=project_path, doc_type='operation', number=1)")
+        print("Note: No short_desc parameter provided")
+        
+        response = unarchive_document(unarchive_project, "operation", 1)
+        
+        self.print_result("Response Object", str(response.model_dump()))
+        
+        print("\noperations/_summary.md content after unarchiving:")
+        with open(summary_path, 'r') as f:
+            print(f.read())
+        
+        print("\nNote: The unarchived file should exist but not be in the summary")
+
+
+class UnarchiveNonexistentDocumentScenario(BaseScenario):
+    """Scenario: Try to unarchive a document that doesn't exist."""
+    
+    def run(self):
+        self.print_header(
+            "Unarchive-3",
+            "Unarchive Nonexistent Document",
+            "Attempt to unarchive a document that doesn't exist in the archive."
+        )
+        
+        # Create a project
+        unarchive_project = os.path.join(self.env.temp_dir, "unarchive_nonexistent_project")
+        os.makedirs(unarchive_project)
+        init_assistant_dir(unarchive_project, False)
+        
+        print(f"\nProject directory: {unarchive_project}")
+        print("\nCalling: unarchive_document(abs_path=project_path, doc_type='design_log', number=99)")
+        print("Note: This design log does not exist")
+        
+        response = unarchive_document(unarchive_project, "design_log", 99, "Should not exist")
+        
+        self.print_result("Response Object", str(response.model_dump()))
+

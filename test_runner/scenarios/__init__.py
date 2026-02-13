@@ -42,6 +42,9 @@ from test_runner.scenarios.archive import (
     ArchiveDesignLogScenario,
     ArchiveOperationScenario,
     ArchiveArtifactScenario,
+    UnarchiveDesignLogScenario,
+    UnarchiveWithoutDescriptionScenario,
+    UnarchiveNonexistentDocumentScenario,
 )
 from test_runner.scenarios.validation import InvalidAbsolutePathScenario
 
@@ -74,6 +77,9 @@ SCENARIO_REGISTRY = {
     '24': ArchiveDesignLogScenario,
     '25': ArchiveOperationScenario,
     '26': ArchiveArtifactScenario,
+    '27': UnarchiveDesignLogScenario,
+    '28': UnarchiveWithoutDescriptionScenario,
+    '29': UnarchiveNonexistentDocumentScenario,
 }
 
 
