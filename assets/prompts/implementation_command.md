@@ -1,13 +1,13 @@
 # Your mission
 
-Plan/Implement Phase number {{phase_number}} / {{task_display}} from {{operation_document}}
+Plan/Implement Phase number {{phase_number}} / {{task_display}} from #{{operation_document}}
 
 ## Before you start
 
 1. Check if the task is still relevant. This is a living project— if it's changed significantly, inform me before proceeding.
 2. Read the Background section of the operation document.
 3. Read previous task/phase bottom lines and lessons learned, if any.
-4. Additional context: {{additional_context}} (if applicable)
+4. Additional context: #{{additional_context}} (if applicable)
 5. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification.
 6. Check if something you're about to implement already exists and can be reused or slightly adapted. If so, let me know before proceeding.
 
@@ -50,14 +50,14 @@ Take into account:
 
 As you're working, new lessons may be learned or important actions may be taken which influence more than just the current thing you're doing. If such knowledge is achieved, then update the documentation in the correct place:
 
-```md
-| Scope | Update Location |
-| - | - |
-| Future phase in same operation | "Phase Lessons Learned" section of that phase |
-| Future task in same operation | Comments or relevant section of that task |
-| Whole current operation | "Lessons Learned during Operation" section |
-| Future step of source design log | That future step |
-| Entire source design log | DL's general lessons learned section |
+```txt
+(Scope to comment about) --> (Where to update)
+---
+(Future phase in same operation) --> ("Phase Lessons Learned" section of that phase)
+(Future task in same operation) --> (Comments or relevant section of that task)
+(Whole current operation) --> ("Lessons Learned during Operation" section)
+(Future step of source design log) --> (That future step)
+(Entire source design log) --> (DL's general lessons learned section)
 ```
 
 Updating is important both **forward** (for future implementers) but also **backwards** (on past tasks/phases/steps— so it's clear that something happened later which might influence done achievements).
@@ -65,7 +65,7 @@ Updating is important both **forward** (for future implementers) but also **back
 ## Final Reminders
 
 - **Read the permanent rules:** Use Glyph's tool get the `how_to_implement_a_phase_or_task.md` skill, which contains the authoritative guidelines for completing tasks.
-- **Mark everything as done:** All completed subtasks (in checklists), tasks (in task lists), and phases (in overview and D.O.D. sections) must be marked with `[x]`.
-- **Lessons learned must be non-trivial and succinct:** Only document insights that could impact future work. Avoid lengthy narratives or reporting of successful implementations (assumed to be the norm).
 - **Benchmark bookends:** Always start with baseline (build/test/warnings) and end with verification (build/test/warnings again) to catch unexpected regressions.
+- **Mark everything as done:** All completed subtasks (in checklists), tasks (in task lists), and phases (in overview and D.O.D. sections) must be marked with `[x]`. Change the status of the phases(s) / task(s) as you go, not just at the end (❌ (Not started), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted)).
+- **Lessons learned must be non-trivial and succinct:** Only document insights that could impact future work. Avoid lengthy narratives or reporting of successful implementations (assumed to be the norm).
 - **Commit message:** Always provide a commit message in the format shown above in the "After completion" section.

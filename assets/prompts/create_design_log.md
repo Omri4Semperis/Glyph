@@ -13,7 +13,7 @@ Create a design log for {{topic}}, following the design log principles and struc
 
 ## Additional context
 
-- {{additional_context}}
+- #{{additional_context}} (if applicable)
 
 ## Process
 

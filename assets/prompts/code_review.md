@@ -1,6 +1,6 @@
 # Your mission
 
-Perform a code review of {{what_is_being_reviewed}}.
+Perform a code review of #{{what_is_being_reviewed}}
 
 ## Before starting
 
@@ -9,8 +9,8 @@ Perform a code review of {{what_is_being_reviewed}}.
 
 ## Additional References
 
-- {{design_log_name}}
-- {{additional_context}}
+- #{{design_log_name}}
+- {{additional_context}} (if applicable)
 
 ## Review structure
 
