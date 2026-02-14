@@ -1,11 +1,6 @@
-In this prompt:
-
-[operations_list] = {{operations_list}}
-[design_logs_list] = {{design_logs_list}}
-
 # Your mission
 
-Sync the absolutely crucial, critical, and most important lessons learned from [operations_list] back to [design_logs_list]. Avoid duplicating lessons already present or reasonably assumed in the design logs.
+Sync the absolutely crucial, critical, and most important lessons learned from operation(s) {{operations_list}} back to design log(s) {{design_logs_list}}. Avoid duplicating lessons already present or reasonably assumed in the design logs.
 
 ## Process
 

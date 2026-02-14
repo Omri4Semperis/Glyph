@@ -1,14 +1,8 @@
-In this prompt:
-
-[topic] = {{topic}}
-[design_log_type] = {{design_log_type}}
-[additional_context] = {{additional_context}}
-
 # Your mission
 
-Create a design log for [topic]
+Create a design log for {{topic}}, following the design log principles and structure.
 
-**Design Log Type:** [design_log_type]
+**Design Log Type:** {{design_log_type}}
 
 ## Before starting
 
@@ -17,9 +11,9 @@ Create a design log for [topic]
 3. Read the `about_glyph` skill to understand the workflow
 4. Ask clarifying questions if the scope is unclear
 
-## Context
+## Additional context
 
-- [additional_context]
+- {{additional_context}}
 
 ## Process
 

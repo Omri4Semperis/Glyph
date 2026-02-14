@@ -28,16 +28,9 @@
 
 **Phases overview**:
 
-> Tasks difficulty is on the scale of:
+> **Phase / task difficulty** is on the scale of 0-5 (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
 >
-> - 0️⃣ (Breezy) = No changes required, only verification and documentation.
-> - 1️⃣ (Low) = 1-2 files changes, well defined actions, no complex logic.
-> - 2️⃣ (Medium) = A few changes to multiple files, some logic to implement, but straightforward.
-> - 3️⃣ (High) = Significant changes to multiple files, complex logic, requires coordination.
-> - 4️⃣ (Nightmare) = Major changes, high risk, requires extensive testing and validation.
-> - 5️⃣ (Hell) = Extremely difficult, high risk, requires significant resources and time.
->
-> Status is ❌ (Not started), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted)
+> **Phase / task status** is one of: ❌ (Not started), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted)
 
 | Phase # | Status | Title | Difficulty | Tasks |
 | - | - | - | - | - |

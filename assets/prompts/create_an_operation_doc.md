@@ -1,11 +1,6 @@
-In this prompt:
-
-[step_to_create_doc_for] = {{step_to_create_doc_for}}
-[design_log_name] = {{design_log_name}}
-
 # Your mission
 
-Plan the creation of a new operation document for step [step_to_create_doc_for] from [design_log_name].
+Plan the creation of a new operation document for step {{step_to_create_doc_for}} from {{design_log_name}}.
 
 ## Instructions
 
@@ -28,13 +23,7 @@ The Background section is encouraged to include mermaid charts where appropriate
 2. Prove you read through the operation document guidelines and understood them, showing me how you will apply them.
 3. You'll keep it SOLID, DRY and Simple.
 4. Tell me how many phases and tasks in each phase you plan to have in the operation doc.
-5. For each phase, include a **Phase Difficulty** and for each task include a **Task Difficulty** using the emoji scale:
-   - 0️⃣ (Breezy) = No changes required, only verification and documentation
-   - 1️⃣ (Low) = 1-2 files changes, well defined actions, no complex logic
-   - 2️⃣ (Medium) = A few changes to multiple files, some logic to implement, but straightforward
-   - 3️⃣ (High) = Significant changes to multiple files, complex logic, requires coordination
-   - 4️⃣ (Nightmare) = Major changes, high risk, requires extensive testing and validation
-   - 5️⃣ (Hell) = Extremely difficult, high risk, requires significant resources and time
+5. For each phase, include a **Phase Difficulty** and for each task include a **Task Difficulty** using the emoji scale (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
 
 - For every chosen difficulty level provide a one-line justification explaining why that level was selected.
 - Describe how testing and validation will scale with the difficulty (e.g., baseline build/tests for Breezy/Low, unit+integration for Medium, broader integration/manual testing for High/Nightmare/Hell).

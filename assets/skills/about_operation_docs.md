@@ -66,11 +66,12 @@ These two elements give both a concise tabular summary and an explicit visual de
 
 Operations now include standardized difficulty levels that must be recorded for every task and for each phase. Use the following scale to label tasks and phases:
 
-- **Breezy**: Changes to a single existing file, involving just a few (well-defined) line additions, deletions, or modifications.
-- **Low**: Changes limited to one or two files, with well-defined and straightforward modifications, or a single file with a focused functionality to add, change, or remove.
-- **Medium**: Modifications spanning several files (up to 5), involving moderate complexity—such as adding a new feature, refactoring a module, or implementing a new class/function with dependencies.
-- **High**: Significant changes across multiple files (up to 7), introducing new modules, complex refactoring, or integrating external libraries. Requires thorough testing and validation.
-- **Nightmare**: Large-scale changes affecting most or all of the 10-file limit, such as major architectural updates, migrating a core component, or replacing a foundational dependency. Demands extensive planning, testing, and debugging.
+- **Breezy** (0️⃣): Changes to a single existing file, involving just a few (well-defined) line additions, deletions, or modifications.
+- **Low** (1️⃣): Changes limited to one or two files, with well-defined and straightforward modifications, or a single file with a focused functionality to add, change, or remove.
+- **Medium** (2️⃣): Modifications spanning several files (up to 5), involving moderate complexity—such as adding a new feature, refactoring a module, or implementing a new class/function with dependencies.
+- **High** (3️⃣): Significant changes across multiple files (up to 7), introducing new modules, complex refactoring, or integrating external libraries. Requires thorough testing and validation.
+- **Nightmare** (4️⃣): Large-scale changes affecting most or all of the 10-file limit, such as major architectural updates, migrating a core component, or replacing a foundational dependency. Demands extensive planning, testing, and debugging.
+- **Hell** (5️⃣): Extremely difficult, high risk, requires significant resources and time.
 
 Guidance on applying difficulty levels:
 
