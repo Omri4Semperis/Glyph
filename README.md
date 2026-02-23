@@ -25,7 +25,7 @@ Glyph is a Model Context Protocol (MCP) server designed to help developers organ
 
 1. Add Glyph to your VS Code MCP configuration:
 
-   Open or create `.vscode/settings.json` and add the following to your MCP settings, or edit your `mcp.json` directly:
+   Open or create `.vscode/mcp.json` and add the following to your MCP settings, or edit your `mcp.json` directly:
 
    ```json
    "Glyph": {
