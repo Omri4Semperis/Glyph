@@ -4,7 +4,7 @@ Supports multiple languages through pluggable parsers.
 """
 import os
 import statistics
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 from mcp_object import mcp
 from response import GlyphMCPResponse
@@ -37,6 +37,68 @@ def get_parser_for_file(file_path: str) -> Optional[BaseParser]:
 def get_supported_extensions() -> List[str]:
     """Get list of all supported file extensions."""
     return list(EXTENSION_MAP.keys())
+
+
+def expand_paths_to_files(
+    paths: List[str],
+    recursive: bool = False,
+    supported_extensions: Optional[List[str]] = None
+) -> Tuple[List[str], List[str]]:
+    """
+    Expand a list of file and directory paths to actual file paths.
+    
+    Args:
+        paths: List of absolute paths (files or directories).
+        recursive: If True, scan directories recursively. If False, scan only the immediate directory.
+        supported_extensions: List of supported file extensions (e.g., ['.py', '.cs']).
+                            If None, all files are included.
+    
+    Returns:
+        A tuple of (expanded_files, messages) where:
+        - expanded_files: List of absolute file paths found
+        - messages: List of informational messages about the expansion
+    """
+    if supported_extensions is None:
+        supported_extensions = []
+    
+    expanded_files = []
+    messages = []
+    
+    for path in paths:
+        if not os.path.exists(path):
+            messages.append(f"Path not found: {path}")
+            continue
+        
+        if os.path.isfile(path):
+            # It's a file, add it directly
+            expanded_files.append(path)
+        elif os.path.isdir(path):
+            # It's a directory, scan for supported files
+            if recursive:
+                # Recursive scan using os.walk
+                for root, dirs, files in os.walk(path):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        # Include file if no extensions specified, or if it matches a supported extension
+                        if not supported_extensions or any(file.endswith(ext) for ext in supported_extensions):
+                            expanded_files.append(file_path)
+                messages.append(f"Recursively scanned directory: {path}")
+            else:
+                # Non-recursive scan: only immediate children
+                try:
+                    for item in os.listdir(path):
+                        item_path = os.path.join(path, item)
+                        if os.path.isfile(item_path):
+                            # Include file if no extensions specified, or if it matches a supported extension
+                            if not supported_extensions or any(item.endswith(ext) for ext in supported_extensions):
+                                expanded_files.append(item_path)
+                except PermissionError:
+                    messages.append(f"Permission denied while scanning directory: {path}")
+                messages.append(f"Scanned directory (non-recursive): {path}")
+        else:
+            messages.append(f"Path is neither a file nor a directory: {path}")
+    
+    return expanded_files, messages
 
 
 def get_minimal_unique_paths(file_paths: List[str]) -> Dict[str, str]:
@@ -364,12 +426,14 @@ def format_analysis_markdown(all_metrics: List[Dict[str, Any]]) -> str:
 @mcp.tool()
 def static_code_analysis(
     file_paths: List[str],
-    save_to_ad_hoc: bool = False
+    save_to_ad_hoc: bool = False,
+    recursive: bool = False
 ) -> GlyphMCPResponse[Dict[str, Any]]:
     """
     Perform static code analysis on source code files.
     
     Supports multiple languages (C#, Python) through dedicated parsers.
+    Can analyze individual files or scan directories for supported files.
     
     Analyzes files to produce metrics including:
     - Lines per file/method/class
@@ -379,10 +443,13 @@ def static_code_analysis(
     - Language-specific metrics (e.g., properties for C#)
     
     Args:
-        file_paths: List of absolute paths to source files to analyze.
-                   Supported extensions: .py (Python), .cs (C#)
+        file_paths: List of absolute paths to source files or directories to analyze.
+                   Supported file extensions: .py (Python), .cs (C#)
         save_to_ad_hoc: If True, saves the analysis as a markdown file to .assistant/ad_hoc directory.
                        If False, returns the analysis as structured data.
+        recursive: If True, scan directories recursively for all supported files.
+                  If False (default), scan only the immediate directory level.
+                  Only used when directories are included in file_paths.
     
     Returns:
         GlyphMCPResponse containing the analysis results.
@@ -392,7 +459,7 @@ def static_code_analysis(
     response = GlyphMCPResponse[Dict[str, Any]]()
     
     if not file_paths:
-        response.add_context("No files provided for analysis.")
+        response.add_context("No files or directories provided for analysis.")
         return response
     
     # Validate all paths are absolute
@@ -403,9 +470,21 @@ def static_code_analysis(
     supported_extensions = get_supported_extensions()
     response.add_context(f"Supported file types: {', '.join(supported_extensions)}")
     
+    # Expand directory paths to actual files
+    expanded_files, expansion_messages = expand_paths_to_files(file_paths, recursive, supported_extensions)
+    for msg in expansion_messages:
+        response.add_context(msg)
+    
+    if not expanded_files:
+        response.add_context("No supported files found in the provided paths.")
+        return response
+    
+    # Remove duplicates while preserving order
+    expanded_files = list(dict.fromkeys(expanded_files))
+    
     # Analyze each file
     all_metrics: List[FileMetrics] = []
-    for file_path in file_paths:
+    for file_path in expanded_files:
         if not os.path.exists(file_path):
             response.add_context(f"File not found: {file_path}")
             continue
@@ -432,7 +511,7 @@ def static_code_analysis(
         
         try:
             # Find .assistant directory by looking up from the first file's directory
-            first_file = file_paths[0]
+            first_file = expanded_files[0]
             current_dir = os.path.dirname(os.path.abspath(first_file))
             
             # Search for .assistant directory

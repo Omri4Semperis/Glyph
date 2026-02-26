@@ -36,7 +36,7 @@ class PersistArtifactsSuccessScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['test_artifact1.txt', 'test_artifact2.py'],")
-        print("    descriptions={'test_artifact1.txt': 'First test artifact', 'test_artifact2.py': 'Python test artifact'},")
+        print("    descriptions=[{'filename': 'test_artifact1.txt', 'description': 'First test artifact'}, {'filename': 'test_artifact2.py', 'description': 'Python test artifact'}],")
         print("    delete_from_ad_hoc=False,")
         print("    fix_references=False")
         print(")")
@@ -44,7 +44,10 @@ class PersistArtifactsSuccessScenario(BaseScenario):
         response = persist_artifacts(
             self.env.test_project_dir,
             ['test_artifact1.txt', 'test_artifact2.py'],
-            descriptions={'test_artifact1.txt': 'First test artifact', 'test_artifact2.py': 'Python test artifact'},
+            descriptions=[
+                {'filename': 'test_artifact1.txt', 'description': 'First test artifact'},
+                {'filename': 'test_artifact2.py', 'description': 'Python test artifact'},
+            ],
             delete_from_ad_hoc=False,
             fix_references=False
         )
@@ -70,12 +73,12 @@ class PersistArtifactsFileNotFoundScenario(BaseScenario):
         )
         
         print(f"\nProject directory: {self.env.test_project_dir}")
-        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'], descriptions={'nonexistent.txt': 'Non-existent file'}, delete_from_ad_hoc=False, fix_references=False)")
+        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'], descriptions=[{'filename': 'nonexistent.txt', 'description': 'Non-existent file'}], delete_from_ad_hoc=False, fix_references=False)")
         
         response = persist_artifacts(
             self.env.test_project_dir, 
             ['nonexistent.txt'],
-            descriptions={'nonexistent.txt': 'Non-existent file'},
+            descriptions=[{'filename': 'nonexistent.txt', 'description': 'Non-existent file'}],
             delete_from_ad_hoc=False,
             fix_references=False
         )
@@ -116,7 +119,7 @@ class PersistArtifactsWithDeleteScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['temp_test.txt'],")
-        print("    descriptions={'temp_test.txt': 'Temporary test file'},")
+        print("    descriptions=[{'filename': 'temp_test.txt', 'description': 'Temporary test file'}],")
         print("    delete_from_ad_hoc=True,")
         print("    fix_references=False")
         print(")")
@@ -124,7 +127,7 @@ class PersistArtifactsWithDeleteScenario(BaseScenario):
         response = persist_artifacts(
             project_dir,
             ['temp_test.txt'],
-            descriptions={'temp_test.txt': 'Temporary test file'},
+            descriptions=[{'filename': 'temp_test.txt', 'description': 'Temporary test file'}],
             delete_from_ad_hoc=True,
             fix_references=False
         )
@@ -186,7 +189,7 @@ class PersistArtifactsWithReferenceFixingScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['referenced_file.txt'],")
-        print("    descriptions={'referenced_file.txt': 'File with references'},")
+        print("    descriptions=[{'filename': 'referenced_file.txt', 'description': 'File with references'}],")
         print("    delete_from_ad_hoc=False,")
         print("    fix_references=True")
         print(")")
@@ -194,7 +197,7 @@ class PersistArtifactsWithReferenceFixingScenario(BaseScenario):
         response = persist_artifacts(
             project_dir,
             ['referenced_file.txt'],
-            descriptions={'referenced_file.txt': 'File with references'},
+            descriptions=[{'filename': 'referenced_file.txt', 'description': 'File with references'}],
             delete_from_ad_hoc=False,
             fix_references=True
         )
@@ -254,7 +257,7 @@ class PersistArtifactsWithBothOptionsScenario(BaseScenario):
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
         print("    files=['complete_test.txt'],")
-        print("    descriptions={'complete_test.txt': 'Complete test file'},")
+        print("    descriptions=[{'filename': 'complete_test.txt', 'description': 'Complete test file'}],")
         print("    delete_from_ad_hoc=True,")
         print("    fix_references=True")
         print(")")
@@ -262,7 +265,7 @@ class PersistArtifactsWithBothOptionsScenario(BaseScenario):
         response = persist_artifacts(
             project_dir,
             ['complete_test.txt'],
-            descriptions={'complete_test.txt': 'Complete test file'},
+            descriptions=[{'filename': 'complete_test.txt', 'description': 'Complete test file'}],
             delete_from_ad_hoc=True,
             fix_references=True
         )

@@ -174,7 +174,7 @@ class ArchiveArtifactScenario(BaseScenario):
         persist_artifacts(
             archive_project,
             ["test_diagram.png"],
-            {"test_diagram.png": "Architecture diagram"},
+            [{"filename": "test_diagram.png", "description": "Architecture diagram"}],
             delete_from_ad_hoc=False,
             fix_references=False
         )

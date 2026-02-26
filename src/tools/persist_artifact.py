@@ -6,7 +6,40 @@ from config import BASE_NAME
 from response import GlyphMCPResponse
 from ._utils import get_next_number, validate_absolute_path, append_to_summary
 from .reference_graph import update_reference_graph
-from typing import List, Dict
+from typing import List, Dict, TypedDict
+
+
+class ArtifactDescription(TypedDict):
+    filename: str
+    description: str
+
+
+def build_descriptions_map(
+    descriptions: List[ArtifactDescription],
+    response: GlyphMCPResponse[None]
+) -> Dict[str, str] | None:
+    """Validate and normalize descriptions into a filename->description mapping."""
+    if not descriptions:
+        response.add_context("No descriptions provided. Each artifact requires a short description.")
+        return None
+
+    descriptions_map: Dict[str, str] = {}
+
+    for index, item in enumerate(descriptions, start=1):
+        filename = item.get("filename", "").strip()
+        description = item.get("description", "").strip()
+
+        if not filename:
+            response.add_context(f"Invalid descriptions entry at index {index}: filename is required.")
+            return None
+
+        if not description:
+            response.add_context(f"Invalid descriptions entry for '{filename}': description is required.")
+            return None
+
+        descriptions_map[filename] = description
+
+    return descriptions_map
 
 
 def validate_source_file(source_file_path: str, response: GlyphMCPResponse[None]) -> bool:
@@ -156,7 +189,7 @@ def fix_references_in_directories(assistant_dir: str, old_filename: str, new_fil
 def persist_artifacts(
     abs_path: str, 
     files: List[str],
-    descriptions: Dict[str, str],
+    descriptions: List[ArtifactDescription],
     delete_from_ad_hoc: bool,
     fix_references: bool
 ) -> GlyphMCPResponse[None]:
@@ -170,8 +203,8 @@ def persist_artifacts(
         abs_path: The absolute path of the project's root where the .assistant folder is located. Absolute path is required.
         files: List of filenames or full file paths to persist. If a filename without path is provided, 
                it's assumed to be in `.assistant/ad_hoc` dir. Full absolute paths are also supported.
-        descriptions: Dictionary mapping each filename to its short description. Keys should match the filenames in `files`.
-                     Each description will be added to the artifacts summary.
+         descriptions: List of objects with `filename` and `description` fields.
+                Each description will be added to the artifacts summary.
         delete_from_ad_hoc: If True, delete the original files from their source location after persisting.
         fix_references: If True, automatically scan all files in design_logs, operations, and artifacts directories 
                        and update any references from the old filename to the new artifact filename.
@@ -195,9 +228,8 @@ def persist_artifacts(
             response.add_context("No files specified to persist.")
             return response
         
-        # Validate descriptions
-        if not descriptions:
-            response.add_context("No descriptions provided. Each artifact requires a short description.")
+        descriptions_map = build_descriptions_map(descriptions, response)
+        if descriptions_map is None:
             return response
         
         artifacts_summary_path = os.path.join(artifacts_dir, "_summary.md")
@@ -219,7 +251,7 @@ def persist_artifacts(
                 continue  # Skip invalid files but continue with others
             
             # Check if description is provided for this file
-            if lookup_name not in descriptions:
+            if lookup_name not in descriptions_map:
                 response.add_context(f"Warning: No description provided for {lookup_name}. Skipping.")
                 continue
             
@@ -227,7 +259,7 @@ def persist_artifacts(
             new_filename, new_filepath = copy_artifact(source_file_path, artifacts_dir)
             
             # Add to summary
-            short_desc = descriptions[lookup_name]
+            short_desc = descriptions_map[lookup_name]
             success, message = append_to_summary(artifacts_summary_path, new_filename, short_desc)
             response.add_context(message)
             

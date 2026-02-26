@@ -394,12 +394,21 @@ Content for section 2.
         
         print("\nCalling: persist_artifacts(")
         print("    abs_path=project_path,")
-        print("    files=['test_artifact1.txt', 'test_artifact2.py']")
+        print("    files=['test_artifact1.txt', 'test_artifact2.py'],")
+        print("    descriptions=[{'filename': 'test_artifact1.txt', 'description': 'First test artifact'}, {'filename': 'test_artifact2.py', 'description': 'Python test artifact'}],")
+        print("    delete_from_ad_hoc=False,")
+        print("    fix_references=False")
         print(")")
         
         response = persist_artifacts(
             self.test_project_dir,
-            ['test_artifact1.txt', 'test_artifact2.py']
+            ['test_artifact1.txt', 'test_artifact2.py'],
+            descriptions=[
+                {'filename': 'test_artifact1.txt', 'description': 'First test artifact'},
+                {'filename': 'test_artifact2.py', 'description': 'Python test artifact'},
+            ],
+            delete_from_ad_hoc=False,
+            fix_references=False,
         )
         
         self.print_result("Response Object", str(response.model_dump()))
@@ -420,9 +429,15 @@ Content for section 2.
         )
         
         print(f"\nProject directory: {self.test_project_dir}")
-        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'])")
+        print("Calling: persist_artifacts(abs_path=project_path, files=['nonexistent.txt'], descriptions=[{'filename': 'nonexistent.txt', 'description': 'Non-existent file'}], delete_from_ad_hoc=False, fix_references=False)")
         
-        response = persist_artifacts(self.test_project_dir, ['nonexistent.txt'])
+        response = persist_artifacts(
+            self.test_project_dir,
+            ['nonexistent.txt'],
+            descriptions=[{'filename': 'nonexistent.txt', 'description': 'Non-existent file'}],
+            delete_from_ad_hoc=False,
+            fix_references=False,
+        )
         
         self.print_result("Response Object", str(response.model_dump()))
     
