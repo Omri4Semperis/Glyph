@@ -47,6 +47,12 @@ from test_runner.scenarios.archive import (
     UnarchiveNonexistentDocumentScenario,
 )
 from test_runner.scenarios.validation import InvalidAbsolutePathScenario
+from test_runner.scenarios.azure_devops import (
+    ParseWorkItemScenario,
+    ExtractDisplayNameScenario,
+    FetchAdoWorkItemInvalidCredentialsScenario,
+    QueryAdoWorkItemsInvalidCredentialsScenario,
+)
 
 
 # Scenario registry: maps scenario number to scenario class
@@ -80,6 +86,10 @@ SCENARIO_REGISTRY = {
     '27': UnarchiveDesignLogScenario,
     '28': UnarchiveWithoutDescriptionScenario,
     '29': UnarchiveNonexistentDocumentScenario,
+    '30': ParseWorkItemScenario,
+    '31': ExtractDisplayNameScenario,
+    '32': FetchAdoWorkItemInvalidCredentialsScenario,
+    '33': QueryAdoWorkItemsInvalidCredentialsScenario,
 }
 
 
