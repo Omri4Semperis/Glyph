@@ -32,6 +32,7 @@ if __name__ == "__main__":
         from tools.archive_doc import archive_document, unarchive_document
         from tools.reference_graph import update_reference_graph, get_references_from, find_references_to
         from tools.static_code_analysis import static_code_analysis
+        from tools.azure_devops import fetch_ado_work_item, query_ado_work_items
 
         print("Starting MCP server...")
 
