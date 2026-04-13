@@ -1,5 +1,9 @@
 # Glyph
 
+| Version | Released   |
+| -       | -          |
+| 1.1     | 2026-04-13 |
+
 **An AI-powered MCP for managing long-term development tasks and projects while maintaining full control over your work.**
 
 Glyph is a Model Context Protocol (MCP) server designed to help developers organize complex, multi-step projects with the power of AI assistance. It provides structured primitives for tracking design decisions, managing operations, and maintaining project artifacts—all while keeping you in complete control.
@@ -10,16 +14,18 @@ Glyph is a Model Context Protocol (MCP) server designed to help developers organ
 - **Operations** - Structured checklists with phases, tasks, and dependencies for complex goals
 - **Artifacts** - Persistent project files with built-in versioning and traceability
 - **Reference Graph** - Automatic dependency tracking between all project components
-- **AI Integration** - Works seamlessly with Claude as an MCP server in VS Code
+- **AI Integration** - Works with any MCP-compatible AI coding assistant in VS Code
 - **Audit Trail** - Complete, immutable history of project evolution
 
-## 🚀 Installation
+## 🚀 Setting up
+
+How to set Glyph up as an MCP server:
 
 ### Prerequisites
 
 - Python 3.x
 - UV package manager
-- VS Code with Claude extension
+- VS Code with an MCP-compatible AI assistant extension
 
 ### Setup
 
@@ -45,9 +51,9 @@ Glyph is a Model Context Protocol (MCP) server designed to help developers organ
 
 2. Restart VS Code to activate the MCP
 
-3. Start using Glyph tools in your Claude conversations!
+3. Start using Glyph tools in your AI assistant conversations!
 
-## 📖 Core Concepts
+## 📖 Primitives
 
 ### Design Log
 
@@ -113,7 +119,7 @@ An automatically maintained CSV file (`.assistant/reference_graph.csv`) that map
 
 ## 🛠️ Usage
 
-Use Glyph's tools in Claude conversations to:
+Use Glyph's tools in your AI assistant conversations to:
 
 - Initialize a new project workspace
 - Create design logs to document decisions
@@ -125,9 +131,15 @@ Use Glyph's tools in Claude conversations to:
 
 ```txt
 .assistant/
-├── design_logs/     - Immutable design log records
-├── operations/      - Operation checklists
-├── artifacts/       - Persisted project files
-├── ad_hoc/         - Temporary workspace
+├── design_logs/        - Immutable design log records
+│   ├── _summary.md      - Design logs index (auto-maintained)
+│   └── archived/       - Archived design logs
+├── operations/         - Operation checklists
+│   ├── _summary.md      - Operations index (auto-maintained)
+│   └── archived/       - Archived operations
+├── artifacts/          - Persisted project files
+│   ├── _summary.md      - Artifacts index (auto-maintained)
+│   └── archived/       - Archived artifacts
+├── ad_hoc/             - Temporary workspace
 └── reference_graph.csv - Dependency map
 ```
