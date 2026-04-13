@@ -7,11 +7,11 @@
 - **Review Type:** Implementation
 - **Review Focus:** Full review
 - **Target Context / Stack:** TypeScript frontend + API, React UI, authenticated internal web application
-- **Assumptions:** Existing authentication and permission checks are shared infrastructure; performance and security are in scope because the change adds a new export endpoint and large-dataset flow
+- **Assumptions:** Existing authentication and permission checks are shared infrastructure; performance and security in scope as the change adds a new export endpoint and large-dataset flow
 - **Primary References:** [dl_008_export_csv](.assistant/design_logs/dl_008_export_csv.md), [op_47_export_csv](.assistant/operations/op_47_export_csv.md), [op_48](.assistant/operations/op_48.md), [op_50](.assistant/operations/op_50.md), [op_51](.assistant/operations/op_51.md), [op_52](.assistant/operations/op_52.md)
 - **Additional References:** PR#142, implementation completed
 
-The CSV export implementation meets the core functional and performance goals, but the review fails until the missing user-facing and API documentation are added. There are 8 identified issues in total: 2 blocking issues in documentation and 6 important issues across code quality, testing, functionality hardening, security, and design-log follow-through. The review assumes an authenticated internal deployment and therefore treats rate limiting as important hardening rather than a blocking security flaw.
+The CSV export meets core functional and performance goals, but fails until missing user-facing and API documentation are added. 8 issues total: 2 blocking (documentation) and 6 important (code quality, testing, functionality, security, design-log follow-through). Assumes authenticated internal deployment, so rate limiting is important hardening, not a blocking security flaw.
 
 ## Detailed Review
 
@@ -328,13 +328,13 @@ graph LR
 
 #### Confirmed Strengths (Optional)
 
-1. **Streaming Architecture:** Streaming kept memory bounded at 32MB for 100k rows and is a reusable pattern for other large export or reporting flows
+1. **Streaming Architecture:** Streaming kept memory bounded at 32MB for 100k rows—a reusable pattern for other large export or reporting flows
 
 #### What Could Be Improved
 
 1. **Configuration Management:** Chunk size and progress thresholds should be configurable, not hardcoded
-2. **Documentation:** External documentation (user guide and API docs) should have been updated contemporaneously with implementation
-3. **Edge Case Testing:** Concurrent request handling could have been more rigorously tested upfront
+2. **Documentation:** External documentation (user guide, API docs) should have been updated alongside implementation
+3. **Edge Case Testing:** Concurrent request handling should have been tested more rigorously upfront
 
 #### Unexpected Findings or Insights
 
@@ -413,7 +413,7 @@ graph TB
 
 ## Executive Summary
 
-The implementation mostly works as intended, but the review fails until the blocking documentation gaps are closed. There are 8 identified issues in total: 2 blocking and 6 important.
+Implementation mostly works as intended but fails until blocking documentation gaps are closed. 8 issues: 2 blocking, 6 important.
 
 ### ❌ 2 Blocking Issues (Must fix before merge)
 

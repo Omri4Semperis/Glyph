@@ -14,11 +14,11 @@ Plan the creation of a new operation document.
 
 - First read the glyph rules; then:
 - Read the operation document guidelines; then:
-- Read an example operation document using `get_example("operation")` to understand the expected format and structure; and finally:
+- Read an example operation document using `get_example("operation")` to understand the format and structure; and finally:
 - write the creation plan for the operation document.
 
-The operation document's Background section must be comprehensive, exhaustive and detailed. Use all relevant source material provided to you.
-{{#design_log_name}}If a design log is provided, take all relevant information from it you can find (anywhere in the design log, not just the selected step).{{/design_log_name}}
+The Background section must be comprehensive and detailed. Use all relevant source material.
+{{#design_log_name}}If a design log is provided, take all relevant information from it (anywhere in the log, not just the selected step).{{/design_log_name}}
 {{#source_context}}If general source context is provided, incorporate it explicitly into the Background and phase planning.{{/source_context}}
 The Background section must include:
 
@@ -26,21 +26,21 @@ The Background section must include:
 - **Goal**: Desired outcome of this operation
 - **Approach**: High-level summary of phases and tasks
 
-The Background section is encouraged to include mermaid charts where appropriate (glyph's mermaid tool can advise on this).
+Include mermaid charts in the Background where appropriate (Glyph's mermaid tool can advise).
 
 ## Before you create the doc
 
-1. Prove you read through the provided source material and understood what relevant information should drive the operation doc.
-1. Prove you read through the operation document guidelines and understood them, showing me how you will apply them.
-1. You'll keep it SOLID, DRY and Simple.
-1. Tell me how many phases and tasks in each phase you plan to have in the operation doc.
-1. For each phase, include a **Phase Difficulty** and for each task include a **Task Difficulty** using the emoji scale (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
+1. Show you've read the source material and understood what information should drive the operation doc.
+1. Show you've read the operation document guidelines and how you'll apply them.
+1. Keep it SOLID, DRY, and Simple.
+1. Tell me the planned number of phases and tasks per phase.
+1. Include **Phase Difficulty** and **Task Difficulty** using the emoji scale (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
 
-- For every chosen difficulty level provide a one-line justification explaining why that level was selected.
-- Describe how testing and validation will scale with the difficulty (e.g., baseline build/tests for Breezy/Low, unit+integration for Medium, broader integration/manual testing for High/Nightmare/Hell).
+- For each difficulty level, provide a one-line justification.
+- Describe how testing scales with difficulty (e.g., baseline build/tests for Breezy/Low, unit+integration for Medium, broader testing for High/Nightmare/Hell).
 - Phase difficulty should match the highest task difficulty in that phase.
 
-The operation document must reflect these difficulty assignments in its phases and tasks so implementers know expected scope and verification effort.
+The operation doc must reflect these difficulty assignments so implementers know expected scope and verification effort.
 
 1. In your phases overview, include both:
    - A markdown table with columns: **Phase #**, **Status**, **Title**, **Difficulty**, **Tasks**. The **Difficulty** column shows the phase difficulty (highest task difficulty). The **Tasks** column contains a nested table with task details (Task #, Title, Difficulty, Status).

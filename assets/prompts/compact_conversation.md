@@ -1,19 +1,19 @@
-Stop. The conversation has become too long and your context window is getting bloated.
+Stop. The conversation is too long and the context window is bloated.
 
-I want to continue this conversation in another session, perhaps with a new model.
+I want to continue in another session, possibly with a new model.
 
-Summarize our current conversation to include the following sections:
+Summarize the conversation with these sections:
 
-1. Background: A brief overview of the context and purpose of the conversation.
-2. Ambiguities: Any unclear points or questions that need further clarification.
-3. Done: A summary of what has been accomplished so far.
-4. Failed: A summary of what was attempted but did not succeed.
-5. Lessons Learned: Key takeaways or insights gained from the conversation.
-6. Stopped While: If I just stopped you, summarize what you were doing/thinking at that moment.
-7. Recommendations and next steps: What should I do next to continue making progress?
-8. If you think another section is needed, add it anywhere you see fit.
+1. Background: Brief overview of context and purpose.
+2. Ambiguities: Unclear points or questions needing clarification.
+3. Done: What has been accomplished.
+4. Failed: What was attempted but didn't succeed.
+5. Lessons Learned: Key takeaways or insights.
+6. Stopped While: If stopped mid-task, summarize what you were doing/thinking.
+7. Recommendations and next steps: What to do next.
+8. Add other sections if needed.
 
-Write it here in this conversation and don't do anything else. If you think another structure will serve the summary and the next implementer better, feel free to change the structure as you see fit.
-Remember- this is your only chance to summarize the entire conversation, so be thorough on one hand, but on the other hand do not include anything unnecessary or too detailed.
+Write the summary here and do nothing else. Change the structure if a different format better serves the next implementer.
+This is the only chance to summarize—be thorough but omit unnecessary detail.
 
 Write it in a ```txt snippet block so I can easily copy it.

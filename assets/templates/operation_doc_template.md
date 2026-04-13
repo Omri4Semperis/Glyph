@@ -6,23 +6,23 @@
 
 ## Background
 
-[Sections may be added, removed or modified as needed. The goal is to provide enough context for someone new to the operation to understand why it's needed and what it's about]
+[Sections may be added, removed, or modified as needed. Provide enough context for someone new to understand why this operation is needed.]
 
 ### State
 
-[Describe the system's state, process, or situation that this operation is addressing. Include any relevant history, context, and why this operation is needed]
+[System state, process, or situation being addressed. Include relevant history and context.]
 
 ### Goal
 
-[Clearly state the goal of this operation. What is the desired outcome?]
+[Desired outcome of this operation.]
 
 ### Approach
 
-[Briefly describe the overall approach to achieve the goal. This can be a high-level summary of the phases and tasks that will be undertaken]
+[High-level summary of phases and tasks to achieve the goal.]
 
 ## Verification Criteria
 
-[Define what it would take to consider this operation "done". This can include specific deliverables, performance targets, acceptance criteria, or any other measurable outcomes that indicate success]
+[Criteria to consider this operation done: deliverables, performance targets, acceptance criteria, or other measurable outcomes.]
 
 ## Phases
 
@@ -54,7 +54,7 @@ flowchart TD
 
 > 2 Tasks: 3️⃣, 1️⃣
 
-[Background information about Phase 1: Describe the background, current state, context and desired outcome, and anything else relevant to understand the phase]
+[Phase 1 background: current state, context, desired outcome, and relevant details.]
 
 **Definition of Done (D.O.D.):**
 
@@ -64,7 +64,7 @@ flowchart TD
 
 #### P1/Task 1: [Task Title] | ⚠️ | 3️⃣
 
-[Background information about Task 1, goal etc. This will only include enough details to understand the task and its context, but not enough to implement it. The implementation are to be determined during planning/implementation, based on the broader context]
+[Task 1 background and goal. Include enough to understand the task and context, not enough to implement—implementation details are determined during planning.]
 
 **Files Involved:**
 
@@ -75,14 +75,14 @@ flowchart TD
 **P1/Task 1 Subtasks**:
 
 - [ ] [Subtask 1]
-  - [ ] [Sublevels allowed only for very complex subtasks. Use discretion and keep it simple]
+  - [ ] [Sublevels only for very complex subtasks. Keep it simple.]
 - [ ] [Subtask 2]
 
 **P1/Task 1 Lessons Learned:**
-<Briefly write here what you learned or important considerations. Be concise! If nothing to add, remove this section.>
+<Lessons learned or important considerations. Be concise! Remove if nothing to add.>
 
 **Phase 1 Lessons Learned:**
-<Write here lessons learned from the entire Phase 1. Be concise! If nothing to add, remove this section.>
+<Lessons learned from Phase 1. Be concise! Remove if nothing to add.>
 
 #### P1/Task 2: [Task Title] | ✅ | 1️⃣
 

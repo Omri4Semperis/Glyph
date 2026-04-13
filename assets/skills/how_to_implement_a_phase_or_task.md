@@ -2,23 +2,23 @@
 
 ## Pre-Implementation
 
-- **Important:** It's possible that during implementation or between phases the codebase would change/have changed. Therefore, the thing to do before each task is to review the current codebase and determine whether the task is still valid as is, or whether it needs to be adjusted (in which case—stop execution and inform the user).
-- **Establish a baseline:** Any code-changing task (i.e., not research or documentation tasks) must start with a comprehensive build, run, and test verification to establish a baseline. Note all warnings and errors.
-- **Check for reusability:** Determine whether the task might reuse or adapt existing code before proceeding.
+- **Important:** The codebase may change during or between phases. Before each task, review the current codebase to determine if the task is still valid or needs adjustment (if so, stop and inform the user).
+- **Establish a baseline:** Any code-changing task (not research/documentation) must start with a build/run/test verification to establish a baseline. Note all warnings and errors.
+- **Check for reusability:** Check whether existing code can be reused or adapted before proceeding.
 
 ## Implementation Principles
 
-- **Keep It Simple**: Avoid unnecessary complexity. Your implementation should be as straightforward as possible.
-- **SOLID principles**: Adhere to the principles of good software design (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
-- **Testing is Integral**: Testing is not a separate phase or task- it is part of every task and phase. Each implementation effort must include test writing for the new/changed code. Testing should never be deferred or grouped into a dedicated "testing phase." Examples of testing include: unit tests, integration tests, performance tests, cross-browser testing, end-to-end testing, and stress testing.
+- **Keep It Simple**: Avoid unnecessary complexity. Keep implementation straightforward.
+- **SOLID principles**: Adhere to good software design (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
+- **Testing is Integral**: Testing is not a separate phase—it's part of every task. Each implementation must include tests for new/changed code—never defer or group into a dedicated testing phase. Examples: unit, integration, performance, cross-browser, end-to-end, and stress tests.
 
 ## Post-Implementation
 
-- **Verify with baseline:** Perform the same build/run/test verification as at the start. Compare warnings and errors to the baseline to ensure no regressions were introduced.
-- **Mark completion:** All completed subtasks (in their checklists), tasks (in task lists), and phases (in phases overview and D.O.D. sections) must be explicitly marked with `[x]`.
-- **Phase verification:** If a task is the last in a phase, ensure to verify the phase D.O.D. checklist is complete and mark `[x]` on all done items.
-- **Document concisely:** Update lessons learned and bottom lines as applicable (see Documentation Guidelines below).
-- **Provide commit message:** Once a task is done, provide the commit message as a ```txt snippet in conventional format:
+- **Verify with baseline:** Repeat the build/run/test verification. Compare warnings and errors to the baseline to ensure no regressions.
+- **Mark completion:** Mark all completed subtasks, tasks, and phases with `[x]` in their respective checklists, task lists, overview, and D.O.D. sections.
+- **Phase verification:** If a task is the last in a phase, verify the phase D.O.D. checklist is complete and mark all done items with `[x]`.
+- **Document concisely:** Update lessons learned and bottom lines as applicable (see below).
+- **Provide commit message:** Once done, provide a commit message:
 
   ```txt
   [operation name] P-[phase_number]/T-[task_number] - <short task title>: <actual changes made>
@@ -26,17 +26,17 @@
 
 ## Documentation Guidelines
 
-- **Keep operation docs and design logs lean:** Avoid unnecessary bloat. Keep content clear, concise, and focused on actionable information.
-- **Lessons learned must be non-trivial:** Only document insights that meaningfully impact future work or decisions. Exclude:
+- **Keep operation docs and design logs lean:** Avoid bloat. Keep content concise and focused on actionable information.
+- **Lessons learned must be non-trivial:** Only document insights that impact future work or decisions. Exclude:
   - Successful implementations (assumed to be the norm)
   - Trivial observations or obvious outcomes
   - Lengthy narratives or blow-by-blow accounts
-- **Proactive annotations:** When implementing a task and discovering information relevant to future tasks/phases, add comments to those sections so the next implementer will be informed. This applies backward (to past phases) and forward (to future ones).
-- **Reference guidelines:** If during implementation you discover something that should be reflected in design logs or future operation docs, update those docs with a comment explaining the discovery.
+- **Proactive annotations:** When discovering information relevant to other tasks/phases, add comments to those sections—both backward (past phases) and forward (future ones).
+- **Reference guidelines:** If a discovery should be reflected in design logs or future operations, update those docs with a comment.
 
 ## Dynamic Updates
 
-During implementation, new information may arise that necessitates updates to the operation document:
+During implementation, new information may require updates to the operation document:
 
 - New tasks may be added dynamically. New phases may NOT be added.
-- Lessons learned or actions taken during a phase, task, or subtask may impact future steps. In such cases, update the relevant sections with a comment so the next implementer will be informed.
+- Lessons learned or actions impacting future steps should be added to the relevant sections so the next implementer is informed.

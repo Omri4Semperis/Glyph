@@ -123,7 +123,7 @@ graph TD
 
 ### Phase 1: Backend CSV Export
 
-Implement the server-side export functionality including the API endpoint, CSV formatting, and streaming for large datasets.
+Implement server-side export: API endpoint, CSV formatting, and streaming for large datasets.
 
 **Definition of Done (D.O.D.)**:
 
@@ -134,7 +134,7 @@ Implement the server-side export functionality including the API endpoint, CSV f
 
 #### P1/Task 1: Create Export Endpoint
 
-Create the POST endpoint for initiating CSV exports.
+Create the POST endpoint for CSV exports.
 
 **Files Involved**:
 
@@ -154,7 +154,7 @@ Used existing validation middleware pattern from other endpoints. Added explicit
 
 #### P1/Task 2: Implement CSV Formatting
 
-Create utility functions for formatting data as CSV.
+Create CSV formatting utility functions.
 
 **Files Involved**:
 

@@ -12,7 +12,7 @@ Glyph is an MCP that helps developers manage long-term tasks and projects with A
 
 ## Directory Structure
 
-When you initialize Glyph using `init_assistant_dir`, it creates the following structure in your project:
+Initializing Glyph via `init_assistant_dir` creates this structure:
 
 ```
 .assistant/
@@ -36,10 +36,10 @@ When you initialize Glyph using `init_assistant_dir`, it creates the following s
 - Artifacts: `art_{number}_{filename}.ext` (e.g., `art_1_config_template.json`)
 
 **Summary files:**
-Each main directory contains a `_summary.md` file that provides a quick overview of all documents in that directory with their descriptions. This is automatically updated when you create new documents.
+Each directory contains a `_summary.md` with a quick overview of all documents and descriptions, auto-updated on creation.
 
-**If your directory structure is corrupted:**
-You can reinitialize it using `init_assistant_dir` with `overwrite=True`, which will backup your existing `.assistant` directory and create a fresh structure.
+**If the directory structure is corrupted:**
+Reinitialize with `init_assistant_dir` using `overwrite=True`—this backs up the existing `.assistant` directory and creates a fresh structure.
 
 ## Reference Syntax
 
@@ -55,18 +55,18 @@ Or use descriptive text: `[See design for X](.assistant/design_logs/dl_1_title.m
 
 ### Tip: Use Mermaid Diagrams
 
-When explaining complex relationships or structures, consider using graphic Mermaid schemas instead of written explanations. Visual diagrams are often clearer and more intuitive, especially for illustrating workflows, dependencies, or hierarchies.
+For complex relationships or structures, use Mermaid diagrams instead of written explanations—visual diagrams are clearer, especially for workflows, dependencies, or hierarchies.
 
 ## Core Structural Principle
 
-**Design logs should be linked to operations or artifacts.** This is a best practice for maintaining a well-organized Glyph workspace. When possible, every design log should reference or be referenced by at least one operation or artifact. This helps create:
+**Design logs should be linked to operations or artifacts.** Every design log should ideally reference or be referenced by at least one operation or artifact. This creates:
 
 - A coherent knowledge graph with minimal orphaned documents
 - Clear traceability from work (operations) to implementation decisions (design logs)
-- Better categorization and context for your documentation
-- More meaningful reference graphs that reflect your project structure
+- Better categorization and context for documentation
+- More meaningful reference graphs reflecting project structure
 
-However, this is not a strict requirement. If you create a design log without an immediate connection, consider proposing to link it to an operation or artifact later, but it's optional.
+Not a strict requirement—if a design log has no immediate connection, consider linking it later.
 
 ## Working with the Ad Hoc Directory
 
@@ -80,27 +80,27 @@ The `.assistant/ad_hoc` directory is a workspace for temporary files created dur
 
 ### Best Practices
 
-1. **Use ad hoc for temporary work:** Any file that might be discarded or is only relevant to the current task should go in `ad_hoc`.
+1. **Use ad hoc for temporary work:** Files that might be discarded or are only relevant to the current task belong in `ad_hoc`.
 
-2. **Persist valuable files:** If an ad hoc file has significance beyond the immediate task:
-   - Use the `persist_artifacts` tool to move it to the `artifacts` directory
-   - This ensures proper naming (`art_{number}_{name}`) and permanent storage
+2. **Persist valuable files:** If an ad hoc file has lasting significance:
+   - Use `persist_artifacts` to move it to the `artifacts` directory
+   - Ensures proper naming (`art_{number}_{name}`) and permanent storage
    - Persisted artifacts can be referenced by design logs and operations
-   - **Link any related design logs to the persisted artifact** to maintain structural integrity
+   - **Link related design logs to the persisted artifact** to maintain structural integrity
 
-3. **Clean up regularly:** Files left in `ad_hoc` may be cleaned up between sessions. Don't rely on them for long-term storage.
+3. **Clean up regularly:** Files in `ad_hoc` may be cleaned up between sessions—don't rely on them for long-term storage.
 
 4. **When to persist:**
-   - The file documents important findings
-   - The file will be referenced by future work
-   - The file contains reusable templates, scripts, or configurations
-   - The file represents a deliverable or milestone
+   - Documents important findings
+   - Will be referenced by future work
+   - Contains reusable templates, scripts, or configurations
+   - Represents a deliverable or milestone
 
 5. **When NOT to persist:**
    - Temporary debugging outputs
-   - Draft files that have been superseded
+   - Superseded draft files
    - Test files that served their purpose
-   - Files specific to a single session's experimentation
+   - Single-session experimentation files
 
 ## Typical Workflow
 
@@ -112,8 +112,8 @@ The `.assistant/ad_hoc` directory is a workspace for temporary files created dur
 6. **Verify** → `update_reference_graph` to visualize relationships
 7. **Query** → Use `get_references_from` / `find_references_to` to navigate structure
 
-**Key insight:** Design logs should reference or be referenced by operations/artifacts. Use the reference tools to verify your knowledge graph is coherent.
+**Key insight:** Design logs should reference or be referenced by operations/artifacts. Use reference tools to verify the knowledge graph is coherent.
 
 ## Communication Guidelines
 
-If something is unclear or ambiguous, the assistant should ask for clarification.
+If something is unclear or ambiguous, ask for clarification.

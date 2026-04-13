@@ -7,7 +7,7 @@
 > - ✅ Good/Pass - No action needed
 > - OR it's a tracked issue: `[issue_X emoji]` where emoji = ❌ Blocking, ⚠️ Important, ℹ️ Optional, 🦋 Cosmetic
 >
-> For example, if a severe issue is found in code quality, it should be tagged as "[issue_7 ❌]" in the Code Quality section, then also appear in the Bottom Line table with the same tag, be counted in the Executive Summary, and have a recommendation in the Recommendations section.
+> For example, "[issue_7 ❌]" in Code Quality must also appear in the Bottom Line table, Executive Summary count, and Recommendations.
 >
 > **NO standalone warnings, concerns, or recommendations without issue tracking.**
 >
@@ -26,11 +26,11 @@
 - **Primary References:** [Design log, operation doc, PR, issue, spec, benchmark, artifact, etc.]
 - **Additional References:** [Supporting refs or "N/A"]
 
-[One-paragraph overview. Lead with the most important finding. State the total issue count by severity. If assumptions materially affected the review scope, mention them briefly.]
+[One-paragraph overview. Lead with the most important finding and total issue count by severity. Mention material assumptions briefly.]
 
 ## Detailed Review
 
-[For each issue first mentioned below, state what is wrong, where it is, why it matters, and the next action if straightforward.]
+[For each new issue: what's wrong, where, why it matters, and next action if straightforward.]
 
 ### 1. Functionality Review
 
@@ -86,16 +86,16 @@ flowchart LR
 
 #### SOLID Principles & Design Patterns
 
-- **Single Responsibility:** [Assessment of whether classes/functions have single responsibility]
-- **Open/Closed Principle:** [Assessment of extensibility without modification]
-- **Liskov Substitution:** [Assessment of interface design if applicable]
-- **Interface Segregation:** [Assessment of cohesive interfaces]
-- **Dependency Inversion:** [Assessment of abstraction usage]
+- **Single Responsibility:** [Single responsibility assessment]
+- **Open/Closed Principle:** [Extensibility assessment]
+- **Liskov Substitution:** [Interface design assessment if applicable]
+- **Interface Segregation:** [Cohesive interface assessment]
+- **Dependency Inversion:** [Abstraction usage assessment]
 
 #### DRY & KISS Principles
 
-- **DRY (Don't Repeat Yourself):** [Assessment of code duplication]
-- **KISS (Keep It Simple, Stupid):** [Assessment of complexity and readability]
+- **DRY (Don't Repeat Yourself):** [Code duplication assessment]
+- **KISS (Keep It Simple, Stupid):** [Complexity and readability assessment]
 
 #### Project Conventions & Patterns
 
@@ -269,7 +269,7 @@ graph LR
 
 #### Confirmed Strengths (Optional)
 
-1. **[Strength 1]:** [Only include non-trivial strengths worth reusing or preserving]
+1. **[Strength 1]:** [Non-trivial strengths worth reusing or preserving only]
 
 #### What Could Be Improved
 
@@ -347,7 +347,7 @@ Overall [good/acceptable/poor] implementation with [X] identified issues.
 
 1. [Action for issue_X] (issue_X)
 
-> **Note:** Only show specific recommendations to resolve issues if the solutions are easy to do. If there are many issues or they're complex- then suggest to the user to create a more detailed action plan (operation). Remove this note when done.
+> **Note:** Show specific fix recommendations only if solutions are simple. For many or complex issues, suggest creating a detailed action plan (operation). Remove this note when done.
 
 ## Consistency Checklist [Remove when review is done]
 
@@ -357,7 +357,7 @@ Before finalizing this review, verify:
 - [ ] No standalone ⚠️ warnings exist without an issue tag
 - [ ] Issue count in Executive Summary matches Bottom Line table row count
 - [ ] Every issue in Bottom Line appears in Summary Table (in relevant aspect rows with Status column)
-- [ ] Every issue in Bottom Line has a recommendation listed in Recommendations section
+- [ ] Every issue in Bottom Line has a recommendation in Recommendations section
 - [ ] All "not perfect" items (warnings, concerns, partial implementations) are tracked as issues
 - [ ] Every issue is verifiable from the reviewed material
 - [ ] Recommendations fit the target context/stack and assumptions

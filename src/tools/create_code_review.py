@@ -108,8 +108,8 @@ def add_code_review(
         response.add_context(f"Created code review template: {filename}")
         response.add_context(f"Full path: {filepath}")
         response.add_context(
-            "The template has been pre-filled with the review subject, context, and references. "
-            "Complete the review by filling in the detailed sections with your findings."
+            "Template pre-filled with review subject, context, and references. "
+            "Complete by filling in detailed sections with findings."
         )
         response.add_context(
             "Remember: Everything is either ✅ Good or [issue_X emoji]. "

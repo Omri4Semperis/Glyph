@@ -1,21 +1,21 @@
 # How to handle an Operation
 
-An operation is a is a structured plan for implementing a feature or change in the codebase.
+An operation is a structured plan for implementing a feature or change in the codebase.
 It contains background and phases with tasks and subtasks, each with checklists to ensure quality and completeness.
 
-Once a template has been created for an operation using one of the MCP's tools, the operation file should be filled out before implementation begins.
+Once a template is created using one of the MCP's tools, fill out the operation file before implementation begins.
 
 ## Key Guidelines
 
 ### Leading principles in creating an operation
 
-- KISS (Keep It Simple, Stupid): Avoid unnecessary complexity. Each phase and task should be as straightforward as possible.
-- SOLID principles: Ensure that each task adheres to the principles of good software design.
-- Testing is generally done within subtasks, not as a task/phase on its own. Testing is part of the development process.
+- KISS (Keep It Simple, Stupid): Avoid unnecessary complexity. Keep each phase and task straightforward.
+- SOLID principles: Each task should adhere to good software design principles.
+- Testing is done within subtasks, not as a separate task/phase—it's part of the development process.
 
 ### Structure
 
-- Background (Doesn't have to include all of these, only relevant ones):
+- Background (include only relevant items):
   - Background Information
   - Problem Statement
   - Goals
@@ -27,7 +27,7 @@ Once a template has been created for an operation using one of the MCP's tools, 
   - Verification Criteria
   - Mermaid chart showing phases and tasks dependency (if applicable)
 - Phases
-  - Background for each phase (shorter and more concise than the overall background)
+  - Background for each phase (shorter than the overall background)
   - Definition of Done (D.O.D.) checklist
   - Tasks
     - Background for each task (specific to the task)
@@ -38,33 +38,33 @@ Once a template has been created for an operation using one of the MCP's tools, 
 ### Phases
 
 - Each phase must have a clear Definition of Done (D.O.D.) checklist.
-- Phase has more than 1 task? Add another task, numberless, which verifies that the D.O.D. checklist is complete. If only one task exists in the phase, the D.O.D. check is done within that task and no need to add this ghost task.
-- Checking for D.O.D. completeness must be done against the actual code, not the tasks being crossed off in that phase.
-- Checking for D.O.D. completeness may lead to the addition of new tasks if items are incomplete.
-- At the end of each phase, the project must be functional and runnable. If this is not achievable, highlight this clearly with a warning emoji (⚠️) in the phase description.
+- If a phase has more than 1 task, add a numberless task verifying D.O.D. completeness. If only one task exists, the D.O.D. check is done within that task.
+- D.O.D. verification must be against the actual code, not just crossed-off tasks.
+- D.O.D. verification may lead to new tasks if items are incomplete.
+- At the end of each phase, the project must be functional and runnable. If not achievable, highlight with ⚠️ in the phase description.
 
 ### Tasks
 
 - Each task must have a clear background description.
 - Tasks should be as **functionally** atomic as possible.
 - List the files involved in each task.
-- Subtasks should engage with a maximum of 2 files (3 in exceptional cases).
-- At the end of each task the build must pass and all unit/component tests must be successful.
-- The first subtask of each task should be to review the current code base and determine whether the task is still valid as is, or whether it needs to be adjusted (if adjustments are needed, stop and inform the user).
-- For each actionable task (i.e., tasks that change code), start with a build, run, and test verification to establish a baseline. At the end of the task, perform the same verification to ensure no regressions were introduced.
-- If a task is the last in a phase, ensure to include verification of the phase D.O.D. as a subtask.
+- Subtasks should touch at most 2 files (3 in exceptional cases).
+- At the end of each task, the build must pass and all unit/component tests must succeed.
+- The first subtask of each task should review the current codebase to determine if the task is still valid or needs adjustment (if so, stop and inform the user).
+- For each actionable task (tasks that change code), start with a build/run/test verification to establish a baseline. At the end, repeat to ensure no regressions.
+- If a task is the last in a phase, include D.O.D. verification as a subtask.
 
 ### Difficulty Levels
   
 Phases Overview Requirements:
 
 - The `Phases overview` section of an operation **must** include two elements:
-  1. A markdown table summarizing phases with columns: **Phase**, **# Tasks**, **Difficulties**, **Description**. The **Difficulties** column lists each task's individual difficulty (Breezy|Low|Medium|High|Nightmare) as a comma-separated list (e.g., `Medium, Low, Medium`).
+  1. A markdown table with columns: **Phase**, **# Tasks**, **Difficulties**, **Description**. The **Difficulties** column lists each task's difficulty (Breezy|Low|Medium|High|Nightmare) comma-separated (e.g., `Medium, Low, Medium`).
   2. A DAG showing dependencies at the phase and task level. Use a Mermaid `flowchart` with phase `subgraph`s and task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`). This graph must show ordering and cross-phase/task dependencies.
 
-These two elements give both a concise tabular summary and an explicit visual dependency map to help planning and verification.
+Together these provide a tabular summary and visual dependency map for planning and verification.
 
-Operations now include standardized difficulty levels that must be recorded for every task and for each phase. Use the following scale to label tasks and phases:
+Operations include standardized difficulty levels for every task and phase. Use the following scale:
 
 - **Breezy** (0️⃣): Changes to a single existing file, involving just a few (well-defined) line additions, deletions, or modifications.
 - **Low** (1️⃣): Changes limited to one or two files, with well-defined and straightforward modifications, or a single file with a focused functionality to add, change, or remove.
@@ -75,29 +75,29 @@ Operations now include standardized difficulty levels that must be recorded for 
 
 Guidance on applying difficulty levels:
 
-- **Task Difficulty**: Every actionable task must include a single `Task Difficulty` label chosen from the scale above. This label helps implementers understand expected scope and testing effort.
-- **Phase Difficulty**: Each phase should include an explicit `Phase Difficulty` label. By default the phase difficulty should be the maximum difficulty of its contained tasks (e.g., if any task is `High`, the phase is at least `High`) unless the phase owner documents a different, justified phase-level assessment.
-- **Testing & Validation**: All difficulty levels imply testing and build/run validation. Higher difficulty levels demand broader test coverage, integration testing, or manual verification steps as appropriate.
-- **When to escalate**: If during implementation a task grows beyond its originally assigned difficulty, update the task's `Task Difficulty`, re-evaluate the `Phase Difficulty`, and document the reason in the task notes.
+- **Task Difficulty**: Every actionable task must include a `Task Difficulty` label from the scale above, indicating expected scope and testing effort.
+- **Phase Difficulty**: Each phase must include a `Phase Difficulty` label—by default the maximum difficulty of its tasks (e.g., if any task is `High`, the phase is at least `High`) unless a different assessment is justified and documented.
+- **Testing & Validation**: All difficulty levels imply testing and build/run validation. Higher levels demand broader coverage, integration testing, or manual verification as appropriate.
+- **When to escalate**: If a task grows beyond its assigned difficulty during implementation, update `Task Difficulty`, re-evaluate `Phase Difficulty`, and document the reason.
 
 ### Dynamic Updates
 
-- If, during the implementation of a task, you identify new tasks that would be required to complete before moving on, document them immediately.
-- Lessons learned or actions taken during a given phase/task that impact other phases or tasks should be added as a note in the phase/task they impact.
-- If, during implementation of a task, you discover something, learn something, or do something which might be relevant to other tasks/phases, document it in these other tasks/phases as well for whoever implements them next.
+- If during implementation new prerequisite tasks are identified, document them immediately.
+- Lessons learned or actions impacting other phases/tasks should be noted in those affected phases/tasks.
+- If during implementation you discover, learn, or do something relevant to other tasks/phases, document it there too so whoever implements them next will see it.
 
 ### Validation
 
-- Ensure the build passes and all tests (unit and component) are successful after completing each task.
+- Ensure the build passes and all tests succeed after each task.
 - Update relevant documentation to reflect changes.
 
 ### Checklist Management
 
 - Cross out completed checklist items (subtasks and D.O.D. items).
-- Add new tasks if the D.O.D. checklist is incomplete upon checking.
+- Add new tasks if D.O.D. verification reveals incomplete items.
 
 ### General Principles
 
-- Keep descriptions concise and to the point.
-- Avoid unnecessary details that do not contribute to understanding the task.
-- Always keep it simple, don't over engineer, and don't prepare for hypothetical future scenarios that aren't specified in the current requirements.
+- Keep descriptions concise.
+- Omit details that don't contribute to task understanding.
+- Keep it simple—don't over-engineer or prepare for hypothetical scenarios not in current requirements.

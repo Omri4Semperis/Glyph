@@ -4,10 +4,10 @@ Perform a code review{{#what_is_being_reviewed}} of #{{what_is_being_reviewed}}{
 
 ## Before starting
 
-1. Read an example code review using `get_example("code_review")` to understand the expected format, structure, and how issues are tracked consistently throughout the document
-2. Study the example carefully to see how issues progress from detailed sections to Bottom Line, Summary Table, Executive Summary, and Recommendations
-3. Gather the review context before writing findings: what is being reviewed, review type, review focus (default: full review), target context/stack when relevant, severity scope (default: all severities), and supporting references.
-4. If some context is missing, do not block the review unless there is genuinely nothing to review. State the assumptions clearly in Basic Data and continue.
+1. Read an example code review using `get_example("code_review")` to understand the format, structure, and issue tracking
+2. Study how issues progress from detailed sections to Bottom Line, Summary Table, Executive Summary, and Recommendations
+3. Gather review context before writing: what's being reviewed, review type, focus (default: full), target context/stack, severity scope (default: all), and supporting references.
+4. If context is missing, don't block the review unless there's genuinely nothing to review. State assumptions in Basic Data and continue.
 
 {{#has_references}}
 
@@ -21,7 +21,7 @@ Perform a code review{{#what_is_being_reviewed}} of #{{what_is_being_reviewed}}{
 
 ## Review structure
 
-The structure is designed to offer the reader numerous ways to quickly understand the state of the reviewed material at varying levels of detail.
+The structure offers multiple ways to quickly understand the reviewed material at varying detail levels.
 
 - Basic Data - establishes review type, focus, target context/stack, assumptions, and references
 - Detailed sections - "Functionality", "Code/Inline documentation/Comments", "Testing/Coverage", "Documentation/Alignment of docs to code", "Performance & Security" (when explicitly requested by the user or clearly central to the reviewed change)
@@ -31,9 +31,9 @@ The structure is designed to offer the reader numerous ways to quickly understan
 - Executive summary (yes, towards the end)
 - Recommendations
 
-In any point of the review, alongside the good things, an issue may be mentioned. For example, if a functionality is missing or code quality is poor. Mention these in the detailed sections, but also add them to the bottom line table and the summary table (Summary table gives an overview of the sections in a tabular format). In the doc itself, issues are indicated using special syntax (e.g. for an important issue, which is the third one found so far: `[issue_3 ⚠️]`)
+Issues may surface at any point alongside positive findings. Mention them in detailed sections and also in the Bottom Line table and Summary Table. Issues use special syntax (e.g., `[issue_3 ⚠️]` for the third issue, an important one).
 
-At the first mention of any issue in the detailed sections, explain four things as succinctly as possible: what is wrong, where it is, why it matters, and the concrete next action when the fix is straightforward. Use the most specific location available (for example, file + symbol + line).
+At first mention, succinctly explain: what's wrong, where, why it matters, and the concrete next action if straightforward. Use the most specific location available (file + symbol + line).
 
 ## CRITICAL: Issue Consistency Rules
 
@@ -42,7 +42,7 @@ At the first mention of any issue in the detailed sections, explain four things 
 - ✅ Good/Pass - No action needed
 - OR it's a tracked issue with severity (❌ Blocking, ⚠️ Important, ℹ️ Nice-to-have, 🦋 Cosmetic)
 
-**There are NO standalone warnings, concerns, or recommendations.** If something is "partially handled", "could be improved", "consider doing X", or "nice to have" - it IS an issue and MUST be tracked as such.
+**No standalone warnings, concerns, or recommendations.** If something is "partially handled", "could be improved", "consider doing X", or "nice to have"—it IS an issue and MUST be tracked.
 
 **Issue Reference Format**: Always use `[issue_X emoji]` format where X is the issue number and emoji matches severity:
 
@@ -86,7 +86,7 @@ At the first mention of any issue in the detailed sections, explain four things 
     - Are edge cases handled? (Mark each as ✅ or [issue_X emoji])
     - Deviations from design- Are they justified and documented?
   - Code Quality
-    - Static code Analysis (number of lines in all reviewed modules + any abnormal findings that overpass a certain threshold, e.g., method with more than 20 lines)
+    - Static code analysis (line counts in reviewed modules + abnormal findings exceeding thresholds, e.g., methods over 20 lines)
     - Are SOLID, DRY, and KISS principles followed?
     - Does it follow project conventions and patterns?
     - Is the code clean, readable, and well-structured?
@@ -94,27 +94,27 @@ At the first mention of any issue in the detailed sections, explain four things 
     - Is there appropriate error handling?
     - Logging
   - Testing
-    - Unit tests (Table with 3 columns: Test file, tested file(s)/functionality, Test count, Coverage areas) - Are there sufficient unit tests?
+    - Unit tests (table with columns: Test file, tested file(s)/functionality, Test count, Coverage areas)
     - Are integration tests present for key flows?
     - Are edge cases and error scenarios tested?
-    - Testing quality and best practices (e.g., AAA pattern, use of mocks/stubs, etc.)
+    - Testing quality and best practices (AAA pattern, mocks/stubs, etc.)
   - Documentation
     - Code and docs alignment
-    - Any other relevant documentation (e.g., README, external docs, artifacts, operation document etc.)
-    - Is external documentation updated? Should it be updated based on the review findings?
+    - Any other relevant documentation (README, external docs, artifacts, operation doc, etc.)
+    - Is external documentation updated per review findings?
     - Are lessons learned documented appropriately?
   - Performance & Security (when explicitly requested by the user or clearly central to the reviewed change)
-    - Measured performance (e.g., response times, memory usage, etc.)
+    - Measured performance (response times, memory usage, etc.)
     - Are there any performance concerns?
-    - Security review (e.g., input validation, authentication/authorization, data handling, etc.)
+    - Security review (input validation, auth, data handling, etc.)
     - Are there security vulnerabilities?
   - Lessons Learned
-    - Confirmed strengths or reusable patterns (optional; only include when materially useful)
+    - Confirmed strengths or reusable patterns (only when materially useful)
     - What could be improved?
     - Any unexpected findings or insights?
-    - Review: Are all learned lessons documented in the appropriate documents (e.g., design log, operation document, etc.)? Beyond just the basic document we're reviewing.
+    - Are all lessons documented in appropriate documents (design log, operation doc, etc.) beyond the one being reviewed?
 - Executive summary- one paragraph with a Pass ✅ or Fail ❌ for the review.
-- Bottom line- An issues summary in the form of a table, with the following columns:
+- Bottom line—issues summary table with columns:
   - Issue # (1, 2, 3, etc.)
   - Category (Code/inline documentation, Testing, Documentation, Performance, Security, etc.)
   - Location(s) (As specific as possible, e.g., `src/module.py:Class.method:L42`)
@@ -126,21 +126,21 @@ At the first mention of any issue in the detailed sections, explain four things 
   - Status (Pass ✅, Fail ❌, Warning ⚠️) - **MUST include issue references when status is Warning/Fail** (e.g., "⚠️ Warning [issue_1 ⚠️, issue_2 ⚠️]" or "❌ Blocking [issue_4 ❌, issue_5 ❌]")
   - Details (one short sentence per aspect, e.g., "All requirements met", "Clean code with minor issues", "Missing tests for edge cases", etc.)
 - Executive summary- overall assessment. Must include:
-  - Total count of ALL identified issues (must match Bottom Line table count)
+  - Total issue count (must match Bottom Line table)
   - Breakdown by severity (e.g., "2 Blocking, 5 Important, 1 Nice-to-have")
   - List each issue with its one-line summary
   - Final Pass ✅ or Fail ❌ verdict
-- Recommendations, which may take one of the following 3 forms:
+- Recommendations—one of three forms:
   - "Nothing to add" (only if zero issues found)
   - "A few simple issues found, here are the recommended solutions/actions: [detailed recommendations for each issue by issue number]"
-  - "Issues found (sorted here by severity). Here are basic recommendations: [brief recommendations for each issue by issue number]" And finish the section with a reminder that "A more detailed action plan should be created and addressed."
+  - "Issues found (sorted by severity). Basic recommendations: [per issue by number]." End with: "A more detailed action plan should be created."
   - **CRITICAL**: Every issue from the Bottom Line table MUST have a corresponding recommendation listed here
 
 ## Final notes
 
-- You may use Glyph's `create_code_review` tool to generate a template report based on the above structure (which it generates and saves in `.assistant/ad_hoc`), and fill it with the findings from your review.
-- You may use Glyph's static code analysis tool to get some data about given files, and mermaid diagrams (through Glyph's mermaid tool) to visualize complex code structures or flows if needed.
-- Do not add generic praise or filler. Only include confirmed strengths when they are non-trivial, reusable, or directly relevant to the review outcome.
+- Use Glyph's `create_code_review` tool to generate a template report (saved in `.assistant/ad_hoc`) and fill it with findings.
+- Use Glyph's static code analysis tool for file metrics and mermaid tool for visualizing complex code structures or flows.
+- No generic praise or filler. Only include confirmed strengths when non-trivial, reusable, or directly relevant.
 
 **Before submitting the review, verify**:
 
@@ -150,6 +150,6 @@ At the first mention of any issue in the detailed sections, explain four things 
 4. Every issue in Bottom Line appears in Summary Table (in relevant aspect rows)
 5. Every issue in Bottom Line has a recommendation listed
 6. Every issue is verifiable in the reviewed material; do not speculate
-7. Recommendations fit the target context/stack and do not assume unavailable framework features or tooling
-8. Low-signal cosmetic items were filtered unless they materially affect readability or consistency
+7. Recommendations fit the target context/stack without assuming unavailable features or tooling
+8. Low-signal cosmetic items filtered unless they materially affect readability or consistency
 9. If no issues were found, say so explicitly instead of manufacturing issues

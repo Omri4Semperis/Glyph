@@ -10,19 +10,19 @@
 
 ### context
 
-[Provide context about the current state of the system and any relevant history.]
+[Context about the current state of the system and relevant history.]
 
 ### Problem
 
-[Clearly state what problem you're trying to solve and specify requirements and constraints.]
+[Problem statement specifying requirements and constraints.]
 
 ## Questions and Answers
 
 > Keep questions even after answering - they provide valuable context.
 
-[After having established the context and problem, the AI assistant will add questions here and **pause** to let the user answer them. The AI will wait for user confirmation before continuing with the rest of the document. If possible, each question should have suggested answers to help guide the user.]
+[After establishing context and problem, the AI adds questions here and **pauses** for user answers. The AI waits for confirmation before continuing. Where possible, include suggested answers.]
 
-> **Note to AI**: After populating this section with questions, STOP and explicitly ask the user to answer the questions and notify you when ready to continue.
+> **Note to AI**: After populating questions, STOP and ask the user to answer and notify when ready.
 
 ### Q1
 
@@ -38,15 +38,15 @@
 
 [More Q&As as needed]
 
-> **⏸️ PAUSE POINT**: The AI assistant will stop here, remove this comment and wait for the user to answer the questions above before continuing to populate the sections below
+> **⏸️ PAUSE POINT**: Stop here, remove this comment, and wait for the user to answer before continuing.
 
 ## Further analysis
 
-[Following the answers in the Q&A section, the AI assistant may need to perform further analysis to clarify the problem, explore alternatives, or refine the design. This section can include additional research, data analysis, or technical exploration as needed. It is also possible to remove this section if no further analysis is needed after the Q&A phase.]
+[Following Q&A answers, perform further analysis if needed to clarify the problem, explore alternatives, or refine the design. May include additional research, data analysis, or technical exploration. Remove this section if no further analysis is needed.]
 
 ## Decided approach
 
-[Describe the proposed solution in detail. The level of details should be such that a senior developer could understand and implement it- even if they had to make some decisions on their own. Include file paths, type signatures, data structures, API endpoints, charts and diagrams etc.]
+[Describe the proposed solution in detail sufficient for a senior developer to understand and implement, making some decisions independently. Include file paths, type signatures, data structures, API endpoints, charts, and diagrams.]
 
 ### Architecture
 
@@ -54,38 +54,38 @@
 
 ### Database Schema
 
-[Implementation only: If applicable, describe database changes. Remove this section if not applicable.]
+[Describe database changes if applicable. Remove if not.]
 
 ### API Endpoints
 
-[Implementation only: If applicable, describe API changes. Remove this section if not applicable.]
+[Describe API changes if applicable. Remove if not.]
 
 ### File Structure
 
-[Implementation only: Where will new/modified files live? Remove this section if not applicable.]
+[Where will new/modified files live? Remove if not applicable.]
 
 ### Key Type Signatures
 
-[Implementation only: If using TypeScript or similar, include type definitions. Remove this section if not applicable.]
+[Include type definitions if applicable. Remove if not.]
 
 ### Examples
 
-[Implementation only: Show good and bad coding patterns with code examples. Remove this section if not applicable.]
+[Show good and bad patterns with code examples. Remove if not applicable.]
 
 ### Trade-offs
 
-[Discuss alternatives considered and why you chose this approach. Include technical trade-offs and architecture choices.]
+[Alternatives considered, chosen approach, and rationale. Include technical trade-offs.]
 
 ## Verification Criteria
 
-[What would it take to consider this design log's work "done"? List acceptance criteria, test requirements, and performance targets.]
+[Acceptance criteria, test requirements, and performance targets for considering this work done.]
 
 ## Plan
 
-[Break down the work into phases, and group phases by topic. This should be a high-level plan, not a detailed task list. If it's critical to have more than just a couple of sentence- include an artifact file and refer to it in the step itself. Remove this section if not applicable.]
+[Break work into phases grouped by topic. High-level plan, not a detailed task list. For steps needing more than a few sentences, include an artifact file and reference it. Remove if not applicable.]
 
 **Steps overview**:
-[A table grouping steps by topic and showing basic info about each step]
+[Table grouping steps by topic with basic info]
 
 | Topic | Step | Status | Title | Effort (Read, Write, Logic, Average) |
 | - | - | - | - | - |
@@ -97,19 +97,19 @@
 
 | Effort (Read, Write, Logic, Average) | In a nutshell | References |
 | - | - | - |
-| 5, 6, 8, **6.3** | [One short sentence describing the step] | [Links to relevant design logs, operations docs, artifacts, code files, research papers, etc. May be left empty before implementation/planning of this step starts] |
+| 5, 6, 8, **6.3** | [One short sentence describing the step] | [Links to relevant docs, artifacts, code files, etc. May be empty before implementation starts] |
 
 #### Step 1 details
 
-[High level details about the step, including what needs to be done, how it should be done, and any relevant information. Include technical details, file paths, type signatures, data structures, API endpoints, charts and diagrams etc.]
+[High-level details: what needs to be done, how, and relevant technical details (file paths, type signatures, data structures, API endpoints, diagrams, etc.).]
 
 #### Step 1 comments from other steps/locations
 
-[If there are relevant comments from other design logs, operations docs, code reviews, steps, etc. that provide context or information for this step, they can be included here. This is especially useful if the step is related to or dependent on work done in other places.]
+[Relevant comments from other design logs, operations, code reviews, or steps providing context for this step.]
 
 #### Step 1 lessons learned from this step that are only relevant as context for looking into this step in the future
 
-[When implementing this step, there may be specific insights, challenges, or decisions that are particularly relevant for anyone looking at this step in the future. This section can be used to document those lessons learned, which can provide valuable context and guidance for future work related to this step.]
+[Insights, challenges, or decisions from implementing this step that provide context for future reference.]
 
 ### Step 2: [Title of Step 2]
 
@@ -117,8 +117,8 @@
 
 ### Learnings from all steps
 
-[Lessons learned/important actions taken during the implementation of the steps that are relevant for the overall design log and not just for a specific step. This can include insights about the problem, the solution, the process, or any other aspect that is important to document for future reference.]
+[Lessons learned during implementation relevant to the overall design log, not just a specific step. Includes insights about the problem, solution, process, or other aspects worth documenting.]
 
 ### Deviations from Original Plan
 
-[Document any significant deviations from the original plan, including changes in approach, unexpected challenges, or new insights that led to adjustments in the design or implementation. This section helps provide context for why certain decisions were made and how the final outcome may differ from the initial plan.]
+[Significant deviations from the original plan: changes in approach, unexpected challenges, or new insights leading to adjustments. Provides context for decisions made and how the outcome differs from the initial plan.]

@@ -1,6 +1,6 @@
-Design logs are meant to be written such that a senior developer could understand and implement the design based on the information provided, even if they had to make some decisions on their own. This means that design logs should include specific details such as file paths, type signatures, data structures, API endpoints, charts and diagrams when relevant. The goal is to provide enough information for someone to implement the design without needing to ask too many follow-up questions.
+Design logs should be written so a senior developer can understand and implement the design from the information provided, making some decisions independently. Include specific details: file paths, type signatures, data structures, API endpoints, charts and diagrams when relevant. The goal is to provide enough information to implement without excessive follow-up questions.
 
-When creating an operation doc out of a plan step in this design log, you should consider all information in this design log- including background, Q&A, decisions etc, and even the lessons learned section at the bottom.
+When creating an operation doc from a plan step in a design log, consider all information—background, Q&A, decisions, and the lessons learned section.
 
 # Design Log Methodology Rules
 
@@ -16,7 +16,7 @@ The project follows a rigorous design log methodology for all significant featur
 
 ### Two-Phase Creation Process
 
-Design logs are created in **two phases** with a user input pause in between:
+Design logs are created in **two phases** with a pause for user input:
 
 **Phase 1: Initial Creation (Stop at Q&A)**
 
@@ -26,7 +26,7 @@ Design logs are created in **two phases** with a user input pause in between:
    - Problem statement
    - Questions and Answers section with your questions
 3. **STOP and wait for user** to answer the questions
-4. **Explicitly instruct the user**: Tell them you've added questions in the Q&A section and ask them to answer the questions and notify you when ready
+4. **Explicitly instruct the user**: Tell them questions are in the Q&A section and ask them to answer and notify when ready
 
 **Phase 2: Complete the Document (After User Answers)**
 5. **Resume after user confirmation** that questions are answered
@@ -44,32 +44,32 @@ Design logs are created in **two phases** with a user input pause in between:
 2. **Be specific**: Include file paths, type signatures, validation rules
 3. **Show examples**: Use ✅/❌ for good/bad patterns, include realistic code
 4. **Explain why**: Don't just describe what, explain rationale and trade-offs
-5. **Ask Questions (in the file)**: For anything that is not clear, or missing information - these questions should be targeted and relevant to design decisions
-6. **When answering question**: keep the questions, just add answers (this happens during the pause between Phase 1 and Phase 2)
-7. **Be brief**: write short explanations and only what most relevant
-8. **Draw Diagrams**: Use mermaid inline diagrams when it makes sense
-9. **Define verification criteria**: how do we know the implementation solves the original problem
+5. **Ask Questions (in the file)**: For anything unclear or missing—questions should be targeted and relevant to design decisions
+6. **When answering questions**: Keep the questions, add answers below them (during the Phase 1→2 pause)
+7. **Be brief**: Write short explanations covering only what's most relevant
+8. **Draw Diagrams**: Use Mermaid inline diagrams when applicable
+9. **Define verification criteria**: How to confirm the implementation solves the original problem
 
 ## When Implementing
 
 1. **Follow the implementation plan** phases from the design log
 2. **Write tests first** or update existing tests to match new behavior
-3. **Do not Update design log** initial section once implementation started
+3. **Do not update** initial design log sections once implementation starts
 4. **Append design log** with "Implementation Results" section as you go
 5. **Document deviations**: Explain why implementation differs from design
 6. **Run tests**: Include test results (X/Y passing) in implementation notes
-7. **After Implementation** add a summary of deviations from original design
+7. **After implementation**: Add a summary of deviations from original design
 
 ## When Answering Questions
 
 1. **Reference design logs** by number when relevant (e.g., "See Design Log #50")
 2. **Use codebase terminology**: Adapt to your project's conventions
-3. **Show type signatures**: Include relevant type definitions for your language
+3. **Show type signatures**: Include relevant type definitions
 4. **Consider backward compatibility**: Default to non-breaking changes
 
 ## References
 
-Writing references in a design log is encouraged, using standard markdown file references:
+Use standard markdown file references in design logs:
 
 - Referencing another design log: `[dl_123](.assistant/design_logs/dl_123_title.md)` - use the full filename
 - Referencing an artifact: `[art_123](.assistant/artifacts/art_123_name.ext)` - use the full filename with extension

@@ -69,8 +69,7 @@ def init_assistant_dir(abs_path: str, overwrite: bool) -> GlyphMCPResponse:
 
     design_logs_summary_content = """# Design Logs summary
 
-This file contains a summary of design logs. Each log is documented by file name and a brief description.
-The main purpose of this file is to provide a quick overview of the design logs for easy reference, without having to read the entire content of each log.
+Summary of design logs by file name and brief description, for quick reference without reading each log.
 
 ## Design Logs
 
@@ -78,8 +77,7 @@ The main purpose of this file is to provide a quick overview of the design logs 
 
     operations_summary_content = """# Operations summary
 
-This file contains a summary of operations. Each operation is documented by file name and a brief description.
-The main purpose of this file is to provide a quick overview of the operations for easy reference, without having to read the entire content of each operation.
+Summary of operations by file name and brief description, for quick reference without reading each operation.
 
 ## Operations
 
@@ -87,8 +85,7 @@ The main purpose of this file is to provide a quick overview of the operations f
 
     artifacts_summary_content = """# Artifacts summary
 
-This file contains a summary of artifacts. Each artifact is documented by file name and a brief description.
-The main purpose of this file is to provide a quick overview of the artifacts for easy reference, without having to read the entire content of each artifact.
+Summary of artifacts by file name and brief description, for quick reference without reading each artifact.
 
 ## Artifacts
 

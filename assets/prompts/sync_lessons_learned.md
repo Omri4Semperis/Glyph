@@ -1,12 +1,12 @@
 # Your mission
 
-Sync the absolutely crucial, critical, and most important lessons learned from operation(s) {{operations_list}} back to design log(s) {{design_logs_list}}. Avoid duplicating lessons already present or reasonably assumed in the design logs.
+Sync the most critical lessons learned from operation(s) {{operations_list}} back to design log(s) {{design_logs_list}}. Avoid duplicating lessons already present or reasonably assumed in the design logs.
 
 ## Process
 
 1. **For each operation document:**
-   - Read the operation document completely
-   - Extract only the most critical "Lessons Learned" sections from tasks and phases
+   - Read the entire operation document
+   - Extract the most critical "Lessons Learned" from tasks and phases
    - Extract the most critical "Lessons Learned during Operation" section
    - Identify the related design logs from the References section
 
@@ -30,7 +30,7 @@ Sync the absolutely crucial, critical, and most important lessons learned from o
 
 ## Output format
 
-For each operation processed, report back to me in the chat:
+For each operation processed, report:
 
 ```txt
 Operation: <operation_name>
