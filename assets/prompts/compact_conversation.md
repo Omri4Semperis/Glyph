@@ -13,7 +13,7 @@ Summarize our current conversation to include the following sections:
 7. Recommendations and next steps: What should I do next to continue making progress?
 8. If you think another section is needed, add it anywhere you see fit.
 
-Write it here in this conversation and don't do anything else.
+Write it here in this conversation and don't do anything else. If you think another structure will serve the summary and the next implementer better, feel free to change the structure as you see fit.
 Remember- this is your only chance to summarize the entire conversation, so be thorough on one hand, but on the other hand do not include anything unnecessary or too detailed.
 
 Write it in a ```txt snippet block so I can easily copy it.

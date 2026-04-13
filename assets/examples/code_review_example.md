@@ -4,11 +4,14 @@
 
 - **Date:** 2026-01-25
 - **Reviewer:** Glyph AI Assistant
-- **What is being reviewed:** Feature implementation - CSV export functionality
-- **Design Log:** [dl_008_export_csv](.assistant/design_logs/dl_008_export_csv.md)
-- **Primary Operation Document:** [op_47_export_csv](.assistant/operations/op_47_export_csv.md)
-- **Related Operations:** [op_48](.assistant/operations/op_48.md), [op_50](.assistant/operations/op_50.md), [op_51](.assistant/operations/op_51.md), [op_52](.assistant/operations/op_52.md)
-- **Additional References:** PR#142, Implementation completed
+- **Review Type:** Implementation
+- **Review Focus:** Full review
+- **Target Context / Stack:** TypeScript frontend + API, React UI, authenticated internal web application
+- **Assumptions:** Existing authentication and permission checks are shared infrastructure; performance and security are in scope because the change adds a new export endpoint and large-dataset flow
+- **Primary References:** [dl_008_export_csv](.assistant/design_logs/dl_008_export_csv.md), [op_47_export_csv](.assistant/operations/op_47_export_csv.md), [op_48](.assistant/operations/op_48.md), [op_50](.assistant/operations/op_50.md), [op_51](.assistant/operations/op_51.md), [op_52](.assistant/operations/op_52.md)
+- **Additional References:** PR#142, implementation completed
+
+The CSV export implementation meets the core functional and performance goals, but the review fails until the missing user-facing and API documentation are added. There are 8 identified issues in total: 2 blocking issues in documentation and 6 important issues across code quality, testing, functionality hardening, security, and design-log follow-through. The review assumes an authenticated internal deployment and therefore treats rate limiting as important hardening rather than a blocking security flaw.
 
 ## Detailed Review
 
@@ -118,29 +121,14 @@ graph LR
 
 #### Code Readability & Structure
 
-**Positive Observations:**
-
-- **Consistent patterns:** Export endpoint follows existing API patterns established in the codebase
-- **Type safety:** Full TypeScript coverage with strict mode enabled
-- **Separation of concerns:** CSV formatting logic cleanly isolated in utils module
-
-**Concerns:**
-
-- [issue_1 ⚠️] **Missing null check in CSV formatter** at `src/utils/csv.ts` line 34
-  - **Details:** Current code calls `.toString()` on values that could be null, potentially causing runtime errors
-  - **Code snippet:**
-
-    ```typescript
-    // Current
-    const value = row[header];
-    return escapeCSV(value.toString());
-    ```
-
-  - **Recommendation:** Add null-safe access operator
-
-- [issue_2 ⚠️] **Hardcoded chunk size** at `src/api/export.ts` line 78
-  - **Details:** CHUNK_SIZE is hardcoded; cannot tune performance without code modification
-  - **Recommendation:** Move to configuration file
+- ✅ Export endpoint follows existing API patterns established in the codebase
+- ✅ CSV formatting logic is cleanly isolated in the utils module
+- [issue_1 ⚠️] **Missing null check in CSV formatter** at `src/utils/csv.ts:formatRow:L34`
+  - **Why it matters:** Calling `.toString()` on a null value can raise a runtime error during export for sparse datasets
+  - **Recommendation:** Add null-safe access and preserve empty-field behavior
+- [issue_2 ⚠️] **Hardcoded chunk size** at `src/api/export.ts:streamExport:L78`
+  - **Why it matters:** Performance tuning requires a code change and redeploy instead of a configuration change
+  - **Recommendation:** Move chunk sizing to configuration
 
 #### Inline Comments & Documentation
 
@@ -205,17 +193,9 @@ graph TB
 
 #### Integration Tests
 
-- **Test 1: Filter and sort respect in export** ✅ Present
-  - Tests that export respects applied filters and sort order
-  - Located in export.test.ts lines 45-89
-  
-- **Test 2: Large dataset export** ✅ Present
-  - Tests streaming of 100k rows without memory issues
-  - Performance benchmark included (3.2s average)
-
-- **Test 3: Cross-table export compatibility** ✅ Present
-  - Tests export functionality across different table types
-  - Located in DataTable.test.tsx
+- ✅ Filter and sort respect in export tested in `export.test.ts` lines 45-89
+- ✅ Large dataset export tested with 100k rows; benchmark averages ~3.2s
+- ✅ Cross-table export compatibility covered in `DataTable.test.tsx`
 
 #### Edge Cases & Error Scenarios
 
@@ -258,19 +238,13 @@ graph TB
 
 #### Relevant External Documentation
 
-- **API Documentation:** New `/api/export` endpoint exists but not documented in API reference guide
-- **User Guide:** Export feature is missing from user-facing documentation; users unaware of capability
-- **Architecture Notes:** Historical streaming patterns are documented; this implementation aligns well
-
-**Concerns:**
-
-- [issue_4 ❌] **Missing API documentation** - docs/api.md
-  - **Details:** The new export endpoint is not listed in the API documentation
+- [issue_4 ❌] **Missing API documentation** - `docs/api.md`
+  - **Why it matters:** Integrators do not have a supported contract to follow
   - **Recommendation:** Add endpoint documentation with parameters and examples
-
-- [issue_5 ❌] **Outdated user guide** - docs/user_guide.md  
-  - **Details:** Users cannot discover the export feature from documentation
-  - **Recommendation:** Add feature description to user guide
+- [issue_5 ❌] **Outdated user guide** - `docs/user_guide.md`
+  - **Why it matters:** Users cannot discover or correctly use the capability
+  - **Recommendation:** Add feature description and usage notes to the user guide
+- ✅ Architecture notes already document the project's streaming patterns and align with this implementation
 
 #### Lessons Learned Documentation
 
@@ -320,7 +294,7 @@ graph LR
 
 **Performance Concerns:**
 
-- None identified; streaming implementation performs well across all tested scenarios
+- ✅ None identified; streaming implementation performs well across all tested scenarios
 
 #### Security Review
 
@@ -344,18 +318,17 @@ graph LR
 - ✅ Input validation on filter/sort parameters
 - ✅ No SQL injection risk (uses parameterized queries)
 - ✅ Export limited to user's authorized data
-- [issue_7 ⚠️] Consider rate limiting for large exports (nice-to-have for internal tool, not critical)
+- [issue_7 ⚠️] Export endpoint has no rate limiting for large requests
+  - **Why it matters:** Bursts of large exports can exhaust shared resources even in an internal tool
+  - **Recommendation:** Add rate limiting or concurrency guards for large exports
 
 ---
 
 ### 6. Lessons Learned
 
-#### What Went Well
+#### Confirmed Strengths (Optional)
 
-1. **Streaming Architecture:** Using streaming approach elegantly solved the large dataset problem without memory overhead
-2. **Test Coverage:** Comprehensive test suite with good coverage (94% statements, 100% functions)
-3. **Code Organization:** Clean separation of concerns between API, formatting, and UI layers
-4. **Type Safety:** Full TypeScript adoption enabled early error detection
+1. **Streaming Architecture:** Streaming kept memory bounded at 32MB for 100k rows and is a reusable pattern for other large export or reporting flows
 
 #### What Could Be Improved
 
@@ -379,16 +352,16 @@ graph LR
 
 | Issue # | Category | Location(s) | Origin | Severity | Recommendation |
 | - | - | - | - | - | - |
-| issue_1 | Code Quality | csv.ts line 34 | op_47, phase 2/task 3 | ⚠️ Important | Add null-safe access |
-| issue_2 | Code Quality | export.ts line 78 | op_51, phase 1/task 4 | ⚠️ Important | Move to configuration |
-| issue_3 | Testing | export.test.ts | op_47, phase 2/task 1 | ⚠️ Important | Add empty dataset test |
-| issue_4 | Documentation | docs/api.md | op_52, phase 3/task 2 | ❌ Blocking | Document new endpoint |
-| issue_5 | Documentation | docs/user_guide.md | op_52, phase 3/task 2 | ❌ Blocking | Document for users |
-| issue_6 | Functionality | ExportButton.tsx | op_48, phase 1/task 3 | ⚠️ Important | Add debounce/queue for concurrent requests |
-| issue_7 | Security | export.ts | op_50, phase 2/task 2 | ⚠️ Important | Add rate limiting for exports |
-| issue_8 | Documentation | dl_008_export_csv.md | op_47, phase 2/task 3 | ⚠️ Important | Document Safari polyfill lesson |
+| issue_1 | Code Quality | `src/utils/csv.ts:formatRow:L34` | op_47, phase 2/task 3 | ⚠️ Important | Add null-safe access |
+| issue_2 | Code Quality | `src/api/export.ts:streamExport:L78` | op_51, phase 1/task 4 | ⚠️ Important | Move to configuration |
+| issue_3 | Testing | `src/tests/export.test.ts` | op_47, phase 2/task 1 | ⚠️ Important | Add empty dataset test |
+| issue_4 | Documentation | `docs/api.md` | op_52, phase 3/task 2 | ❌ Blocking | Document new endpoint |
+| issue_5 | Documentation | `docs/user_guide.md` | op_52, phase 3/task 2 | ❌ Blocking | Document for users |
+| issue_6 | Functionality | `src/components/ExportButton.tsx:handleExport` | op_48, phase 1/task 3 | ⚠️ Important | Add debounce/queue |
+| issue_7 | Security | `src/api/export.ts:POST /api/export` | op_50, phase 2/task 2 | ⚠️ Important | Add rate limiting |
+| issue_8 | Documentation | `dl_008_export_csv.md:Lessons Learned` | op_47, phase 2/task 3 | ⚠️ Important | Document Safari polyfill lesson |
 
-#### Issues Breakdown
+### Issues Breakdown
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'pie1':'#dc3545', 'pie2':'#ffc107', 'pie3':'#17a2b8'}}}%%
@@ -440,7 +413,7 @@ graph TB
 
 ## Executive Summary
 
-The implementation mostly works as intended with 8 identified issues.
+The implementation mostly works as intended, but the review fails until the blocking documentation gaps are closed. There are 8 identified issues in total: 2 blocking and 6 important.
 
 ### ❌ 2 Blocking Issues (Must fix before merge)
 
@@ -454,6 +427,9 @@ The implementation mostly works as intended with 8 identified issues.
 - **issue_3:** Missing test for empty dataset export
 - **issue_6:** Concurrent export request handling incomplete (needs debounce logic)
 - **issue_7:** Rate limiting not implemented for large exports
+- **issue_8:** Safari polyfill lesson missing from design log documentation
+
+**Conclusion**: Fail ❌ until API and user documentation are added; address the remaining important issues in the same pass if possible.
 
 ## Recommendations
 

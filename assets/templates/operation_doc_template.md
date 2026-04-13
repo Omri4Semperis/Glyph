@@ -10,7 +10,7 @@
 
 ### State
 
-[Describe the current state of the system, process, or situation that this operation is addressing. Include any relevant history, context, and why this operation is needed]
+[Describe the system's state, process, or situation that this operation is addressing. Include any relevant history, context, and why this operation is needed]
 
 ### Goal
 

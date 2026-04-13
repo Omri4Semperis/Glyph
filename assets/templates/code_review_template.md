@@ -19,12 +19,18 @@
 
 - **Date:** [YYYY-MM-DD]
 - **Reviewer:** [Name/Glyph AI Assistant]
-- **What is being reviewed:** [Type: Source code / Implementation / Refactoring / etc.]
-- **Design Log:** [Link to design log if applicable]
-- **Operation Document:** [Link to operation document if applicable]
-- **Additional References:** [PR link, commit hash, requirements document, etc.]
+- **Review Type:** [Implementation / Refactoring / Source code / PR / Artifact / etc.]
+- **Review Focus:** [Full review / Functionality / Code quality / Testing / Documentation / Performance / Security / Custom]
+- **Target Context / Stack:** [Language, framework/runtime, platform, version, constraints, etc.]
+- **Assumptions:** [State any assumptions made because context was missing; otherwise "None"]
+- **Primary References:** [Design log, operation doc, PR, issue, spec, benchmark, artifact, etc.]
+- **Additional References:** [Supporting refs or "N/A"]
+
+[One-paragraph overview. Lead with the most important finding. State the total issue count by severity. If assumptions materially affected the review scope, mention them briefly.]
 
 ## Detailed Review
+
+[For each issue first mentioned below, state what is wrong, where it is, why it matters, and the next action if straightforward.]
 
 ### 1. Functionality Review
 
@@ -261,9 +267,9 @@ graph LR
 
 ### 6. Lessons Learned
 
-#### What Went Well
+#### Confirmed Strengths (Optional)
 
-1. **[Positive finding 1]:** [Detailed explanation of what was done well]
+1. **[Strength 1]:** [Only include non-trivial strengths worth reusing or preserving]
 
 #### What Could Be Improved
 
@@ -283,9 +289,9 @@ graph LR
 
 | Issue # | Category | Location(s) | Origin | Severity | Recommendation |
 | - | - | - | - | - | - |
-| issue_1 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
-| issue_2 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
-| issue_3 | [Category] | [File/Method] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
+| issue_1 | [Category] | [file.ext:Symbol:Lxx] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
+| issue_2 | [Category] | [file.ext:Symbol:Lxx] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
+| issue_3 | [Category] | [file.ext:Symbol:Lxx] | [DL or OP reference] | ❌ / ⚠️ / ℹ️ / 🦋 | [Action - 4 words max] |
 
 ## Summary Table
 
@@ -353,3 +359,6 @@ Before finalizing this review, verify:
 - [ ] Every issue in Bottom Line appears in Summary Table (in relevant aspect rows with Status column)
 - [ ] Every issue in Bottom Line has a recommendation listed in Recommendations section
 - [ ] All "not perfect" items (warnings, concerns, partial implementations) are tracked as issues
+- [ ] Every issue is verifiable from the reviewed material
+- [ ] Recommendations fit the target context/stack and assumptions
+- [ ] Low-signal cosmetic items were filtered unless they materially matter

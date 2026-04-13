@@ -2,23 +2,19 @@
 
 - **Date:** [YYYY-MM-DD]
 - **Author:** Glyph AI Assistant
-- **Type:** [Research | Implementation | Both]
 - **Related Docs:** [Link to related design logs, operations docs, artifacts (if any)]
 
----
-
-**Note**: This is a general template, which can be adapted for both research and implementation design logs. Depending on the type and specific goal, some sections may be omitted, modified or added. Remove this comment when not needed anymore
 ---
 
 ## Background
 
 ### context
 
-[Provide context about the current state of the system and any relevant history. For research: include what is currently known and unknown. For implementation: describe the current system state.]
+[Provide context about the current state of the system and any relevant history.]
 
 ### Problem
 
-[Clearly state what problem you're trying to solve or what you need to understand. For research: frame as questions to answer or hypotheses to validate. For implementation: specify requirements and constraints.]
+[Clearly state what problem you're trying to solve and specify requirements and constraints.]
 
 ## Questions and Answers
 
@@ -31,19 +27,18 @@
 ### Q1
 
 **Q1: [Question from AI assistant]**
-A1: [Leave empty or provide a few answers for the user to choose from]
+
+**A1**: [Leave empty or provide a few answers for the user to choose from]
 
 ### Q2
 
 **Q2: [Question from AI assistant]**
-A2: [Leave empty or provide a few answers for the user to choose from]
+
+**A2**: [Leave empty or provide a few answers for the user to choose from]
 
 [More Q&As as needed]
 
----
-
-**⏸️ PAUSE POINT**: The AI assistant will stop here and wait for the user to answer the questions above before continuing to populate the sections below
----
+> **⏸️ PAUSE POINT**: The AI assistant will stop here, remove this comment and wait for the user to answer the questions above before continuing to populate the sections below
 
 ## Further analysis
 
@@ -51,11 +46,11 @@ A2: [Leave empty or provide a few answers for the user to choose from]
 
 ## Decided approach
 
-[For implementation: Describe the proposed solution in detail. The level of details should be such that a senior developer could understand and implement it- even if they had to make some decisions on their own. Include file paths, type signatures, data structures, API endpoints, charts and diagrams etc. For research: Describe the research methodology, data sources, analysis approach, etc.]
+[Describe the proposed solution in detail. The level of details should be such that a senior developer could understand and implement it- even if they had to make some decisions on their own. Include file paths, type signatures, data structures, API endpoints, charts and diagrams etc.]
 
-### Architecture / Research Design
+### Architecture
 
-[For implementation: High-level architecture description, optionally with a diagram. For research: Describe research methodology, data collection approach, analysis framework.]
+[High-level architecture description, optionally with a diagram.]
 
 ### Database Schema
 
@@ -75,19 +70,19 @@ A2: [Leave empty or provide a few answers for the user to choose from]
 
 ### Examples
 
-[Implementation only: Show good and bad coding patterns with code examples. For research: provide example data, analysis outputs, or findings. Remove this section if not applicable.]
+[Implementation only: Show good and bad coding patterns with code examples. Remove this section if not applicable.]
 
 ### Trade-offs
 
-[Discuss alternatives considered and why you chose this approach. For implementation: technical trade-offs, architecture choices. For research: methodology choices, data source trade-offs, analysis approach alternatives.]
+[Discuss alternatives considered and why you chose this approach. Include technical trade-offs and architecture choices.]
 
 ## Verification Criteria
 
-[What would it take to consider this design log's work "done"? For implementation: list acceptance criteria, test requirements, performance targets. For research: define what answers the research questions, validation methods for findings.]
+[What would it take to consider this design log's work "done"? List acceptance criteria, test requirements, and performance targets.]
 
 ## Plan
 
-[Break down the work into phases, and group phases by topic. For implementation: describe implementation phases. For research: describe research phases (literature review, data collection, analysis, synthesis). This should be a high-level plan, not a detailed task list. If it's critical to have more than just a couple of sentence- include an artifact file and refer to it in the step itself. Remove this section if not applicable.]
+[Break down the work into phases, and group phases by topic. This should be a high-level plan, not a detailed task list. If it's critical to have more than just a couple of sentence- include an artifact file and refer to it in the step itself. Remove this section if not applicable.]
 
 **Steps overview**:
 [A table grouping steps by topic and showing basic info about each step]
@@ -106,7 +101,7 @@ A2: [Leave empty or provide a few answers for the user to choose from]
 
 #### Step 1 details
 
-[High level details about the step, including what needs to be done, how it should be done, and any relevant information. For implementation: include technical details, file paths, type signatures, data structures, API endpoints, charts and diagrams etc. For research: describe research activities, data sources, analysis approach, etc.]
+[High level details about the step, including what needs to be done, how it should be done, and any relevant information. Include technical details, file paths, type signatures, data structures, API endpoints, charts and diagrams etc.]
 
 #### Step 1 comments from other steps/locations
 

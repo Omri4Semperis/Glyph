@@ -3,9 +3,56 @@ Consolidated prompts module.
 
 All Glyph prompts (slash commands) in one place.
 """
-from typing import Any, Dict, List, Literal
+import re
+from typing import Any, Dict, List
 from mcp_object import mcp
 from read_an_asset import read_asset
+
+
+OPTIONAL_BLOCK_PATTERN = re.compile(
+    r"\{\{#(?P<key>[a-zA-Z_][a-zA-Z0-9_]*)\}\}(?P<content>.*?)\{\{/(?P=key)\}\}",
+    re.DOTALL,
+)
+
+
+def _stringify_prompt_value(value: Any) -> str:
+    """Convert prompt replacement values to strings, treating None as empty."""
+    if value is None:
+        return ""
+    return str(value)
+
+
+def _has_prompt_value(value: Any) -> bool:
+    """Return whether a prompt replacement value should be considered present."""
+    return bool(_stringify_prompt_value(value).strip())
+
+
+def _optional_block_flag(*values: Any) -> str:
+    """Return a truthy marker when any prompt value is present."""
+    return "1" if any(_has_prompt_value(value) for value in values) else ""
+
+
+def _render_optional_blocks(prompt: str, replacements_dict: Dict[str, Any]) -> str:
+    """Render or remove optional template blocks based on replacement values."""
+    previous_prompt = None
+
+    while prompt != previous_prompt:
+        previous_prompt = prompt
+        prompt = OPTIONAL_BLOCK_PATTERN.sub(
+            lambda match: match.group("content")
+            if _has_prompt_value(replacements_dict.get(match.group("key")))
+            else "",
+            prompt,
+        )
+
+    return prompt
+
+
+def _cleanup_prompt_whitespace(prompt: str) -> str:
+    """Collapse blank-line gaps left behind by optional blocks."""
+    prompt = re.sub(r"[ \t]+\n", "\n", prompt)
+    prompt = re.sub(r"\n{3,}", "\n\n", prompt)
+    return prompt.strip()
 
 
 def replace_in_prompts(prompt: str, replacements_dict: Dict[str, Any]) -> str:
@@ -20,13 +67,15 @@ def replace_in_prompts(prompt: str, replacements_dict: Dict[str, Any]) -> str:
         The prompt string with placeholders replaced
     """
     warnings: List[str] = []
+    prompt = _render_optional_blocks(prompt, replacements_dict)
 
     for k, v in replacements_dict.items():
         this = "{{" + k + "}}"
-        that = str(v)
+        that = _stringify_prompt_value(v)
 
         if this not in prompt:
-            warnings.append(f"Placeholder {this} not found in prompt.")
+            if _has_prompt_value(v):
+                warnings.append(f"Placeholder {this} not found in prompt.")
             continue
         
         prompt = prompt.replace(this, that)
@@ -34,7 +83,7 @@ def replace_in_prompts(prompt: str, replacements_dict: Dict[str, Any]) -> str:
     if warnings:
         prompt += "\n\n-----WARNING:\n\n" + "\n".join(warnings)
 
-    return prompt
+    return _cleanup_prompt_whitespace(prompt)
 
 
 def _normalize_number(value: int | float | str) -> str:
@@ -71,13 +120,13 @@ def _load_phase_prompt(
     phase_number: str,
     task_number: str | int | float,
     operation_document: str,
-    additional_context: str = "Nothing specific, but feel free to read more files"
+    additional_context: str | None = None
 ) -> str:
     """
     Load and format a phase prompt (planning or implementation).
     
     Args:
-        asset_filename: The markdown asset file to load (e.g., "planning_command.md")
+        asset_filename: The markdown asset file to load (e.g., "implementation_command.md")
         phase_number: The phase identifier (can be a single number or a list like "1 and 2")
         task_number: The task(s) to display
         operation_document: The operation document name/path
@@ -104,15 +153,13 @@ def _load_phase_prompt(
 @mcp.prompt()
 def create_design_log(
     topic: str,
-    design_log_type: Literal["research", "implementation", "both"] = "both",
-    additional_context: str = "Nothing specific, but feel free to read more files"
+    additional_context: str | None = None
 ) -> str:
     """
     Trigger the creation of a new design log.
 
     Args:
         topic: The topic or feature for the design log
-        design_log_type: Type - "research", "implementation", or "both"
         additional_context: Any additional context or constraints
 
     Returns:
@@ -121,30 +168,41 @@ def create_design_log(
     template = read_asset("create_design_log.md")
     return replace_in_prompts(template, {
         "topic": topic,
-        "design_log_type": design_log_type,
-        "additional_context": additional_context or "No additional context provided."
+        "additional_context": additional_context
     })
 
 
 @mcp.prompt()
 def create_operation_doc(
-    step_to_create_doc_for: int | float | str,
-    design_log_name: str
+    step_to_create_doc_for: int | float | str | None = None,
+    design_log_name: str | None = None,
+    source_context: str | None = None
 ) -> str:
     """
-    Trigger the creation of an operation document from a design log step.
+    Trigger the creation of an operation document from optional source context.
 
     Args:
-        step_to_create_doc_for: The step number or identifier to create the operation document for
-        design_log_name: Name or path of the design log (default: "Design Log")
+        step_to_create_doc_for: Optional step number or identifier to focus the operation document on
+        design_log_name: Optional name or path of the related design log
+        source_context: Optional general source context when the operation is not tied to a specific design log step
 
     Returns:
         The prompt for creating an operation document.
     """
     template = read_asset("create_an_operation_doc.md")
     return replace_in_prompts(template, {
-        "step_to_create_doc_for": _normalize_number(step_to_create_doc_for),
-        "design_log_name": design_log_name
+        "step_to_create_doc_for": (
+            _normalize_number(step_to_create_doc_for)
+            if step_to_create_doc_for is not None
+            else None
+        ),
+        "design_log_name": design_log_name,
+        "source_context": source_context,
+        "has_source_context": _optional_block_flag(
+            step_to_create_doc_for,
+            design_log_name,
+            source_context,
+        ),
     })
 
 
@@ -157,7 +215,7 @@ def plan_phase_or_task(
     phase_number: str,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
-    additional_context: str = "Nothing specific, but feel free to read more files"
+    additional_context: str | None = None
 ) -> str:
     """
     Trigger planning of a phase/task from an operation document.
@@ -176,7 +234,7 @@ def plan_phase_or_task(
         The planning prompt.
     """
     return _load_phase_prompt(
-        "planning_command.md",
+        "implementation_command.md",
         phase_number,
         task_number,
         operation_document,
@@ -189,7 +247,7 @@ def implement_phase_or_task(
     phase_number: str,
     task_number: str | int | float = "all",
     operation_document: str = "Operation Document",
-    additional_context: str = "Nothing specific, but feel free to read more files"
+    additional_context: str | None = None
 ) -> str:
     """
     Trigger implementation of a phase/task from an operation document.
@@ -222,9 +280,9 @@ def implement_phase_or_task(
 
 @mcp.prompt()
 def perform_code_review(
-    what_is_being_reviewed: str = "No name provided",
-    design_log_name: str = "No design log provided",
-    additional_context: str = "Nothing specific, but feel free to read more files"
+    what_is_being_reviewed: str | None = None,
+    design_log_name: str | None = None,
+    additional_context: str | None = None
 ) -> str:
     """
     Trigger a code review of an entity.
@@ -241,7 +299,8 @@ def perform_code_review(
     return replace_in_prompts(template, {
         "what_is_being_reviewed": what_is_being_reviewed,
         "design_log_name": design_log_name,
-        "additional_context": additional_context
+        "additional_context": additional_context,
+        "has_references": _optional_block_flag(design_log_name, additional_context)
     })
 
 

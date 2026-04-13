@@ -7,9 +7,12 @@ Plan/Implement Phase number {{phase_number}} / {{task_display}} from #{{operatio
 1. Check if the task is still relevant. This is a living project— if it's changed significantly, inform me before proceeding.
 2. Read the Background section of the operation document.
 3. Read previous task/phase bottom lines and lessons learned, if any.
-4. Additional context: #{{additional_context}} (if applicable)
-5. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification.
-6. Check if something you're about to implement already exists and can be reused or slightly adapted. If so, let me know before proceeding.
+4. If you find any ambiguities, inconsistencies, or missing information in the task description, ask me for clarification.
+5. Check if something you're about to implement already exists and can be reused or slightly adapted. If so, let me know before proceeding.
+
+{{#additional_context}}
+Additional context: #{{additional_context}}
+{{/additional_context}}
 
 ## Principles
 

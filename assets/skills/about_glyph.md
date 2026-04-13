@@ -1,10 +1,10 @@
 # Glyph overview
 
-Glyph is an MCP that helps developers manage long-term tasks and projects with AI assistance while maintaining full control. It provides structured documentation through design logs (research/decisions), operations (task checklists), and artifacts (persisted outputs), all linked together in a traceable reference graph.
+Glyph is an MCP that helps developers manage long-term tasks and projects with AI assistance while maintaining full control. It provides structured documentation through design logs (implementation decisions), operations (task checklists), and artifacts (persisted outputs), all linked together in a traceable reference graph.
 
 ## Primitives
 
-- **Design Log**: Markdown file documenting research, decisions, and implementation details. Immutable once created. Stored in `.assistant/design_logs/` as `dl_{number}_{title}.md`
+- **Design Log**: Markdown file documenting implementation decisions and details. Immutable once created. Stored in `.assistant/design_logs/` as `dl_{number}_{title}.md`
 - **Operation**: Checklist for achieving complex goals, broken into phases and tasks. Stored in `.assistant/operations/` as `op_{number}_{title}.md`
 - **Artifact**: Important files persisted from `ad_hoc/` directory. Stored in `.assistant/artifacts/` as `art_{number}_{filename}.ext`
 - **Ad-hoc Directory**: Temporary workspace (`.assistant/ad_hoc/`) for experiments and intermediate work. Reset between operations.
@@ -20,7 +20,7 @@ When you initialize Glyph using `init_assistant_dir`, it creates the following s
 ├── artifacts/                 # Persisted important files
 │   ├── _summary.md           # Summary of all artifacts with descriptions
 │   └── archived/             # Archived artifacts
-├── design_logs/              # Design decisions and research
+├── design_logs/              # Design decisions and implementation plans
 │   ├── _summary.md           # Summary of all design logs with descriptions
 │   └── archived/             # Archived design logs
 ├── operations/               # Task checklists and operations
@@ -30,6 +30,7 @@ When you initialize Glyph using `init_assistant_dir`, it creates the following s
 ```
 
 **File naming conventions:**
+
 - Design logs: `dl_{number}_{title}.md` (e.g., `dl_1_Authentication_Design.md`)
 - Operations: `op_{number}_{title}.md` (e.g., `op_1_Database_Migration.md`)
 - Artifacts: `art_{number}_{filename}.ext` (e.g., `art_1_config_template.json`)
@@ -50,7 +51,7 @@ Link files using standard markdown syntax:
 [art_3](.assistant/artifacts/art_3_name.ext)
 ```
 
-Or use descriptive text: `[See research on X](.assistant/design_logs/dl_1_title.md)`
+Or use descriptive text: `[See design for X](.assistant/design_logs/dl_1_title.md)`
 
 ### Tip: Use Mermaid Diagrams
 
@@ -61,7 +62,7 @@ When explaining complex relationships or structures, consider using graphic Merm
 **Design logs should be linked to operations or artifacts.** This is a best practice for maintaining a well-organized Glyph workspace. When possible, every design log should reference or be referenced by at least one operation or artifact. This helps create:
 
 - A coherent knowledge graph with minimal orphaned documents
-- Clear traceability from work (operations) to decisions and research (design logs)
+- Clear traceability from work (operations) to implementation decisions (design logs)
 - Better categorization and context for your documentation
 - More meaningful reference graphs that reflect your project structure
 
@@ -105,7 +106,7 @@ The `.assistant/ad_hoc` directory is a workspace for temporary files created dur
 
 1. **Init** → `init_assistant_dir` sets up the `.assistant` structure
 2. **Work** → `add_operation` documents what you're doing
-3. **Research** → `add_design_log` captures decisions/findings (link to your operation)
+3. **Design** → `add_design_log` captures implementation decisions/findings (link to your operation)
 4. **Produce** → Create files in `ad_hoc`, then `persist_artifacts` for keepers
 5. **Connect** → Reference design logs from operations, operations from artifacts
 6. **Verify** → `update_reference_graph` to visualize relationships

@@ -19,6 +19,7 @@ The project follows a rigorous design log methodology for all significant featur
 Design logs are created in **two phases** with a user input pause in between:
 
 **Phase 1: Initial Creation (Stop at Q&A)**
+
 1. **Create the file** using the `add_design_log` tool
 2. **Populate through Q&A section**:
    - Background (context)
@@ -30,11 +31,12 @@ Design logs are created in **two phases** with a user input pause in between:
 **Phase 2: Complete the Document (After User Answers)**
 5. **Resume after user confirmation** that questions are answered
 6. **Complete remaining sections**:
-   - Further analysis (if needed based on answers)
-   - Decided approach (architecture/research design)
-   - Verification criteria
-   - Plan (with step breakdown and difficulty ratings)
-   - Examples, trade-offs, etc.
+
+- Further analysis (if needed based on answers)
+- Decided approach (architecture and implementation design)
+- Verification criteria
+- Plan (with step breakdown and difficulty ratings)
+- Examples, trade-offs, etc.
 
 ### Content Guidelines
 

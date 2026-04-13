@@ -1,18 +1,16 @@
 # Things to keep in mind during tasks work
 
-When working on tasks, adhere to the following guidelines to ensure consistency, quality, and maintainability:
-
 ## Pre-Implementation
 
-- **Important:** The documentation doesn't live in a vacuum. It's possible that during implementation or between phases the codebase would change. Therefore, the first subtask of each task should be to review the current codebase and determine whether the task is still valid as is, or whether it needs to be adjusted (in which case—stop execution and inform the user).
+- **Important:** It's possible that during implementation or between phases the codebase would change/have changed. Therefore, the thing to do before each task is to review the current codebase and determine whether the task is still valid as is, or whether it needs to be adjusted (in which case—stop execution and inform the user).
 - **Establish a baseline:** Any code-changing task (i.e., not research or documentation tasks) must start with a comprehensive build, run, and test verification to establish a baseline. Note all warnings and errors.
-- **Check for reusability:** Determine whether the task might reuse or adapt existing solutions before proceeding.
+- **Check for reusability:** Determine whether the task might reuse or adapt existing code before proceeding.
 
 ## Implementation Principles
 
-- **KISS (Keep It Simple, Stupid)**: Avoid unnecessary complexity. Each phase and task should be as straightforward as possible.
-- **SOLID principles**: Keep each task adhering to the principles of good software design (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
-- **Testing is Integral**: Testing is not a separate phase or task—it is part of every task and phase. Each phase should include explicit testing subtasks that verify the phase's work. Testing should never be deferred or grouped into a dedicated "testing phase." Examples of testing include: unit tests, integration tests, performance tests, cross-browser testing, end-to-end testing, and stress testing. The type of testing depends on the phase's goals.
+- **Keep It Simple**: Avoid unnecessary complexity. Your implementation should be as straightforward as possible.
+- **SOLID principles**: Adhere to the principles of good software design (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion).
+- **Testing is Integral**: Testing is not a separate phase or task- it is part of every task and phase. Each implementation effort must include test writing for the new/changed code. Testing should never be deferred or grouped into a dedicated "testing phase." Examples of testing include: unit tests, integration tests, performance tests, cross-browser testing, end-to-end testing, and stress testing.
 
 ## Post-Implementation
 

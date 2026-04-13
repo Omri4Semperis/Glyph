@@ -6,7 +6,7 @@
 - **Related Logs**: N/A
 
 > **Note**: This is a simplified example. Real design logs may be significantly longer or shorter depending on the feature complexity.
-
+>
 > **About the Creation Process**: This example shows a completed design log. In practice, when creating a design log, the AI assistant populates the document in two phases: **(1)** Creates the file and fills sections up to and including the Q&A section, then pauses for the user to answer questions; **(2)** After the user provides answers and confirms readiness, the AI continues to complete the remaining sections (Further analysis, Decided approach, Plan, etc.).
 
 ## Background
@@ -175,7 +175,7 @@ Technical implementation will use Node.js streams on the backend, with chunk siz
 
 ## Design
 
-### Architecture / Research Design
+### Architecture
 
 Client-initiated export:
 

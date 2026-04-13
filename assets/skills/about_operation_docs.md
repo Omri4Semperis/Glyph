@@ -80,13 +80,11 @@ Guidance on applying difficulty levels:
 - **Testing & Validation**: All difficulty levels imply testing and build/run validation. Higher difficulty levels demand broader test coverage, integration testing, or manual verification steps as appropriate.
 - **When to escalate**: If during implementation a task grows beyond its originally assigned difficulty, update the task's `Task Difficulty`, re-evaluate the `Phase Difficulty`, and document the reason in the task notes.
 
-### Phases
-
 ### Dynamic Updates
 
-- Document any new tasks identified during implementation.
+- If, during the implementation of a task, you identify new tasks that would be required to complete before moving on, document them immediately.
 - Lessons learned or actions taken during a given phase/task that impact other phases or tasks should be added as a note in the phase/task they impact.
-- If, during implementation of a task, you discover something, learn something, or do something which might be relevant to other tasks/phases, document it in these other tasks/phases as well so it will be seen by whoever implements them next.
+- If, during implementation of a task, you discover something, learn something, or do something which might be relevant to other tasks/phases, document it in these other tasks/phases as well for whoever implements them next.
 
 ### Validation
 

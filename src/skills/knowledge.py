@@ -97,7 +97,7 @@ def get_example(
         The content of the requested example.
     """
     file_map = {
-        "design_log": "dl_example_implementation.md",
+        "design_log": "dl_example.md",
         "operation_doc": "operation_example.md",
         "code_review": "code_review_example.md"
     }
