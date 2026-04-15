@@ -4,8 +4,6 @@
 - **Author:** Glyph AI Assistant
 - **Related Docs:** [Link to related design logs, operations docs, artifacts (if any)]
 
----
-
 ## Background
 
 ### context
