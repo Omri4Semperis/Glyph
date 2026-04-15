@@ -138,8 +138,9 @@ At first mention, succinctly explain: what's wrong, where, why it matters, and t
 
 ## Final notes
 
-- Use Glyph's `create_code_review` tool to generate a template report (saved in `.assistant/ad_hoc`) and fill it with findings.
-- Use Glyph's static code analysis tool for file metrics and mermaid tool for visualizing complex code structures or flows.
+- Use Glyph's `add_code_review` tool to generate a template report (saved in `.assistant/ad_hoc`) and fill it with findings.
+- Consider using Glyph's `static_code_analysis` tool for file metrics and mermaid tool for visualizing complex code structures or flows.
+- If the review should be kept as a tracked artifact, you can persist it using `persist_artifacts`.
 - No generic praise or filler. Only include confirmed strengths when non-trivial, reusable, or directly relevant.
 
 **Before submitting the review, verify**:

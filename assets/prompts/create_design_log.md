@@ -4,10 +4,11 @@ Create a design log for {{topic}}, following the design log principles and struc
 
 ## Before starting
 
-1. Read the design log principles using `get_design_log_principles`
+1. Read the design log principles using `get_skill("about_design_logs")`
 2. Read an example design log using `get_example("design_log")` to understand the format and structure
-3. Read the `about_glyph` skill to understand the workflow
-4. Ask clarifying questions if the scope is unclear
+3. Read Glyph workflow guidance using `get_skill("about_glyph")`
+4. Optionally read the design log template using `get_template("design_log")`
+5. Ask clarifying questions if the scope is unclear
 
 {{#additional_context}}
 ## Additional context
@@ -27,7 +28,7 @@ Create a design log for {{topic}}, following the design log principles and struc
    - **Logic**: How complex and demanding is the step to implement?
    - **Average**: Calculate the average difficulty.
 6. **Create the log (Phase 1 - Initial Creation)**:
-   - Use Glyph's `add_design_log` tool to create the file
+   - Use Glyph's `add_design_log(abs_path, title, short_desc)` tool to create the file
    - Populate these sections:
      - Background (context and problem)
      - Questions and Answers section with your questions
@@ -50,7 +51,7 @@ Create a design log for {{topic}}, following the design log principles and struc
 - Provide suggested answers where helpful
 - Keep questions focused and relevant to the design decisions
 
-## After Phase 2 completion
+## After completing the document
 
 1. Review the complete document with the user
 2. Verify all questions were answered and incorporated

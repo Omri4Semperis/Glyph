@@ -2,6 +2,12 @@
 
 Sync the most critical lessons learned from operation(s) {{operations_list}} back to design log(s) {{design_logs_list}}. Avoid duplicating lessons already present or reasonably assumed in the design logs.
 
+## Tool hints
+
+- Run `update_reference_graph(abs_path)` first so reference data is current.
+- You can use `get_references_from(abs_path, file_name)` to discover which design logs an operation points to.
+- You can use `find_references_to(abs_path, file_name)` to validate reverse links where needed.
+
 ## Process
 
 1. **For each operation document:**

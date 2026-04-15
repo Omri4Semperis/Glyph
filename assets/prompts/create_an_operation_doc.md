@@ -12,9 +12,10 @@ Plan the creation of a new operation document.
 
 ## Instructions
 
-- First read the glyph rules; then:
-- Read the operation document guidelines; then:
-- Read an example operation document using `get_example("operation")` to understand the format and structure; and finally:
+- Consider first reading Glyph fundamentals using `get_skill("about_glyph")`; then:
+- Consider reading operation document guidelines using `get_skill("about_operation_docs")`; then:
+- Consider reading an example operation document using `get_example("operation_doc")` to understand the format and structure; then:
+- Optionally read the operation template using `get_template("operation_doc")`; and finally:
 - write the creation plan for the operation document.
 
 The Background section must be comprehensive and detailed. Use all relevant source material.
@@ -46,3 +47,8 @@ The operation doc must reflect these difficulty assignments so implementers know
    - A markdown table with columns: **Phase #**, **Status**, **Title**, **Difficulty**, **Tasks**. The **Difficulty** column shows the phase difficulty (highest task difficulty). The **Tasks** column contains a nested table with task details (Task #, Title, Difficulty, Status).
    - Status uses: ❌ (Not started), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted)
    - A Phases/Tasks DAG (Mermaid flowchart) showing phase and task dependencies with task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`, `P2/T1`).
+
+## After planning
+
+1. Create the operation document file using `add_operation(abs_path, title, short_desc)`.
+2. Fill the created operation document with the finalized plan, phases, tasks, and difficulty assignments.
