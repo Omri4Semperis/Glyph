@@ -20,8 +20,6 @@
 
 [After establishing context and problem, the AI adds questions here and **pauses** for user answers. The AI waits for confirmation before continuing. Where possible, include suggested answers.]
 
-> **Note to AI**: After populating questions, STOP and ask the user to answer and notify when ready.
-
 ### Q1
 
 **Q1: [Question from AI assistant]**
