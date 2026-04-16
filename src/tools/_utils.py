@@ -56,13 +56,19 @@ def get_next_number(directory: str, prefix: str, extension: str = ".md") -> int:
         pattern = re.compile(rf'^{prefix}_(\d+)_.*{re.escape(extension)}$')
     else:
         pattern = re.compile(rf'^{prefix}_(\d+)_.*')
-    
-    for filename in os.listdir(directory):
-        match = pattern.match(filename)
-        if match:
-            num = int(match.group(1))
-            if num > max_number:
-                max_number = num
+
+    # Count both active docs and archived docs to keep numbering monotonic.
+    paths_to_scan = [directory, os.path.join(directory, "archived")]
+    for path_to_scan in paths_to_scan:
+        if not os.path.isdir(path_to_scan):
+            continue
+
+        for filename in os.listdir(path_to_scan):
+            match = pattern.match(filename)
+            if match:
+                num = int(match.group(1))
+                if num > max_number:
+                    max_number = num
     
     return max_number + 1
 
