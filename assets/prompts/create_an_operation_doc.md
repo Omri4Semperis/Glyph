@@ -32,24 +32,24 @@ Include mermaid charts in the Background where appropriate (Glyph's mermaid tool
 ## Before you create the doc
 
 1. Show you've read the source material and understood what information should drive the operation doc.
-1. Show you've read the operation document guidelines and how you'll apply them.
-1. Keep it SOLID, DRY, and Simple.
-1. Tell me the planned number of phases and tasks per phase.
-1. After presenting the proposed structure, ask a short calibration set of user-facing questions before creating the doc:
+2. Show you've read the operation document guidelines and how you'll apply them.
+3. Keep it SOLID, DRY, and Simple.
+4. Tell me the planned number of phases and tasks per phase.
+5. After presenting the proposed structure, ask a short calibration set of user-facing questions before creating the doc:
    - Granularity preference: does the proposed number of phases and tasks match how the user wants to delegate the work?
    - Autonomy level: for any `High` or harder tasks, does the user want to delegate phase-by-phase or task-by-task?
    - Scope calibration: where a task could reasonably stay whole or be split, does the user prefer finer-grained progress tracking or less overhead?
    - Provide a recommended default answer for each question based on the plan you proposed.
-1. Include **Phase Difficulty** and **Task Difficulty** using the emoji scale (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
+6. Include **Phase Difficulty** and **Task Difficulty** using the emoji scale (0 = trivial, 5 = extremely difficult): 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣
 
-- For each difficulty level, provide a one-line justification.
-- Describe how testing scales with difficulty (e.g., baseline build/tests for Breezy/Low, broader unit and integration checks for Medium, broader testing and targeted manual verification for High/Nightmare/Hell).
-- Phase difficulty should match the highest task difficulty in that phase.
-- Base difficulty on cognitive complexity, risk, and novelty rather than raw file count.
+   - For each difficulty level, provide a one-line justification.
+   - Describe how testing scales with difficulty (e.g., baseline build/tests for Breezy/Low, broader unit and integration checks for Medium, broader testing and targeted manual verification for High/Nightmare/Hell).
+   - Phase difficulty should match the highest task difficulty in that phase.
+   - Base difficulty on cognitive complexity, risk, and novelty rather than raw file count.
 
-The operation doc must reflect these difficulty assignments so implementers know expected scope and verification effort.
+   The operation doc must reflect these difficulty assignments so implementers know expected scope and verification effort.
 
-1. In your phases overview, include both:
+7. In your phases overview, include both:
    - A markdown table with columns: **Phase #**, **Status**, **Title**, **Difficulty**, **Tasks**. The **Difficulty** column shows the phase difficulty (highest task difficulty). The **Tasks** column contains a nested table with task details (Task #, Title, Difficulty, Status).
    - Status uses: ❌ (Not started), ⏳ (In progress), ✅ (Done), ⚠️ (Done with issues/aborted)
    - A Phases/Tasks DAG (Mermaid flowchart) showing phase and task dependencies with task nodes labeled `P{n}/T{m}` (e.g., `P1/T1`, `P2/T1`).
