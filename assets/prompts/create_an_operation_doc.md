@@ -1,6 +1,6 @@
 # Your mission
 
-Plan the creation of a new operation document.
+Create a new operation document.
 
 {{#has_source_context}}
 ## Source Context
@@ -15,8 +15,7 @@ Plan the creation of a new operation document.
 - Consider first reading Glyph fundamentals using `get_skill("about_glyph")`; then:
 - Consider reading operation document guidelines using `get_skill("about_operation_docs")`; then:
 - Consider reading an example operation document using `get_example("operation_doc")` to understand the format and structure; then:
-- Optionally read the operation template using `get_template("operation_doc")`; and finally:
-- write the creation plan for the operation document.
+- Optionally read the operation template using `get_template("operation_doc")`;
 
 The Background section must be comprehensive and detailed. Use all relevant source material.
 {{#design_log_name}}If a design log is provided, take all relevant information from it (anywhere in the log, not just the selected step).{{/design_log_name}}

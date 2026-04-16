@@ -4,7 +4,7 @@ Consolidated prompts module.
 All Glyph prompts (slash commands) in one place.
 """
 import re
-from typing import Any, Dict, List
+from typing import Any, Dict
 from mcp_object import mcp
 from read_an_asset import read_asset
 
@@ -66,7 +66,6 @@ def replace_in_prompts(prompt: str, replacements_dict: Dict[str, Any]) -> str:
     Returns:
         The prompt string with placeholders replaced
     """
-    warnings: List[str] = []
     prompt = _render_optional_blocks(prompt, replacements_dict)
 
     for k, v in replacements_dict.items():
@@ -74,14 +73,9 @@ def replace_in_prompts(prompt: str, replacements_dict: Dict[str, Any]) -> str:
         that = _stringify_prompt_value(v)
 
         if this not in prompt:
-            if _has_prompt_value(v):
-                warnings.append(f"Placeholder {this} not found in prompt.")
             continue
         
         prompt = prompt.replace(this, that)
-    
-    if warnings:
-        prompt += "\n\n-----WARNING:\n\n" + "\n".join(warnings)
 
     return _cleanup_prompt_whitespace(prompt)
 
