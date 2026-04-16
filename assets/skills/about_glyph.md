@@ -14,7 +14,7 @@ Glyph is an MCP that helps developers manage long-term tasks and projects with A
 
 Initializing Glyph via `init_assistant_dir` creates this structure:
 
-```
+```text
 .assistant/
 ├── ad_hoc/                    # Temporary workspace for intermediate files
 ├── artifacts/                 # Persisted important files
@@ -67,6 +67,14 @@ For complex relationships or structures, use Mermaid diagrams instead of written
 - More meaningful reference graphs reflecting project structure
 
 Not a strict requirement—if a design log has no immediate connection, consider linking it later.
+
+## Scope & Independence
+
+- Phases are organizational units. Group tasks by shared context, subsystem, or milestone rather than by presumed agent-session size.
+- Tasks are the atomic execution checkpoints. After each task, the project should be in a working, verifiable state.
+- Execution granularity is chosen by the user at runtime. The same operation should support delegating a whole phase or a single task.
+- Task boundaries should support cold re-entry. A fresh agent should be able to continue by reading the operation background, phase background, and task background plus any checked subtasks and lessons learned.
+- Small subtasks improve reviewability. The usual low file-count expectation on subtasks exists primarily to keep code review checkpoints quick and reliable.
 
 ## Working with the Ad Hoc Directory
 

@@ -75,22 +75,22 @@ An operation is a checklist for achieving a complex goal. It consists of:
 
 - **Background** - Overview of the entire operation
 - **Mermaid Chart** - Visual representation of phases and task dependencies
-- **Up to 4 Phases** - Each with background, definition of done, and tasks
+- **Typically 2-4 Phases** - Each with background, definition of done, and tasks; treat this as guidance rather than a hard rule
 
 #### Phase Structure
 
 - **Background** - Describes the current state and desired outcome
 - **Definition of Done** - Small checklist of completion criteria
-- **Up to 4 Tasks** - Each contributing to the phase goal
+- **Typically 2-4 Tasks** - Each contributing to the phase goal; single-task phases are valid when they represent one cohesive milestone
 
 #### Task Structure
 
 - **Background** - Context, current state, and desired outcome
 - **Files Involved** - List of files to be modified, created, or deleted
-- **Subtasks** - Up to 5 checklist items with clear, manageable scope
+- **Subtasks** - Typically 3-6 checklist items with clear, verifiable scope; use fewer or more when that better matches the real work
 - **Lessons Learned** - Key takeaways from task completion
 
-> **Note:** Ideally, projects should be in a working state before and after each task.
+> **Note:** Tasks are the atomic unit of change. Projects should ideally be in a working state before and after each task, while phases serve as cohesive organizational milestones rather than fixed execution units.
 
 ### References
 
