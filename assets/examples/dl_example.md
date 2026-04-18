@@ -7,7 +7,7 @@
 
 > **Note**: Simplified example. Real design logs may be longer or shorter depending on complexity.
 >
-> **About the Creation Process**: This shows a completed design log. In practice, the AI populates in two phases: **(1)** Creates the file and fills through the Q&A section, then pauses for user answers; **(2)** After user answers and confirms readiness, the AI completes the remaining sections.
+> **About the Creation Process**: This shows a completed design log. In practice, the AI populates in two steps: **(1)** Creates the file and fills through the Q&A section, then pauses for user answers; **(2)** After user answers and confirms readiness, the AI completes the remaining sections.
 
 ## Background
 
@@ -216,14 +216,16 @@ function streamCSV(data: any[], response: Response): void;
 
 ## Plan
 
-### Phase 1: Backend CSV Export ✅
+> Step status marker rule: each step starts as `[ ]` and is switched to `[x]` only when the user explicitly marks it done.
+
+### Step 1: [x] Backend CSV Export ✅
 
 1. Create export endpoint
 2. Implement CSV formatting
 3. Add streaming for large datasets
 4. **Testing**: Write unit tests for CSV formatting, integration tests for endpoint behavior, stress test with 100k rows to verify memory usage
 
-### Phase 2: Frontend Integration ✅
+### Step 2: [x] Frontend Integration ✅
 
 1. Add Export button to table component
 2. Handle export API call
@@ -231,7 +233,7 @@ function streamCSV(data: any[], response: Response): void;
 4. Handle errors
 5. **Testing**: Component unit tests, integration tests with backend, cross-browser testing (Chrome, Firefox, Safari, Edge), verify progress indicator accuracy
 
-### Phase 3: Performance & Polish ✅
+### Step 3: [x] Performance & Polish ✅
 
 1. Optimize chunk sizes for network efficiency
 2. Implement error recovery and retry logic

@@ -78,9 +78,10 @@
 
 ## Plan
 
-[Break work into phases grouped by topic. High-level plan, not a detailed task list. For steps needing more than a few sentences, include an artifact file and reference it. Remove if not applicable.]
+[Break work into steps grouped by topic. High-level plan, not a detailed task list. For steps needing more than a few sentences, include an artifact file and reference it. Remove if not applicable.]
 
 **Steps overview**:
+[Each step title must include a user-managed checkbox placeholder: start with `[ ]`, and change to `[x]` only when the user explicitly marks the step as done.]
 [Table grouping steps by topic with basic info]
 
 | Topic | Step | Status | Title | Effort (Read, Write, Logic, Average) |
@@ -89,7 +90,7 @@
 | [Topic 1 name] | S2 | ❌/⏳/✅/⚠️ | [Title of Step 2] | [X/10], [X/10], [X/10], **[X.X/10]** |
 | [Topic 2 name] | S3 | ❌/⏳/✅/⚠️ | [Title of Step 3] | [X/10], [X/10], [X/10], **[X.X/10]** |
 
-### Step 1: [Title of Step 1] ❌/⏳/✅/⚠️
+### Step 1: [ ] [Title of Step 1] ❌/⏳/✅/⚠️
 
 | Effort (Read, Write, Logic, Average) | In a nutshell | References |
 | - | - | - |
@@ -107,7 +108,7 @@
 
 [Insights, challenges, or decisions from implementing this step that provide context for future reference.]
 
-### Step 2: [Title of Step 2]
+### Step 2: [ ] [Title of Step 2]
 
 [etc. etc.]
 

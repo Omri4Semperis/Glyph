@@ -61,9 +61,11 @@ A design log is an immutable markdown record that documents a step in your devel
 
 - Background and problem description
 - Q&As and approaches considered
-- Overview of tasks
+- Overview of planned steps
 - Decisions made
 - Lessons learned
+
+In the design log plan, each step title should include a checkbox placeholder: start with `[ ]`, and change to `[x]` only when the user explicitly marks the step as done.
 
 **Key principle:** Design logs cannot be modified after creation. Each new change creates a new design log, ensuring a fully traceable and auditable development history.
 

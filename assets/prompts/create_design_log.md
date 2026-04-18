@@ -27,20 +27,22 @@ Create a design log for {{topic}}, following the design log principles and struc
    - **Write**: How much new/modified code is required?
    - **Logic**: How complex and demanding is the step to implement?
    - **Average**: Calculate the average difficulty.
-6. **Create the log (Phase 1 - Initial Creation)**:
+6. **Create the log (Step 1 - Initial Creation)**:
    - Use Glyph's `add_design_log(abs_path, title, short_desc)` tool to create the file
    - Populate these sections:
      - Background (context and problem)
      - Questions and Answers section with your questions
    - **STOP HERE and wait for user input**
    - Tell the user: "I've created the design log with questions in the Q&A section. Please review and answer them, then let me know when you're ready to continue."
-7. **Complete the log (Phase 2 - After User Answers Questions)**:
+7. **Complete the log (Step 2 - After User Answers Questions)**:
    - After the user answers questions and confirms readiness
    - Continue populating the remaining sections:
      - Further analysis (if needed)
      - Decided approach
      - Verification criteria
      - Plan (with step breakdown)
+    - In the design log plan, use **steps** (never phases)
+    - For every step title, include a checkbox placeholder `[ ]` and only change it to `[x]` when the user explicitly marks that step as done
    - Include architecture, file structure, and implementation plan
    - Add references to related design logs, operations, or artifacts
 
