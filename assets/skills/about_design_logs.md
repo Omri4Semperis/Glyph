@@ -18,7 +18,7 @@ The project follows a rigorous design log methodology for all significant featur
 
 Design logs are created in **two steps** with a pause for user input:
 
-**Step 1: Initial Creation (Stop at Q&A)**
+#### Step 1: Initial Creation (Stop at Q&A)
 
 1. **Create the file** using the `add_design_log` tool
 2. **Populate through Q&A section**:
@@ -28,9 +28,10 @@ Design logs are created in **two steps** with a pause for user input:
 3. **STOP and wait for user** to answer the questions
 4. **Explicitly instruct the user**: Tell them questions are in the Q&A section and ask them to answer and notify when ready
 
-**Step 2: Complete the Document (After User Answers)**
-5. **Resume after user confirmation** that questions are answered
-6. **Complete remaining sections**:
+#### Step 2: Complete the Document (After User Answers)
+
+1. **Resume after user confirmation** that questions are answered
+2. **Complete remaining sections**:
 
 - Further analysis (if needed based on answers)
 - Decided approach (architecture and implementation design)
@@ -46,7 +47,7 @@ Design logs are created in **two steps** with a pause for user input:
 4. **Explain why**: Don't just describe what, explain rationale and trade-offs
 5. **Ask Questions (in the file)**: For anything unclear or missing—questions should be targeted and relevant to design decisions
 6. **When answering questions**: Keep the questions, add answers below them (during the Step 1→2 pause)
-7. **Step checkbox convention**: In the Plan section, every step title must include `[ ]` initially. Change to `[x]` only when the user explicitly marks that step as done.
+7. **Step checkbox convention**: In the Plan section, every step title must include `[ ]` initially. Change to `[x]` only when the user explicitly marks that step as done. Do not pair the checkbox with a separate step status emoji.
 8. **Be brief**: Write short explanations covering only what's most relevant
 9. **Draw Diagrams**: Use Mermaid inline diagrams when applicable
 10. **Define verification criteria**: How to confirm the implementation solves the original problem

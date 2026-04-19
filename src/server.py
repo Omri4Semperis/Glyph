@@ -27,7 +27,7 @@ if __name__ == "__main__":
         from tools.init_assistant_dir import init_assistant_dir
         from tools.add_design_log import add_design_log
         from tools.add_operation import add_operation
-        from tools.create_code_review import add_code_review
+        from tools.add_code_review import add_code_review
         from tools.persist_artifact import persist_artifacts
         from tools.archive_doc import archive_document, unarchive_document
         from tools.reference_graph import update_reference_graph, get_references_from, find_references_to

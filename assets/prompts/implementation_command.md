@@ -69,7 +69,7 @@ Update both **forward** (for future implementers) and **backward** (on past task
 
 - **Read the permanent rules:** Use `get_skill("how_to_implement_a_phase_or_task")` for the authoritative implementation guidelines.
 - **Benchmark bookends:** Always start with baseline (build/test/warnings) and end with verification to catch regressions.
-- **Mark everything as done:** Mark all completed subtasks, tasks, and phases with `[x]`. Update status as you go, not just at the end (❌ Not started, ⏳ In progress, ✅ Done, ⚠️ Done with issues/aborted).
+- **Mark everything as done:** Mark all completed subtasks, tasks, and phases with `[x]`. If you update design log step titles, use only `[ ]` or `[x]` and do not pair them with a separate step status emoji.
 - **Lessons learned must be non-trivial and succinct:** Only document insights impacting future work. Avoid narratives or reporting successful implementations (assumed to be the norm).
 - **When outputs are produced:** If important ad-hoc outputs were created, use `persist_artifacts`. If cross-document references changed, run `update_reference_graph`.
 - **Commit message:** Always provide a commit message per the format in the After completion section.

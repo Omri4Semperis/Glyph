@@ -30,6 +30,7 @@ def _read_asset_with_response(filename: str) -> GlyphMCPResponse[str]:
 def get_skill(
     skill: Literal[
         "about_glyph",
+        "about_code_reviews",
         "about_design_logs",
         "about_operation_docs",
         "how_to_implement_a_phase_or_task",
@@ -44,6 +45,7 @@ def get_skill(
     Args:
         skill: The skill to retrieve:
             - "about_glyph": Complete guide to all Glyph tools and skills
+            - "about_code_reviews": Guidelines for writing concise, evidence-based code reviews
             - "about_design_logs": Guidelines for creating and maintaining design logs
             - "about_operation_docs": Guidelines for creating and managing operations
             - "how_to_implement_a_phase_or_task": Guidelines for planning and implementing tasks
@@ -54,6 +56,7 @@ def get_skill(
     """
     file_map = {
         "about_glyph": "about_glyph.md",
+        "about_code_reviews": "about_code_reviews.md",
         "about_design_logs": "about_design_logs.md",
         "about_operation_docs": "about_operation_docs.md",
         "how_to_implement_a_phase_or_task": "how_to_implement_a_phase_or_task.md",

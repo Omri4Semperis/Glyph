@@ -216,16 +216,16 @@ function streamCSV(data: any[], response: Response): void;
 
 ## Plan
 
-> Step status marker rule: each step starts as `[ ]` and is switched to `[x]` only when the user explicitly marks it done.
+> Step status marker rule: each step starts as `[ ]` and is switched to `[x]` only when the user explicitly marks it done. Use only the checkbox marker in the title.
 
-### Step 1: [x] Backend CSV Export ✅
+### Step 1: [x] Backend CSV Export
 
 1. Create export endpoint
 2. Implement CSV formatting
 3. Add streaming for large datasets
 4. **Testing**: Write unit tests for CSV formatting, integration tests for endpoint behavior, stress test with 100k rows to verify memory usage
 
-### Step 2: [x] Frontend Integration ✅
+### Step 2: [x] Frontend Integration
 
 1. Add Export button to table component
 2. Handle export API call
@@ -233,7 +233,7 @@ function streamCSV(data: any[], response: Response): void;
 4. Handle errors
 5. **Testing**: Component unit tests, integration tests with backend, cross-browser testing (Chrome, Firefox, Safari, Edge), verify progress indicator accuracy
 
-### Step 3: [x] Performance & Polish ✅
+### Step 3: [x] Performance & Polish
 
 1. Optimize chunk sizes for network efficiency
 2. Implement error recovery and retry logic

@@ -11,9 +11,11 @@ Create a design log for {{topic}}, following the design log principles and struc
 5. Ask clarifying questions if the scope is unclear
 
 {{#additional_context}}
+
 ## Additional context
 
 - #{{additional_context}}
+
 {{/additional_context}}
 
 ## Process
@@ -41,8 +43,9 @@ Create a design log for {{topic}}, following the design log principles and struc
      - Decided approach
      - Verification criteria
      - Plan (with step breakdown)
-    - In the design log plan, use **steps** (never phases)
-    - For every step title, include a checkbox placeholder `[ ]` and only change it to `[x]` when the user explicitly marks that step as done
+   - In the design log plan, use **steps** (never phases)
+   - For every step title, include a checkbox placeholder `[ ]` and only change it to `[x]` when the user explicitly marks that step as done
+   - Do not add separate emoji status markers for design log steps
    - Include architecture, file structure, and implementation plan
    - Add references to related design logs, operations, or artifacts
 
