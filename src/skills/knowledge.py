@@ -3,17 +3,17 @@ Consolidated knowledge/skills module.
 
 Provides access to all Glyph knowledge assets: skills, examples, and templates.
 """
-import os
+from pathlib import Path
 from typing import Literal
 from mcp_object import mcp
 from response import GlyphMCPResponse
 from read_an_asset import read_asset
 
 
-def get_sk() -> list[str]:
+def list_skill_files() -> list[str]:
     """Return all file names in assets/skills (intentionally non-MCP helper)."""
-    sk = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "skills")
-    return [f for f in os.listdir(sk) if os.path.isfile(os.path.join(sk, f))]
+    skills_dir = Path(__file__).parent.parent.parent / "assets" / "skills"
+    return [f.name for f in skills_dir.iterdir() if f.is_file()]
 
 
 def _read_asset_with_response(filename: str) -> GlyphMCPResponse[str]:
