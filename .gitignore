@@ -8,3 +8,13 @@ wheels/
 
 # Virtual environments
 .venv
+
+# JavaScript dependencies and generated media
+node_modules/
+
+# Presentation assets (Remotion project, rendered videos, etc.)
+presentation/
+
+# IDE settings
+.idea/
+.vscode/
